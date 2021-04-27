@@ -1,0 +1,14 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <OutputType>Library</OutputType>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Games.CORE\Games.CORE.csproj" />
+    <ProjectReference Include="..\Games.DAL\Games.DAL.csproj" />
+  </ItemGroup>
+
+
+</Project>
