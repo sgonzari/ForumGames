@@ -7,6 +7,7 @@
   <ItemGroup>
     <ProjectReference Include="..\Games.BL\Games.BL.csproj" />
     <ProjectReference Include="..\Games.CORE\Games.CORE.csproj" />
+    <ProjectReference Include="..\Games.DAL\Games.DAL.csproj" />
   </ItemGroup>
 
 

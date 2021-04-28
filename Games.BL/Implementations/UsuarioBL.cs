@@ -1,23 +1,21 @@
 ﻿using System;
 using Games.BL.Contracts;
 using Games.CORE.DTO;
+using Games.DAL.Repositories.Contracts;
 
 namespace Games.BL.Implementations
 {
     public class UsuarioBL : IUsuarioBL
     {
-        public UsuarioBL() { }
+        public IUsuarioRepository _usuarioRepository { get; set; }
+        public UsuarioBL(IUsuarioRepository usuarioRepository) 
+        {
+            _usuarioRepository = usuarioRepository;
+        }
 
         public bool Login(UsuarioDTO usuarioDTO)
         {
-            if (usuarioDTO.Username.Equals("sebas") && usuarioDTO.Password.Equals("holi"))
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
+            return _usuarioRepository.Login(usuarioDTO);
         }
     }
 }
