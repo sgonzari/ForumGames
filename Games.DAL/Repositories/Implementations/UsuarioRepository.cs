@@ -23,5 +23,20 @@ namespace Games.DAL.Repositories.Implementations
             return _context.Users.Any(u => u.Username == usuarioDTO.Username && 
             u.Passwd == usuarioDTO.Password);
         }
+
+        public void Add(UsuarioDTO usuarioDTO)
+        {
+            var usuario = new Users
+            {
+                Username = usuarioDTO.Username,
+                Passwd = usuarioDTO.Password,
+                FirstName = usuarioDTO.Nombre,
+                Surname = usuarioDTO.Apellidos,
+                Email = usuarioDTO.Correo,
+                Phone = usuarioDTO.Telefono
+            };
+            _context.Users.Add(usuario);
+            _context.SaveChanges();
+        }
     }
 }
