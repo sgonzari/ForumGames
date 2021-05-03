@@ -1,6 +1,6 @@
 using Games.BL.Contracts;
 using Games.BL.Implementations;
-using Games.DAL.Entitites;
+using Games.DAL.Entities;
 using Games.DAL.Repositories.Contracts;
 using Games.DAL.Repositories.Implementations;
 using Microsoft.AspNetCore.Builder;

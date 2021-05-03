@@ -11,6 +11,6 @@ namespace Games.CORE.DTO
         public string Correo { get; set; }
         public int Telefono { get; set; }
 
-        public UsuarioDTO() { }
+        public UsuarioDTO() {}
     }
 }

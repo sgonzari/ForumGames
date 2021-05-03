@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Metadata;
 // If you have enabled NRTs for your project, then un-comment the following line:
 // #nullable disable
 
-namespace Games.DAL.Entitites
+namespace Games.DAL.Entities
 {
     public partial class db_gamesContext : DbContext
     {
@@ -126,15 +126,10 @@ namespace Games.DAL.Entitites
                     .HasColumnName("username")
                     .HasMaxLength(25);
 
-                entity.Property(e => e.Birthdate)
-                    .HasColumnName("birthdate")
-                    .HasColumnType("date")
-                    .HasDefaultValueSql("'NULL'");
-
                 entity.Property(e => e.Email)
-                    .IsRequired()
                     .HasColumnName("email")
-                    .HasMaxLength(45);
+                    .HasMaxLength(45)
+                    .HasDefaultValueSql("'NULL'");
 
                 entity.Property(e => e.FirstName)
                     .IsRequired()
@@ -148,7 +143,7 @@ namespace Games.DAL.Entitites
 
                 entity.Property(e => e.Phone)
                     .HasColumnName("phone")
-                    .HasColumnType("int(9)")
+                    .HasColumnType("int(10)")
                     .HasDefaultValueSql("'NULL'");
 
                 entity.Property(e => e.Surname)

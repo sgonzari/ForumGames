@@ -5,7 +5,7 @@ using System.Collections.Generic;
 // If you have enabled NRTs for your project, then un-comment the following line:
 // #nullable disable
 
-namespace Games.DAL.Entitites
+namespace Games.DAL.Entities
 {
     public partial class Users
     {
@@ -18,8 +18,7 @@ namespace Games.DAL.Entitites
         public string FirstName { get; set; }
         public string Surname { get; set; }
         public string Email { get; set; }
-        public int? Phone { get; set; }
-        public DateTime? Birthdate { get; set; }
+        public int Phone { get; set; }
         public string Passwd { get; set; }
 
         public virtual ICollection<Games> Games { get; set; }

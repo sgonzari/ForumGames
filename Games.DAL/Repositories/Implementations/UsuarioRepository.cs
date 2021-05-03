@@ -1,7 +1,8 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Games.CORE.DTO;
-using Games.DAL.Entitites;
+using Games.DAL.Entities;
 using Games.DAL.Repositories.Contracts;
 
 
@@ -20,7 +21,7 @@ namespace Games.DAL.Repositories.Implementations
 
         public bool Login(UsuarioDTO usuarioDTO)
         {
-            return _context.Users.Any(u => u.Username == usuarioDTO.Username && 
+            return _context.Users.Any(u => u.Username == usuarioDTO.Username &&
             u.Passwd == usuarioDTO.Password);
         }
 
@@ -37,6 +38,26 @@ namespace Games.DAL.Repositories.Implementations
             };
             _context.Users.Add(usuario);
             _context.SaveChanges();
+        }
+
+        public IEnumerable<UsuarioDTO> Get()
+        {
+            var usuarios = _context.Users.ToList();
+            List<UsuarioDTO> usuariosDTO = new List<UsuarioDTO>();
+            foreach (var i in usuarios)
+            {
+                var usuario = new UsuarioDTO
+                {
+                    Username = i.Username,
+                    Password = i.Passwd,
+                    Nombre = i.FirstName,
+                    Apellidos = i.Surname,
+                    Correo = i.Email,
+                    Telefono = i.Phone
+                };
+                usuariosDTO.Add(usuario);
+            }
+            return usuariosDTO;
         }
     }
 }
