@@ -5,14 +5,11 @@ using Games.CORE.DTO;
 using Games.DAL.Entities;
 using Games.DAL.Repositories.Contracts;
 
-
 namespace Games.DAL.Repositories.Implementations
 {
-
     public class UsuarioRepository : IUsuarioRepository
     {
-        public db_gamesContext _context { get; set; }
-
+        public db_gamesContext _context { get; set; }   
 
         public UsuarioRepository(db_gamesContext context)
         {
@@ -43,6 +40,8 @@ namespace Games.DAL.Repositories.Implementations
         public IEnumerable<UsuarioDTO> Get()
         {
             var usuarios = _context.Users.ToList();
+
+            //Mapeo de Usuario a UsuarioDTO
             List<UsuarioDTO> usuariosDTO = new List<UsuarioDTO>();
             foreach (var i in usuarios)
             {
@@ -50,9 +49,9 @@ namespace Games.DAL.Repositories.Implementations
                 {
                     Username = i.Username,
                     Password = i.Passwd,
+                    Correo = i.Email,
                     Nombre = i.FirstName,
                     Apellidos = i.Surname,
-                    Correo = i.Email,
                     Telefono = i.Phone
                 };
                 usuariosDTO.Add(usuario);

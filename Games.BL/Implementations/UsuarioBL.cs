@@ -9,7 +9,8 @@ namespace Games.BL.Implementations
     public class UsuarioBL : IUsuarioBL
     {
         public IUsuarioRepository _usuarioRepository { get; set; }
-        public UsuarioBL(IUsuarioRepository usuarioRepository) 
+
+        public UsuarioBL(IUsuarioRepository usuarioRepository)
         {
             _usuarioRepository = usuarioRepository;
         }

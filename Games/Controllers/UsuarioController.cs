@@ -11,6 +11,7 @@ namespace Games.Controllers
     public class UsuarioController : ControllerBase
     {
         public IUsuarioBL _usuarioBL { get; set; }
+            
         public UsuarioController(IUsuarioBL usuarioBL)
         {
             _usuarioBL = usuarioBL;
