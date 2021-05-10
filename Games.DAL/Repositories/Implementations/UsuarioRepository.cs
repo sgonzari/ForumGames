@@ -9,7 +9,7 @@ namespace Games.DAL.Repositories.Implementations
 {
     public class UsuarioRepository : IUsuarioRepository
     {
-        public db_gamesContext _context { get; set; }   
+        public db_gamesContext _context { get; set; }
 
         public UsuarioRepository(db_gamesContext context)
         {
@@ -19,7 +19,7 @@ namespace Games.DAL.Repositories.Implementations
         public bool Login(UsuarioDTO usuarioDTO)
         {
             return _context.Users.Any(u => u.Username == usuarioDTO.Username &&
-            u.Passwd == usuarioDTO.Password);
+            u.Passwd == usuarioDTO.Passwd);
         }
 
         public void Add(UsuarioDTO usuarioDTO)
@@ -27,11 +27,11 @@ namespace Games.DAL.Repositories.Implementations
             var usuario = new Users
             {
                 Username = usuarioDTO.Username,
-                Passwd = usuarioDTO.Password,
-                FirstName = usuarioDTO.Nombre,
-                Surname = usuarioDTO.Apellidos,
-                Email = usuarioDTO.Correo,
-                Phone = usuarioDTO.Telefono
+                Passwd = usuarioDTO.Passwd,
+                FirstName = usuarioDTO.Firstname,
+                Surname = usuarioDTO.Surname,
+                Email = usuarioDTO.Email,
+                Phone = usuarioDTO.Phone
             };
             _context.Users.Add(usuario);
             _context.SaveChanges();
@@ -48,11 +48,12 @@ namespace Games.DAL.Repositories.Implementations
                 var usuario = new UsuarioDTO
                 {
                     Username = i.Username,
-                    Password = i.Passwd,
-                    Correo = i.Email,
-                    Nombre = i.FirstName,
-                    Apellidos = i.Surname,
-                    Telefono = i.Phone
+                    Group = i.Group,
+                    Passwd = i.Passwd,
+                    Email = i.Email,
+                    Firstname = i.FirstName,
+                    Surname = i.Surname,
+                    Phone = i.Phone
                 };
                 usuariosDTO.Add(usuario);
             }

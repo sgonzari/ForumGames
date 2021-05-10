@@ -38,8 +38,9 @@ namespace Games
 
             //Aqui las inyecciones: Interfaz - Clase
             services.AddScoped<IUsuarioBL, UsuarioBL>();
+            services.AddScoped<IJuegoBL, JuegoBL>();
             services.AddScoped<IUsuarioRepository, UsuarioRepository>();
-            services.AddScoped<IUsuarioRepository, UsuarioRepository>();
+            services.AddScoped<IJuegoRepository, JuegoRepository>();
 
             //Registro de contexto en el contenedor de dependencias
             services.AddDbContext<db_gamesContext>(opts => opts.UseMySql(Configuration["ConnectionString:GamesDB"]));

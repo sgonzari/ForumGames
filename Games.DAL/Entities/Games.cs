@@ -9,17 +9,22 @@ namespace Games.DAL.Entities
 {
     public partial class Games
     {
+        public Games()
+        {
+            GamesCategory = new HashSet<GamesCategory>();
+            GamesPlatforms = new HashSet<GamesPlatforms>();
+        }
+
         public int IdGame { get; set; }
-        public int FkIdCategory { get; set; }
         public string FkUsername { get; set; }
+        public string Title { get; set; }
         public string Description { get; set; }
-        public DateTime LaunchDate { get; set; }
-        public string Platform { get; set; }
-        public int Height { get; set; }
-        public string Requirements { get; set; }
+        public DateTime? LaunchDate { get; set; }
+        public decimal Height { get; set; }
         public bool Multiplayer { get; set; }
 
-        public virtual Category FkIdCategoryNavigation { get; set; }
         public virtual Users FkUsernameNavigation { get; set; }
+        public virtual ICollection<GamesCategory> GamesCategory { get; set; }
+        public virtual ICollection<GamesPlatforms> GamesPlatforms { get; set; }
     }
 }

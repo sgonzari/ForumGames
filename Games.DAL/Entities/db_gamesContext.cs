@@ -21,6 +21,9 @@ namespace Games.DAL.Entities
 
         public virtual DbSet<Category> Category { get; set; }
         public virtual DbSet<Games> Games { get; set; }
+        public virtual DbSet<GamesCategory> GamesCategory { get; set; }
+        public virtual DbSet<GamesPlatforms> GamesPlatforms { get; set; }
+        public virtual DbSet<Platforms> Platforms { get; set; }
         public virtual DbSet<Users> Users { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
@@ -58,9 +61,6 @@ namespace Games.DAL.Entities
 
                 entity.ToTable("games");
 
-                entity.HasIndex(e => e.FkIdCategory)
-                    .HasName("Category_FK");
-
                 entity.HasIndex(e => e.FkUsername)
                     .HasName("Users_FK");
 
@@ -73,10 +73,6 @@ namespace Games.DAL.Entities
                     .HasColumnName("description")
                     .HasMaxLength(255);
 
-                entity.Property(e => e.FkIdCategory)
-                    .HasColumnName("fk_id_category")
-                    .HasColumnType("int(4)");
-
                 entity.Property(e => e.FkUsername)
                     .IsRequired()
                     .HasColumnName("fk_username")
@@ -84,35 +80,118 @@ namespace Games.DAL.Entities
 
                 entity.Property(e => e.Height)
                     .HasColumnName("height")
-                    .HasColumnType("int(4)");
+                    .HasColumnType("decimal(4,0)");
 
                 entity.Property(e => e.LaunchDate)
                     .HasColumnName("launch_date")
-                    .HasColumnType("date");
+                    .HasColumnType("date")
+                    .HasDefaultValueSql("'NULL'");
 
                 entity.Property(e => e.Multiplayer).HasColumnName("multiplayer");
 
-                entity.Property(e => e.Platform)
+                entity.Property(e => e.Title)
                     .IsRequired()
-                    .HasColumnName("platform")
+                    .HasColumnName("title")
                     .HasMaxLength(255);
-
-                entity.Property(e => e.Requirements)
-                    .IsRequired()
-                    .HasColumnName("requirements")
-                    .HasMaxLength(255);
-
-                entity.HasOne(d => d.FkIdCategoryNavigation)
-                    .WithMany(p => p.Games)
-                    .HasForeignKey(d => d.FkIdCategory)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("Category_FK");
 
                 entity.HasOne(d => d.FkUsernameNavigation)
                     .WithMany(p => p.Games)
                     .HasForeignKey(d => d.FkUsername)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("Users_FK");
+            });
+
+            modelBuilder.Entity<GamesCategory>(entity =>
+            {
+                entity.HasKey(e => e.IdGamesCategory)
+                    .HasName("PRIMARY");
+
+                entity.ToTable("games_category");
+
+                entity.HasIndex(e => e.FkIdCategory)
+                    .HasName("Category_Game_FK");
+
+                entity.HasIndex(e => e.FkIdGame)
+                    .HasName("Game_Category_FK");
+
+                entity.Property(e => e.IdGamesCategory)
+                    .HasColumnName("id_games_category")
+                    .HasColumnType("int(4)");
+
+                entity.Property(e => e.FkIdCategory)
+                    .HasColumnName("fk_id_category")
+                    .HasColumnType("int(4)");
+
+                entity.Property(e => e.FkIdGame)
+                    .HasColumnName("fk_id_game")
+                    .HasColumnType("int(4)");
+
+                entity.HasOne(d => d.FkIdCategoryNavigation)
+                    .WithMany(p => p.GamesCategory)
+                    .HasForeignKey(d => d.FkIdCategory)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("Category_Game_FK");
+
+                entity.HasOne(d => d.FkIdGameNavigation)
+                    .WithMany(p => p.GamesCategory)
+                    .HasForeignKey(d => d.FkIdGame)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("Game_Category_FK");
+            });
+
+            modelBuilder.Entity<GamesPlatforms>(entity =>
+            {
+                entity.HasKey(e => e.IdGamesPlatform)
+                    .HasName("PRIMARY");
+
+                entity.ToTable("games_platforms");
+
+                entity.HasIndex(e => e.FkIdGame)
+                    .HasName("Game_Platform_FK");
+
+                entity.HasIndex(e => e.FkIdPlatform)
+                    .HasName("Platform_Game_FK");
+
+                entity.Property(e => e.IdGamesPlatform)
+                    .HasColumnName("id_games_platform")
+                    .HasColumnType("int(4)");
+
+                entity.Property(e => e.FkIdGame)
+                    .HasColumnName("fk_id_game")
+                    .HasColumnType("int(4)");
+
+                entity.Property(e => e.FkIdPlatform)
+                    .HasColumnName("fk_id_platform")
+                    .HasColumnType("int(11)");
+
+                entity.HasOne(d => d.FkIdGameNavigation)
+                    .WithMany(p => p.GamesPlatforms)
+                    .HasForeignKey(d => d.FkIdGame)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("Game_Platform_FK");
+
+                entity.HasOne(d => d.FkIdPlatformNavigation)
+                    .WithMany(p => p.GamesPlatforms)
+                    .HasForeignKey(d => d.FkIdPlatform)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("Platform_Game_FK");
+            });
+
+            modelBuilder.Entity<Platforms>(entity =>
+            {
+                entity.HasKey(e => e.IdPlatform)
+                    .HasName("PRIMARY");
+
+                entity.ToTable("platforms");
+
+                entity.Property(e => e.IdPlatform)
+                    .HasColumnName("id_platform")
+                    .HasColumnType("int(11)");
+
+                entity.Property(e => e.Platform)
+                    .IsRequired()
+                    .HasColumnName("platform")
+                    .HasMaxLength(255);
             });
 
             modelBuilder.Entity<Users>(entity =>
@@ -135,6 +214,12 @@ namespace Games.DAL.Entities
                     .IsRequired()
                     .HasColumnName("first_name")
                     .HasMaxLength(25);
+
+                entity.Property(e => e.Group)
+                    .IsRequired()
+                    .HasColumnName("group")
+                    .HasMaxLength(255)
+                    .HasDefaultValueSql("'''user'''");
 
                 entity.Property(e => e.Passwd)
                     .IsRequired()

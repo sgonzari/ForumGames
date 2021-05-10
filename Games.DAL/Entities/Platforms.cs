@@ -7,16 +7,16 @@ using System.Collections.Generic;
 
 namespace Games.DAL.Entities
 {
-    public partial class Category
+    public partial class Platforms
     {
-        public Category()
+        public Platforms()
         {
-            GamesCategory = new HashSet<GamesCategory>();
+            GamesPlatforms = new HashSet<GamesPlatforms>();
         }
 
-        public int IdCategory { get; set; }
-        public string Name { get; set; }
+        public int IdPlatform { get; set; }
+        public string Platform { get; set; }
 
-        public virtual ICollection<GamesCategory> GamesCategory { get; set; }
+        public virtual ICollection<GamesPlatforms> GamesPlatforms { get; set; }
     }
 }

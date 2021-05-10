@@ -15,7 +15,6 @@ namespace Games.Controllers
             _usuarioBL = usuarioBL;
         }
 
-        [HttpPost]
         public bool Login(UsuarioDTO usuarioDTO)
         {
             return _usuarioBL.Login(usuarioDTO);
