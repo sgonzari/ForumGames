@@ -20,5 +20,15 @@ namespace Games.BL.Implementations
             var juegos = _juegoRepository.Get();
             return juegos;
         }
+
+        public void Add(JuegoDTO juegoDTO)
+        {
+            _juegoRepository.Add(juegoDTO);
+        }
+
+        public void Remove(JuegoDTO juegoDTO)
+        {
+            _juegoRepository.Remove(juegoDTO);
+        }
     }
 }

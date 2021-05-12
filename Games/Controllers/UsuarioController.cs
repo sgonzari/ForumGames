@@ -17,16 +17,22 @@ namespace Games.Controllers
             _usuarioBL = usuarioBL;
         }
 
+        /*
+         * Obtiene una lista de usuarios 
+         */
+        public ActionResult<IEnumerable<UsuarioDTO>> Get()
+        {
+            return Ok(_usuarioBL.Get());
+        }
+
         [HttpPost]
+        /*
+         * Añade un usuario a la base de datos
+         */
         public ActionResult<bool> Add(UsuarioDTO usuarioDTO)
         {
             _usuarioBL.Add(usuarioDTO);
             return Ok(true);
-        }
-
-        public ActionResult<IEnumerable<UsuarioDTO>> Get()
-        {
-            return Ok(_usuarioBL.Get());
         }
     }
 }

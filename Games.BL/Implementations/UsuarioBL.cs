@@ -20,15 +20,15 @@ namespace Games.BL.Implementations
             return _usuarioRepository.Login(usuarioDTO);
         }
 
-        public void Add(UsuarioDTO usuarioDTO)
-        {
-            _usuarioRepository.Add(usuarioDTO);
-        }
-
         public IEnumerable<UsuarioDTO> Get()
         {
             var usuarios = _usuarioRepository.Get();
             return usuarios;
+        }
+
+        public void Add(UsuarioDTO usuarioDTO)
+        {
+            _usuarioRepository.Add(usuarioDTO);
         }
     }
 }

@@ -6,8 +6,13 @@ namespace Games.BL.Contracts
 {
     public interface IUsuarioBL
     {
+        // Interfaz para login
         bool Login(UsuarioDTO usuarioDTO);
-        void Add(UsuarioDTO usuarioDTO);
+
+        // Interfaz para obtener lista de usuarios
         IEnumerable<UsuarioDTO> Get();
+
+        // Interfaz para añadir usuarios
+        void Add(UsuarioDTO usuarioDTO);
     }
 }

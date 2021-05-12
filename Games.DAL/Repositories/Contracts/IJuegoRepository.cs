@@ -7,5 +7,9 @@ namespace Games.DAL.Repositories.Contracts
     public interface IJuegoRepository
     {
         IEnumerable<JuegoDTO> Get();
+
+        void Add(JuegoDTO juegoDTO);
+
+        void Remove(JuegoDTO juegoDTO);
     }
 }

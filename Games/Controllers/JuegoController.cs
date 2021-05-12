@@ -17,9 +17,26 @@ namespace Games.Controllers
             _juegoBL = juegoBL;
         }
 
+        /*
+         * Obtiene una lista de juegos
+         */
         public ActionResult<IEnumerable<JuegoDTO>> Get()
         {
             return Ok(_juegoBL.Get());
+        }
+
+        [HttpPost]
+        public ActionResult<bool> Add(JuegoDTO juegoDTO)
+        {
+            _juegoBL.Add(juegoDTO);
+            return Ok(true);
+        }
+
+        [HttpDelete]
+        public ActionResult<bool> Remove(JuegoDTO juegoDTO)
+        {
+            _juegoBL.Remove(juegoDTO);
+            return Ok(true);
         }
     }
 }

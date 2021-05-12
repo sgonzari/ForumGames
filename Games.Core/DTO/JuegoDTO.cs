@@ -4,6 +4,7 @@ namespace Games.CORE.DTO
 {
     public class JuegoDTO
     {
+        public int IdGame { get; set; }
         public string Title { get; set; }
         public string Description { get; set; }
         public DateTime? LaunchDate { get; set; }

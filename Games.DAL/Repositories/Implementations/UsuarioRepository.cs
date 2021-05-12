@@ -22,21 +22,6 @@ namespace Games.DAL.Repositories.Implementations
             u.Passwd == usuarioDTO.Passwd);
         }
 
-        public void Add(UsuarioDTO usuarioDTO)
-        {
-            var usuario = new Users
-            {
-                Username = usuarioDTO.Username,
-                Passwd = usuarioDTO.Passwd,
-                FirstName = usuarioDTO.Firstname,
-                Surname = usuarioDTO.Surname,
-                Email = usuarioDTO.Email,
-                Phone = usuarioDTO.Phone
-            };
-            _context.Users.Add(usuario);
-            _context.SaveChanges();
-        }
-
         public IEnumerable<UsuarioDTO> Get()
         {
             var usuarios = _context.Users.ToList();
@@ -58,6 +43,21 @@ namespace Games.DAL.Repositories.Implementations
                 usuariosDTO.Add(usuario);
             }
             return usuariosDTO;
+        }
+
+        public void Add(UsuarioDTO usuarioDTO)
+        {
+            var usuario = new Users
+            {
+                Username = usuarioDTO.Username,
+                Passwd = usuarioDTO.Passwd,
+                FirstName = usuarioDTO.Firstname,
+                Surname = usuarioDTO.Surname,
+                Email = usuarioDTO.Email,
+                Phone = usuarioDTO.Phone
+            };
+            _context.Users.Add(usuario);
+            _context.SaveChanges();
         }
     }
 }

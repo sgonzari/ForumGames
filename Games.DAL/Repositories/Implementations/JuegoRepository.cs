@@ -36,5 +36,53 @@ namespace Games.DAL.Repositories.Implementations
 
             return juegosDTO;
         }
+
+        public void Add(JuegoDTO juegoDTO)
+        {
+            var juegos = new Games.DAL.Entities.Games
+            {
+                Title = juegoDTO.Title,
+                Description = juegoDTO.Description,
+                LaunchDate = juegoDTO.LaunchDate,
+                Height = juegoDTO.Height,
+                Multiplayer = juegoDTO.Multiplayer,
+                FkUsername = "root"   //Modificar esto por el usuario de la cuenta a realizar esto
+            };
+            _context.Games.Add(juegos);
+            _context.SaveChanges();
+        }
+
+        // MODIFICAR por el usuario de la cuenta
+        public string GetUsername()
+        {
+            return "root";
+        }
+
+        // Obtiene la id del juego por el titulo y el usuario
+        public int GetIdGame(string Title)
+        {
+            var juegos = _context.Games.ToList();
+
+            foreach (var i in juegos)
+            {
+                if (i.Title.Equals(Title) && (i.FkUsername.Equals(GetUsername())))
+                {
+                    return i.IdGame;
+                }
+            }
+
+            return 0;
+        }
+
+        public void Remove(JuegoDTO juegoDTO)
+        {
+            var juegos = new Games.DAL.Entities.Games
+            {
+                Title = juegoDTO.Title,
+                IdGame = GetIdGame(juegoDTO.Title)
+            };
+            _context.Games.Remove(juegos);
+            _context.SaveChanges();
+        }
     }
 }
