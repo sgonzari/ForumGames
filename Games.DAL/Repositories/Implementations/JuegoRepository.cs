@@ -39,7 +39,7 @@ namespace Games.DAL.Repositories.Implementations
 
         public void Add(JuegoDTO juegoDTO)
         {
-            var juegos = new Games.DAL.Entities.Games
+            var juegos = new Entities.Games
             {
                 Title = juegoDTO.Title,
                 Description = juegoDTO.Description,
@@ -58,28 +58,16 @@ namespace Games.DAL.Repositories.Implementations
             return "root";
         }
 
-        // Obtiene la id del juego por el titulo y el usuario
-        public int GetIdGame(string Title)
-        {
-            var juegos = _context.Games.ToList();
-
-            foreach (var i in juegos)
-            {
-                if (i.Title.Equals(Title) && (i.FkUsername.Equals(GetUsername())))
-                {
-                    return i.IdGame;
-                }
-            }
-
-            return 0;
-        }
-
         public void Remove(JuegoDTO juegoDTO)
         {
-            var juegos = new Games.DAL.Entities.Games
+            var idLinq = from o in _context.Games
+                     where o.Title == juegoDTO.Title
+                     select o.IdGame;
+            int id = idLinq.First();
+
+            var juegos = new Entities.Games
             {
-                Title = juegoDTO.Title,
-                IdGame = GetIdGame(juegoDTO.Title)
+                IdGame = id
             };
             _context.Games.Remove(juegos);
             _context.SaveChanges();
