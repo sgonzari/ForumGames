@@ -11,5 +11,7 @@ namespace Games.DAL.Repositories.Contracts
         IEnumerable<UsuarioDTO> Get();
 
         void Add(UsuarioDTO usuarioDTO);
+
+        void Remove(UsuarioDTO usuarioDTO);
     }
 }

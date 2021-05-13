@@ -34,5 +34,12 @@ namespace Games.Controllers
             _usuarioBL.Add(usuarioDTO);
             return Ok(true);
         }
+
+        [HttpDelete]
+        public ActionResult<bool> Remove(UsuarioDTO usuarioDTO)
+        {
+            _usuarioBL.Remove(usuarioDTO);
+            return Ok(true);
+        }
     }
 }

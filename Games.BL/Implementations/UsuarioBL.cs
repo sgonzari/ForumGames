@@ -30,5 +30,10 @@ namespace Games.BL.Implementations
         {
             _usuarioRepository.Add(usuarioDTO);
         }
+
+        public void Remove(UsuarioDTO usuarioDTO)
+        {
+            _usuarioRepository.Remove(usuarioDTO);
+        }
     }
 }

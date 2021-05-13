@@ -59,5 +59,15 @@ namespace Games.DAL.Repositories.Implementations
             _context.Users.Add(usuario);
             _context.SaveChanges();
         }
+
+        public void Remove(UsuarioDTO usuarioDTO)
+        {
+            var usuarios = new Entities.Users
+            {
+                Username = usuarioDTO.Username
+            };
+            _context.Users.Remove(usuarios);
+            _context.SaveChanges();
+        }
     }
 }

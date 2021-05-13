@@ -14,5 +14,8 @@ namespace Games.BL.Contracts
 
         // Interfaz para añadir usuarios
         void Add(UsuarioDTO usuarioDTO);
+
+        // Interfaz para eliminar usuarios
+        void Remove(UsuarioDTO usuarioDTO);
     }
 }
