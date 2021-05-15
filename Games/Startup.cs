@@ -33,9 +33,6 @@ namespace Games
         {
             services.AddControllers();
 
-            //Registra contexto en el contenedor de dependencias
-            //services.AddDbContext<GamesDBContext>(opts => opts.UseMySql(Configuration[""]));
-
             //Aqui las inyecciones: Interfaz - Clase
             services.AddScoped<IUsuarioBL, UsuarioBL>();
             services.AddScoped<IJuegoBL, JuegoBL>();
@@ -50,6 +47,14 @@ namespace Games
             //Registro de contexto en el contenedor de dependencias
             services.AddDbContext<db_gamesContext>(opts => opts.UseMySql(Configuration["ConnectionString:GamesDB"]));
 
+            //Para habilitar CORS en nuestra API
+            services.AddCors(options =>
+            {
+                options.AddPolicy("CorsPolicy",
+                    builder => builder.AllowAnyOrigin()
+                    .AllowAnyMethod()
+                    .AllowAnyHeader());
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -65,6 +70,8 @@ namespace Games
             app.UseRouting();
 
             app.UseAuthorization();
+
+            app.UseCors("CorsPolicy");
 
             app.UseEndpoints(endpoints =>
             {
