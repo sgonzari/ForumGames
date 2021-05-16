@@ -19,17 +19,31 @@ namespace Games.DAL.Repositories.Implementations
         public IEnumerable<JuegoDTO> Get()
         {
             var juegos = _context.Games.ToList();
+            List<int> juegoscategoriasDTO = new List<int>();
 
             List<JuegoDTO> juegosDTO = new List<JuegoDTO>();
             foreach (var i in juegos)
             {
+                foreach (var o in i.GamesCategory)
+                {
+                    juegoscategoriasDTO.Add(o.FkIdCategory);
+                }
+                var listaJuegosCategorias = String.Join("", 
+                    juegoscategoriasDTO.ConvertAll(x => x.ToString()).ToArray());
                 var juego = new JuegoDTO
                 {
                     Title = i.Title,
                     Description = i.Description,
                     LaunchDate = i.LaunchDate,
                     Height = i.Height,
-                    Multiplayer = i.Multiplayer
+                    Multiplayer = i.Multiplayer,
+                    Categoria = new List<JuegoCategoriaDTO>()
+                    {
+                        new JuegoCategoriaDTO()
+                        {
+                            FkIdCategory = int.Parse(listaJuegosCategorias)
+                        }
+                    }
                 };
                 juegosDTO.Add(juego);
             }
