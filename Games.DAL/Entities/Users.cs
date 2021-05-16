@@ -21,6 +21,7 @@ namespace Games.DAL.Entities
         public string Surname { get; set; }
         public string Email { get; set; }
         public int? Phone { get; set; }
+        public DateTime RegisterDate { get; set; }
         public string Passwd { get; set; }
 
         public virtual ICollection<Comments> Comments { get; set; }

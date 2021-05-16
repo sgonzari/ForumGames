@@ -13,7 +13,7 @@ $(document).ready(function(){
                 success: function(data, status){
                     //alert("Data: " + data + "\nStatus: " + status);
                     if(data){ 
-                        window.location.replace("./home_page.html");
+                        window.location.replace("./user.html");
                     } else {
                         $("#error").css("display","block");
                     }
