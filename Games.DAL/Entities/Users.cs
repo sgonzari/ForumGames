@@ -11,6 +11,7 @@ namespace Games.DAL.Entities
     {
         public Users()
         {
+            Comments = new HashSet<Comments>();
             Games = new HashSet<Games>();
         }
 
@@ -22,6 +23,7 @@ namespace Games.DAL.Entities
         public int? Phone { get; set; }
         public string Passwd { get; set; }
 
+        public virtual ICollection<Comments> Comments { get; set; }
         public virtual ICollection<Games> Games { get; set; }
     }
 }

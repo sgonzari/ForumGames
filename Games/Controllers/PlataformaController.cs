@@ -6,6 +6,8 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Games.Controllers
 {
+    [ApiController]
+    [Route("[controller]")]
     public class PlataformaController : ControllerBase
     {
         public IPlataformaBL _plataformaBL { get; set; }

@@ -18,7 +18,19 @@ namespace Games.DAL.Repositories.Implementations
 
         public IEnumerable<CategoriaDTO> Get()
         {
-            throw new NotImplementedException();
+            var categorias = _context.Category.ToList();
+
+            List<CategoriaDTO> categoriasDTO = new List<CategoriaDTO>();
+            foreach (var i in categorias)
+            {
+                var categoria = new CategoriaDTO
+                {
+                    IdCategory = i.IdCategory,
+                    Name = i.Name
+                };
+                categoriasDTO.Add(categoria);
+            }
+            return categoriasDTO;
         }
     }
 }

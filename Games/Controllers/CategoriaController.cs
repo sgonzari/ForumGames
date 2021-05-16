@@ -6,6 +6,8 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Games.Controllers
 {
+    [ApiController]
+    [Route("[controller]")]
     public class CategoriaController : ControllerBase
     {
         public ICategoriaBL _categoriaBL { get; set; }

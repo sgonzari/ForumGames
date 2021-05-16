@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace Games.CORE.DTO
 {
@@ -8,8 +9,9 @@ namespace Games.CORE.DTO
         public string Title { get; set; }
         public string Description { get; set; }
         public DateTime? LaunchDate { get; set; }
-        public decimal Height { get; set; }
+        public float Height { get; set; }
         public bool Multiplayer { get; set; }
+        public List<JuegoCategoriaDTO> Categoria { get; set; }
 
         public JuegoDTO()
         {

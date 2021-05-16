@@ -9,7 +9,6 @@ namespace Games.DAL.Entities
 {
     public partial class GamesCategory
     {
-        public int IdGamesCategory { get; set; }
         public int FkIdGame { get; set; }
         public int FkIdCategory { get; set; }
 

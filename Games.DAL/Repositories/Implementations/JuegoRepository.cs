@@ -9,7 +9,7 @@ namespace Games.DAL.Repositories.Implementations
 {
     public class JuegoRepository : IJuegoRepository
     {
-        public db_gamesContext _context { get; set;}
+        public db_gamesContext _context { get; set; }
 
         public JuegoRepository(db_gamesContext context)
         {
@@ -39,21 +39,67 @@ namespace Games.DAL.Repositories.Implementations
 
         public void Add(JuegoDTO juegoDTO)
         {
-            var juegos = new Entities.Games
+            var juegosCategorias = new GamesCategory();
+
+            if (!existGame(juegoDTO))
             {
-                Title = juegoDTO.Title,
-                Description = juegoDTO.Description,
-                LaunchDate = juegoDTO.LaunchDate,
-                Height = juegoDTO.Height,
-                Multiplayer = juegoDTO.Multiplayer,
-                FkUsername = "root"   //Modificar esto por el usuario de la cuenta a realizar esto
-            };
-            _context.Games.Add(juegos);
-            _context.SaveChanges();
+                var juegos = new Entities.Games
+                {
+                    Title = juegoDTO.Title,
+                    Description = juegoDTO.Description,
+                    LaunchDate = juegoDTO.LaunchDate,
+                    Height = juegoDTO.Height,
+                    Multiplayer = juegoDTO.Multiplayer,
+                    FkUsername = getUsername(),   //Modificar esto por el usuario de la cuenta a realizar esto
+                };
+                _context.Games.Add(juegos);
+                _context.SaveChanges();
+                if (juegoDTO.Categoria != null)
+                {
+                    foreach (var i in juegoDTO.Categoria.ToList())
+                    {
+                        juegosCategorias = new GamesCategory
+                        {
+                            FkIdGame = getIdGame(juegoDTO),
+                            FkIdCategory = i.FkIdCategory
+                        };
+                        _context.GamesCategory.Add(juegosCategorias);
+                        _context.SaveChanges();
+                    }
+                }
+            }
+            else
+            {
+                throw new Exception("El juego existe");
+            }
+        }
+
+        public bool existGame(JuegoDTO juegoDTO)
+        {
+            var titleLinq = from o in _context.Games
+                         where o.Title == juegoDTO.Title
+                         && o.FkUsername == getUsername()
+                         select o.Title;
+
+            if (titleLinq.Any())
+            {
+                return true;
+            }
+            return false;
+        }
+
+        public int getIdGame(JuegoDTO juegoDTO)
+        {
+            var idLinq = from o in _context.Games
+                     where o.Title == juegoDTO.Title 
+                     && o.FkUsername == getUsername()
+                     select o.IdGame;
+            int id = idLinq.First();
+            return id;
         }
 
         // MODIFICAR por el usuario de la cuenta
-        public string GetUsername()
+        public string getUsername()
         {
             return "root";
         }
@@ -61,8 +107,8 @@ namespace Games.DAL.Repositories.Implementations
         public void Remove(JuegoDTO juegoDTO)
         {
             var idLinq = from o in _context.Games
-                     where o.Title == juegoDTO.Title
-                     select o.IdGame;
+                         where o.Title == juegoDTO.Title
+                         select o.IdGame;
             int id = idLinq.First();
 
             var juegos = new Entities.Games

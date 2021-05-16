@@ -7,12 +7,15 @@ using System.Collections.Generic;
 
 namespace Games.DAL.Entities
 {
-    public partial class GamesPlatforms
+    public partial class Comments
     {
+        public int IdComment { get; set; }
         public int FkIdGame { get; set; }
-        public int FkIdPlatform { get; set; }
+        public string FkUsername { get; set; }
+        public string Comment { get; set; }
+        public DateTime? Date { get; set; }
 
         public virtual Games FkIdGameNavigation { get; set; }
-        public virtual Platforms FkIdPlatformNavigation { get; set; }
+        public virtual Users FkUsernameNavigation { get; set; }
     }
 }

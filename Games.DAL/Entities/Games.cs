@@ -11,6 +11,7 @@ namespace Games.DAL.Entities
     {
         public Games()
         {
+            Comments = new HashSet<Comments>();
             GamesCategory = new HashSet<GamesCategory>();
             GamesPlatforms = new HashSet<GamesPlatforms>();
         }
@@ -20,10 +21,11 @@ namespace Games.DAL.Entities
         public string Title { get; set; }
         public string Description { get; set; }
         public DateTime? LaunchDate { get; set; }
-        public decimal Height { get; set; }
+        public float Height { get; set; }
         public bool Multiplayer { get; set; }
 
         public virtual Users FkUsernameNavigation { get; set; }
+        public virtual ICollection<Comments> Comments { get; set; }
         public virtual ICollection<GamesCategory> GamesCategory { get; set; }
         public virtual ICollection<GamesPlatforms> GamesPlatforms { get; set; }
     }
