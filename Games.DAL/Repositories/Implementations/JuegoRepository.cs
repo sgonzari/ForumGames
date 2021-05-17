@@ -24,12 +24,16 @@ namespace Games.DAL.Repositories.Implementations
             List<JuegoDTO> juegosDTO = new List<JuegoDTO>();
             foreach (var i in juegos)
             {
-                foreach (var o in i.GamesCategory)
+                var categoriaJuegos = (from o in _context.GamesCategory
+                                      where o.FkIdGame == i.IdGame
+                                      select o.FkIdCategory).ToList();
+
+                foreach (var categoria in categoriaJuegos)
                 {
-                    juegoscategoriasDTO.Add(o.FkIdCategory);
+                    juegoscategoriasDTO.Add(categoria);
                 }
-                var listaJuegosCategorias = String.Join("", 
-                    juegoscategoriasDTO.ConvertAll(x => x.ToString()).ToArray());
+
+
                 var juego = new JuegoDTO
                 {
                     Title = i.Title,
@@ -37,15 +41,10 @@ namespace Games.DAL.Repositories.Implementations
                     LaunchDate = i.LaunchDate,
                     Height = i.Height,
                     Multiplayer = i.Multiplayer,
-                    Categoria = new List<JuegoCategoriaDTO>()
-                    {
-                        new JuegoCategoriaDTO()
-                        {
-                            FkIdCategory = int.Parse(listaJuegosCategorias)
-                        }
-                    }
+                    Categoria = categoriaJuegos
                 };
                 juegosDTO.Add(juego);
+                juegoscategoriasDTO.Clear();
             }
 
             return juegosDTO;
@@ -75,7 +74,7 @@ namespace Games.DAL.Repositories.Implementations
                         juegosCategorias = new GamesCategory
                         {
                             FkIdGame = getIdGame(juegoDTO),
-                            FkIdCategory = i.FkIdCategory
+                            FkIdCategory = i
                         };
                         _context.GamesCategory.Add(juegosCategorias);
                         _context.SaveChanges();

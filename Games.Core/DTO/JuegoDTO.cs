@@ -11,7 +11,7 @@ namespace Games.CORE.DTO
         public DateTime? LaunchDate { get; set; }
         public float Height { get; set; }
         public bool Multiplayer { get; set; }
-        public List<JuegoCategoriaDTO> Categoria { get; set; }
+        public List<int> Categoria { get; set; }
 
         public JuegoDTO()
         {
