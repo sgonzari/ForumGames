@@ -114,6 +114,21 @@ namespace Games.DAL.Repositories.Implementations
             }
         }
 
+        public void Remove(JuegoDTO juegoDTO)
+        {
+            var idLinq = from o in _context.Games
+                         where o.Title == juegoDTO.Title
+                         select o.IdGame;
+            int id = idLinq.First();
+
+            var juegos = new Entities.Games
+            {
+                IdGame = id
+            };
+            _context.Games.Remove(juegos);
+            _context.SaveChanges();
+        }
+
         public bool existGame(JuegoDTO juegoDTO)
         {
             var titleLinq = from o in _context.Games
@@ -176,21 +191,6 @@ namespace Games.DAL.Repositories.Implementations
                 }
             }
             return titlePlataforms;
-        }
-
-        public void Remove(JuegoDTO juegoDTO)
-        {
-            var idLinq = from o in _context.Games
-                         where o.Title == juegoDTO.Title
-                         select o.IdGame;
-            int id = idLinq.First();
-
-            var juegos = new Entities.Games
-            {
-                IdGame = id
-            };
-            _context.Games.Remove(juegos);
-            _context.SaveChanges();
         }
     }
 }
