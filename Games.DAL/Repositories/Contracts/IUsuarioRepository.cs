@@ -10,6 +10,8 @@ namespace Games.DAL.Repositories.Contracts
 
         IEnumerable<UsuarioDTO> Get();
 
+        UsuarioDTO GetDataFromUsername(string username);
+
         void Add(UsuarioDTO usuarioDTO);
 
         void Remove(UsuarioDTO usuarioDTO);

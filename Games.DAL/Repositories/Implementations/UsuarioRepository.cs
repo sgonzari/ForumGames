@@ -45,6 +45,25 @@ namespace Games.DAL.Repositories.Implementations
             return usuariosDTO;
         }
 
+        public UsuarioDTO GetDataFromUsername(string username)
+        {
+            var usuario = new UsuarioDTO();
+
+            var infoUsuario = from o in _context.Users
+                              where o.Username == username
+                              select o;
+            foreach (var info in infoUsuario)
+            {
+                usuario.Username = info.Username;
+                usuario.Firstname = info.FirstName;
+                usuario.Surname = info.Surname;
+                usuario.Group = info.Group;
+                usuario.Email = info.Email;
+                usuario.Phone = info.Phone;
+            }
+            return usuario;
+        }
+
         public void Add(UsuarioDTO usuarioDTO)
         {
             var usuario = new Users

@@ -135,7 +135,7 @@ namespace Games.DAL.Entities
                 entity.Property(e => e.LaunchDate)
                     .HasColumnName("launch_date")
                     .HasColumnType("date")
-                    .HasDefaultValueSql("'current_timestamp()'");
+                    .HasDefaultValueSql("'NULL'");
 
                 entity.Property(e => e.Multiplayer).HasColumnName("multiplayer");
 

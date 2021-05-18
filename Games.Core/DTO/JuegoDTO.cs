@@ -7,6 +7,7 @@ namespace Games.CORE.DTO
     {
         public int IdGame { get; set; }
         public string Title { get; set; }
+        public string FkUsername { get; set; }
         public string Description { get; set; }
         public DateTime? LaunchDate { get; set; }
         public float Height { get; set; }

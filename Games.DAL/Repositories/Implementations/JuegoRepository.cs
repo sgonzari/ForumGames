@@ -41,7 +41,6 @@ namespace Games.DAL.Repositories.Implementations
                     juegosplataformasDTO.Add(plataforma);
                 }
 
-
                 var juego = new JuegoDTO
                 {
                     IdGame = i.IdGame,
@@ -58,6 +57,108 @@ namespace Games.DAL.Repositories.Implementations
                 juegosDTO.Add(juego);
                 juegoscategoriasDTO.Clear();
                 juegosplataformasDTO.Clear();
+            }
+
+            return juegosDTO;
+        }
+
+        public IEnumerable<JuegoDTO> GetDataFromTitle(string title, string username)
+        {
+            List<JuegoDTO> juegosDTO = new List<JuegoDTO>();
+            List<int> juegoscategoriasDTO = new List<int>();
+            List<int> juegosplataformasDTO = new List<int>();
+            var juegos = from o in _context.Games
+                         where o.Title == title && o.FkUsername == username
+                         select o;
+            var idGame = (from o in _context.Games
+                          where o.Title == title && o.FkUsername == username
+                          select o.IdGame).First();
+            var categoriaJuegos = (from o in _context.GamesCategory
+                                   where o.FkIdGame == idGame
+                                   select o.FkIdCategory).ToList();
+            var plataformaJuegos = (from o in _context.GamesPlatforms
+                                    where o.FkIdGame == idGame
+                                    select o.FkIdPlatform).ToList();
+
+            foreach (var categoria in categoriaJuegos)
+            {
+                juegoscategoriasDTO.Add(categoria);
+            }
+            foreach (var plataforma in plataformaJuegos)
+            {
+                juegosplataformasDTO.Add(plataforma);
+            }
+
+            var TitleCategories = getTitleCategories(categoriaJuegos);
+            var TitlePlatforms = getTitlePlataforms(plataformaJuegos);
+
+            foreach (var info in juegos)
+            {
+                var juego = new JuegoDTO
+                {
+                    Title = info.Title,
+                    Description = info.Description,
+                    LaunchDate = info.LaunchDate,
+                    Height = info.Height,
+                    Multiplayer = info.Multiplayer,
+                    IdCategory = categoriaJuegos,
+                    TitleCategory = TitleCategories,
+                    IdPlataform = plataformaJuegos,
+                    TitlePlataform = TitlePlatforms
+                };
+                juegosDTO.Add(juego);
+            }
+
+            return juegosDTO;
+        }
+
+        public IEnumerable<JuegoDTO> GetDataFromTitle(string title)
+        {
+            List<JuegoDTO> juegosDTO = new List<JuegoDTO>();
+            List<int> juegoscategoriasDTO = new List<int>();
+            List<int> juegosplataformasDTO = new List<int>();
+            var juegos = from o in _context.Games
+                         where o.Title == title
+                         select o;
+            var idGame = (from o in _context.Games
+                          where o.Title == title
+                          select o.IdGame).First();
+            var categoriaJuegos = (from o in _context.GamesCategory
+                                   where o.FkIdGame == idGame
+                                   select o.FkIdCategory).ToList();
+            var plataformaJuegos = (from o in _context.GamesPlatforms
+                                    where o.FkIdGame == idGame
+                                    select o.FkIdPlatform).ToList();
+
+            foreach (var categoria in categoriaJuegos)
+            {
+                juegoscategoriasDTO.Add(categoria);
+            }
+            foreach (var plataforma in plataformaJuegos)
+            {
+                juegosplataformasDTO.Add(plataforma);
+            }
+
+            var TitleCategories = getTitleCategories(categoriaJuegos);
+            var TitlePlatforms = getTitlePlataforms(plataformaJuegos);
+
+            foreach (var info in juegos)
+            {
+                var juego = new JuegoDTO
+                {
+                    IdGame = info.IdGame,
+                    Title = info.Title,
+                    FkUsername = info.FkUsername,
+                    Description = info.Description,
+                    LaunchDate = info.LaunchDate,
+                    Height = info.Height,
+                    Multiplayer = info.Multiplayer,
+                    IdCategory = categoriaJuegos,
+                    TitleCategory = TitleCategories,
+                    IdPlataform = plataformaJuegos,
+                    TitlePlataform = TitlePlatforms
+                };
+                juegosDTO.Add(juego);
             }
 
             return juegosDTO;
@@ -166,8 +267,8 @@ namespace Games.DAL.Repositories.Implementations
             foreach(var idCategories in categoriaJuegos)
             {
                 var titleCategoriesLinq = (from o in _context.Category
-                                       where o.IdCategory == idCategories
-                                   select o.Name).ToList();
+                                           where o.IdCategory == idCategories
+                                           select o.Name).ToList();
                 foreach (var categoriesGames in titleCategoriesLinq)
                 {
                     titleCategories.Add(categoriesGames);

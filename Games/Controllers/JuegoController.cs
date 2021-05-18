@@ -17,12 +17,23 @@ namespace Games.Controllers
             _juegoBL = juegoBL;
         }
 
-        /*
-         * Obtiene una lista de juegos
-         */
         public ActionResult<IEnumerable<JuegoDTO>> Get()
         {
             return Ok(_juegoBL.Get());
+        }
+
+        [HttpGet]
+        [Route("getData")]
+        public ActionResult<IEnumerable<JuegoDTO>> getDataFromTitle(string title, string username)
+        {
+            return Ok(_juegoBL.GetDataFromTitle(title, username));
+        }
+
+        [HttpGet]
+        [Route("getDatas")]
+        public ActionResult<IEnumerable<JuegoDTO>> getDataFromTitle(string title)
+        {
+            return Ok(_juegoBL.GetDataFromTitle(title));
         }
 
         [HttpPost]

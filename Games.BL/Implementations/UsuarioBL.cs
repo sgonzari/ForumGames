@@ -26,6 +26,12 @@ namespace Games.BL.Implementations
             return usuarios;
         }
 
+        public UsuarioDTO GetDataFromUsername(string username)
+        {
+            var usuario = _usuarioRepository.GetDataFromUsername(username);
+            return usuario;
+        }
+
         public void Add(UsuarioDTO usuarioDTO)
         {
             _usuarioRepository.Add(usuarioDTO);

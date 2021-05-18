@@ -14,6 +14,7 @@ $(document).ready(function(){
                     //alert("Data: " + data + "\nStatus: " + status);
                     if(data){ 
                         window.location.replace("./user.html");
+                        window.localStorage.setItem('usuario', username)
                     } else {
                         $("#error").css("display","block");
                     }
