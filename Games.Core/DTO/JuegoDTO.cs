@@ -11,7 +11,10 @@ namespace Games.CORE.DTO
         public DateTime? LaunchDate { get; set; }
         public float Height { get; set; }
         public bool Multiplayer { get; set; }
-        public List<int> Categoria { get; set; }
+        public List<int> IdCategory { get; set; }
+        public List<string> TitleCategory { get; set; }
+        public List<int> IdPlataform { get; set; }
+        public List<string> TitlePlataform { get; set; }
 
         public JuegoDTO()
         {
