@@ -38,7 +38,8 @@ namespace Games.DAL.Repositories.Implementations
                     Email = i.Email,
                     Firstname = i.FirstName,
                     Surname = i.Surname,
-                    Phone = i.Phone
+                    Phone = i.Phone,
+                    RegisterDate = i.RegisterDate
                 };
                 usuariosDTO.Add(usuario);
             }
@@ -60,6 +61,7 @@ namespace Games.DAL.Repositories.Implementations
                 usuario.Group = info.Group;
                 usuario.Email = info.Email;
                 usuario.Phone = info.Phone;
+                usuario.RegisterDate = info.RegisterDate;
             }
             return usuario;
         }
@@ -74,7 +76,7 @@ namespace Games.DAL.Repositories.Implementations
                 Surname = usuarioDTO.Surname,
                 Email = usuarioDTO.Email,
                 Phone = usuarioDTO.Phone
-            };
+        };
             _context.Users.Add(usuario);
             _context.SaveChanges();
         }

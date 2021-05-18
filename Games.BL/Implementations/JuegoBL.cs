@@ -21,15 +21,20 @@ namespace Games.BL.Implementations
             return juegos;
         }
 
-        public IEnumerable<JuegoDTO> GetDataFromTitle(string title, string username)
+        public IEnumerable<JuegoDTO> GetData(string title, string username)
         {
-            var juegos = _juegoRepository.GetDataFromTitle(title, username);
+            var juegos = _juegoRepository.GetData(title, username);
             return juegos;
         }
 
         public IEnumerable<JuegoDTO> GetDataFromTitle(string title)
         {
             var juegos = _juegoRepository.GetDataFromTitle(title);
+            return juegos;
+        }
+        public IEnumerable<JuegoDTO> getDataFromUsername(string username)
+        {
+            var juegos = _juegoRepository.getDataFromUsername(username);
             return juegos;
         }
 

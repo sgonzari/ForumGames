@@ -24,16 +24,23 @@ namespace Games.Controllers
 
         [HttpGet]
         [Route("getData")]
-        public ActionResult<IEnumerable<JuegoDTO>> getDataFromTitle(string title, string username)
+        public ActionResult<IEnumerable<JuegoDTO>> getData(string title, string username)
         {
-            return Ok(_juegoBL.GetDataFromTitle(title, username));
+            return Ok(_juegoBL.GetData(title, username));
         }
 
         [HttpGet]
-        [Route("getDatas")]
+        [Route("getDataTitle")]
         public ActionResult<IEnumerable<JuegoDTO>> getDataFromTitle(string title)
         {
             return Ok(_juegoBL.GetDataFromTitle(title));
+        }
+
+        [HttpGet]
+        [Route("getDataUsername")]
+        public ActionResult<IEnumerable<JuegoDTO>> getDataFromUsername(string username)
+        {
+            return Ok(_juegoBL.getDataFromUsername(username));
         }
 
         [HttpPost]

@@ -4,11 +4,11 @@
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- jQuery library -->
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-	<!-- Popper JS -->
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-	<!-- Latest compiled JavaScript -->
-	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <!-- Popper JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <!-- Latest compiled JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
     <link rel="stylesheet" href="../stylesheets/user.css">
     <meta charset="UTF-8" />
@@ -23,8 +23,8 @@
             <img src="https://bootdey.com/img/Content/avatar/avatar1.png" alt=""
                 class="d-block ui-w-100 rounded-circle">
             <div class="media-body ml-4">
-                <h4 class="font-weight-bold" id="firstname">Firstname and Surname <span class="text-muted font-weight-normal">@username</span>
-                </h4>
+                <h4 class="font-weight-bold" id="firstname">Firstname and Surname</h4>
+                <h5><span id="usuario" class="text-muted font-weight-normal">@username</span></h5>
                 <a id="editProfile" style="color: white" class="btn btn-primary btn-sm">Editar Perfil</a>&nbsp;
                 <a id="logout" style="color: white" class="btn btn-dark btn-sm">Salir</a>&nbsp;
             </div>
@@ -32,26 +32,28 @@
 
         <div class="card mb-4">
             <div class="card-body">
-                <table class="table user-view-table m-0">
-                    <tbody>
-                        <tr>
-                            <td>Registrado:</td>
-                            <td>00/00/0000</td>
-                        </tr>
-                        <tr>
-                            <td>Publicaciones subidas:</td>
-                            <td>0</td>
-                        </tr>
-                        <tr>
-                            <td>Rol:</td>
-                            <td>User</td>
-                        </tr>
-                    </tbody>
+                <table id="informationTable" class="table user-view-table m-0">
+                    <tr id="rol">
+                        <th>Rol:</th>
+                        <td id="groupUser"></td>
+                    </tr>
+                    <tr id="email">
+                        <th>Email:</th>
+                        <td id="emailUser"></td>
+                    </tr>
+                    <tr id="phone">
+                        <th>Teléfono:</th>
+                        <td id="phoneUser"></td>
+                    </tr>
+                    <tr id="register">
+                        <th>Registrado:</th>
+                        <td id="registerUser"></td>
+                    </tr>
                 </table>
             </div>
             <hr class="border-light m-0">
             <div class="table-responsive">
-                <table id="tablaJuegos" class="table">
+                <table id="gamesTable" class="table">
                     <tbody class="thead-dark">
                         <tr>
                             <th>Título</th>
@@ -61,6 +63,8 @@
                             <th>Peso</th>
                             <th>Multijugador</th>
                             <th>Editar</th>
+                            <th>Compartir</th>
+                            <th>Eliminar</th>
                         </tr>
                     </tbody>
                 </table>

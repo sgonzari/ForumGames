@@ -8,9 +8,11 @@ namespace Games.DAL.Repositories.Contracts
     {
         IEnumerable<JuegoDTO> Get();
 
-        IEnumerable<JuegoDTO> GetDataFromTitle(string title, string username);
+        IEnumerable<JuegoDTO> GetData(string title, string username);
 
         IEnumerable<JuegoDTO> GetDataFromTitle(string title);
+
+        IEnumerable<JuegoDTO> getDataFromUsername(string username);
 
         void Add(JuegoDTO juegoDTO);
 

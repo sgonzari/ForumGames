@@ -11,6 +11,7 @@ namespace Games.CORE.DTO
         public string Surname { get; set; }
         public string? Email { get; set; }
         public int? Phone { get; set; }
+        public DateTime RegisterDate { get; set; }
 
         public UsuarioDTO() 
         {
