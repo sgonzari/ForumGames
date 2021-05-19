@@ -31,10 +31,11 @@
       </div>
 
       <!-- Login Form -->
-      <form method="POST">
+      <form method="POST" action="" onsubmit="handleSubmit(event)">
         <input type="text" id="login" class="fadeIn second" name="username" placeholder="usuario">
         <input type="password" id="password" class="fadeIn third" name="password" placeholder="contraseña">
-        <input type="button" class="fadeIn fourth" value="Log In" id="go">
+        <input type="button" class="fadeIn fourth" value="Register">
+        <input type="submit" class="fadeIn fourth" value="Login">
 
         <div id="error" class="alert alert-danger fade-in">
           <strong>¡ERROR!</strong> Usuario y/o contraseña incorrectos.
