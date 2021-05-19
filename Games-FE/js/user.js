@@ -146,17 +146,6 @@ $('#editProfile').click(function editProfile() {
 
 //Función añadir juego
 $('#addGame').click(function addGame() {
-    //Obtener un único valor
-        // var title = $('#title').val()
-        // console.log(title)
-
-    //Obtener lista
-        // var categories = [];
-        // $.each($('input[name="categories"]:checked'), function () {
-        //     categories.push($(this).val());
-        // });
-        // console.log(categories)
-
     var categories = [];
     $.each($('input[name="categories"]:checked'), function () {
         categories.push($(this).val());
