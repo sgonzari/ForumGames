@@ -170,17 +170,17 @@ $('#addGame').click(function addGame() {
             "title": $('#title').val(),
             "fkusername": usuario,
             "description": $('#description').val(),
-            "height": 1.24,
+            "height": parseInt($('#height').val()),
             "multiplayer": $multiplayer,
             "idCategory": categories.map(i=>Number(i)),
             "idPlataform": platforms.map(i=>Number(i))
         }),
         success: function (data, status) {
-            console.log(status)
+            //console.log(status)
             location.reload();
         },
         error: function (data, status) {
-            console.log(status)
+            //console.log(status)
         }
     });
 });

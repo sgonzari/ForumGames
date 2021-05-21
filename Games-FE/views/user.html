@@ -20,20 +20,18 @@
     <div class="container bootdey flex-grow-1 container-p-y">
 
         <div class="media align-items-center py-3 mb-3">
-            <img src="https://bootdey.com/img/Content/avatar/avatar1.png" alt=""
-                class="d-block ui-w-100 rounded-circle">
+            <!-- <img src="https://bootdey.com/img/Content/avatar/avatar1.png" alt="" class="d-block ui-w-100 rounded-circle"> -->
             <div class="media-body ml-4">
                 <h4 class="font-weight-bold" id="firstname">Firstname and Surname</h4>
                 <h5><span id="usuario" class="text-muted font-weight-normal">@username</span></h5>
                 <button type="button" class="btn btn-success btn-sm" data-toggle="modal"
-                    data-target="#exampleModal">Agregar juego</button>&nbsp;
+                    data-target="#addGameModal">Agregar juego</button>&nbsp;
                 <a id="editProfile" style="color: white" class="btn btn-primary btn-sm">Editar Perfil</a>&nbsp;
             </div>
-
             <a id="logout" style="color: white" class="btn btn-dark btn-sm">Salir</a>&nbsp;
         </div>
 
-        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        <div class="modal fade" id="addGameModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
             aria-hidden="true">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
@@ -51,11 +49,13 @@
                             </div>
                             <div class="form-group">
                                 <label for="inputDescription"><strong>*Descripción</strong></label>
-                                <input type="text" class="form-control" id="description" placeholder="Descripción del videojuego">
+                                <input type="text" class="form-control" id="description"
+                                    placeholder="Descripción del videojuego">
                             </div>
                             <div class="form-group">
                                 <label for="inputLaunchDate">Fecha de lanzamiento</label>
-                                <input type="date" class="form-control" id="launchDate" placeholder="Fecha de lanzamiento del videojuego">
+                                <input type="date" class="form-control" id="launchDate"
+                                    placeholder="Fecha de lanzamiento del videojuego">
                             </div>
                             <div class="form-group">
                                 <label for="inputCategories"><strong>*Categorías</strong></label>
@@ -69,13 +69,16 @@
                             </div>
                             <div class="form-group">
                                 <label for="inputHeight"><strong>*Peso</strong></label>
-                                <input type="number" step="0.10" class="form-control" id="height" placeholder="Peso del videojuego">
+                                <input type="number" step="0.10" class="form-control" id="height"
+                                    placeholder="Peso del videojuego">
                             </div>
                             <div class="form-group">
                                 <label for="inputPlatforms"><strong>*Multijugador</strong></label>
                                 <div id="allPlatforms">
-                                    <label><input type="radio" style="margin-right: 5px" id="multiplayerYes" name="multiplayer">Sí</label><br>
-                                    <label><input type="radio" style="margin-right: 5px" id="multiplayerNo" name="multiplayer">No</label>
+                                    <label><input type="radio" style="margin-right: 5px" id="multiplayerYes"
+                                            name="multiplayer">Sí</label><br>
+                                    <label><input type="radio" style="margin-right: 5px" id="multiplayerNo"
+                                            name="multiplayer">No</label>
                                 </div>
                             </div>
                         </form>

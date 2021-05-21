@@ -22,8 +22,6 @@
 <body>
   <div class="wrapper fadeInDown">
     <div id="formContent">
-      <!-- Tabs Titles -->
-
       <!-- Icon -->
       <div class="fadeIn first">
         <!--<i class="fa fa-cab" style="font-size:48px;"></i>-->
@@ -34,7 +32,8 @@
       <form method="POST" action="" onsubmit="handleSubmit(event)">
         <input type="text" id="login" class="fadeIn second" name="username" placeholder="usuario">
         <input type="password" id="password" class="fadeIn third" name="password" placeholder="contraseña">
-        <input type="button" class="fadeIn fourth" value="Register">
+        <input type="button" class="fadeIn fourth" value="Register" data-toggle="modal"
+          data-target="#addGameModal"></input>
         <input type="submit" class="fadeIn fourth" value="Login">
 
         <div id="error" class="alert alert-danger fade-in">
@@ -42,6 +41,53 @@
         </div>
       </form>
 
+    </div>
+  </div>
+
+  <!-- Register Form -->
+  <div class="modal fade" id="addGameModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Agregar juego</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form>
+            <div class="form-group">
+              <label for="inputUsername"><strong>*Usuario</strong></label>
+              <input type="text" class="form-control" id="username" placeholder="Username">
+            </div>
+            <div class="form-group">
+              <label for="inputFirstname"><strong>*Nombre</strong></label>
+              <input type="text" class="form-control" id="firstname" placeholder="Firstname">
+            </div>
+            <div class="form-group">
+              <label for="inputSurname"><strong>*Apellidos</strong></label>
+              <input type="text" class="form-control" id="surname" placeholder="Surname">
+            </div>
+            <div class="form-group">
+              <label for="inputEmail"><strong>Correo Electrónico</strong></label>
+              <input type="email" class="form-control" id="email" placeholder="Email">
+            </div>
+            <div class="form-group">
+              <label for="inputPhone"><strong>Teléfono</strong></label>
+              <input type="number" class="form-control" id="phone" placeholder="XXXXXXXXX">
+            </div>
+            <div class="form-group">
+              <label for="inputPasswd"><strong>*Contraseña</strong></label>
+              <input type="password" class="form-control" id="passwd" placeholder="Password">
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-danger" data-dismiss="modal">Descartar</button>
+          <button type="button" id="addUser" class="btn btn-success">Agregar</button>
+        </div>
+      </div>
     </div>
   </div>
   <script src="../js/login.js"></script>

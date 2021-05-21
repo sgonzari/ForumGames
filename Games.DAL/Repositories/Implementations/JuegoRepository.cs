@@ -170,28 +170,29 @@ namespace Games.DAL.Repositories.Implementations
             var juegos = from o in _context.Games
                          where o.FkUsername == username
                          select o;
-            List<int> juegoscategoriasDTO = new List<int>();
-            List<int> juegosplataformasDTO = new List<int>();
-
+            List<int> idGames = new List<int>();
+            List<int> idJuegoscategoriasDTO = new List<int>();
+            List<string> titleJuegoscategoriasDTO = new List<string>();
+            List<int> idJuegosplataformasDTO = new List<int>();
+            List<string> titleJuegosPlataformasDTO = new List<string>();
             List<JuegoDTO> juegosDTO = new List<JuegoDTO>();
+            foreach (var o in juegos)
+            {
+                idGames.Add(o.IdGame);
+            }
+            foreach (var i in idGames)
+            {
+                idJuegoscategoriasDTO = (from o in _context.GamesCategory
+                                          where o.FkIdGame == i
+                                          select o.FkIdCategory).ToList();
+                titleJuegoscategoriasDTO = getTitleCategories(idJuegoscategoriasDTO);
+                idJuegosplataformasDTO = (from o in _context.GamesPlatforms
+                                        where o.FkIdGame == i
+                                        select o.FkIdPlatform).ToList();
+                titleJuegosPlataformasDTO = getTitlePlataforms(idJuegosplataformasDTO);
+            }
             foreach (var i in juegos)
             {
-                var categoriaJuegos = (from o in _context.GamesCategory
-                                       where o.FkIdGame == i.IdGame
-                                       select o.FkIdCategory).ToList();
-                var plataformaJuegos = (from o in _context.GamesPlatforms
-                                        where o.FkIdGame == i.IdGame
-                                        select o.FkIdPlatform).ToList();
-
-                foreach (var categoria in categoriaJuegos)
-                {
-                    juegoscategoriasDTO.Add(categoria);
-                }
-                foreach (var plataforma in plataformaJuegos)
-                {
-                    juegosplataformasDTO.Add(plataforma);
-                }
-
                 var juego = new JuegoDTO
                 {
                     IdGame = i.IdGame,
@@ -200,14 +201,14 @@ namespace Games.DAL.Repositories.Implementations
                     LaunchDate = i.LaunchDate,
                     Height = i.Height,
                     Multiplayer = i.Multiplayer,
-                    IdCategory = categoriaJuegos,
-                    TitleCategory = getTitleCategories(categoriaJuegos),
-                    IdPlataform = plataformaJuegos,
-                    TitlePlataform = getTitlePlataforms(plataformaJuegos)
+                    IdCategory = idJuegoscategoriasDTO,
+                    TitleCategory = titleJuegoscategoriasDTO,
+                    IdPlataform = idJuegosplataformasDTO,
+                    TitlePlataform = titleJuegosPlataformasDTO
                 };
                 juegosDTO.Add(juego);
-                juegoscategoriasDTO.Clear();
-                juegosplataformasDTO.Clear();
+                idJuegoscategoriasDTO.Clear();
+                idJuegosplataformasDTO.Clear();
             }
 
             return juegosDTO;

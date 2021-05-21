@@ -22,3 +22,41 @@ function handleSubmit(event) {
         })
     }
 }
+
+$('#addUser').click(function addUser() {
+    if (($('#username').val() !== "") && ($('#firstname').val() !== "") && ($('#surname').val() !== "") && ($('#passwd').val() !== "")) {
+        var $email = null
+        var $phone = null
+        if ($('#email').val() !== "") {
+            $email = $('#email').val()
+        }
+        if ($('#phone').val() !== "") {
+            $phone = $('#phone').val()
+        }
+
+        $.ajax({
+            url: 'https://localhost:44355/usuario',
+            dataType: 'json',
+            type: 'post',
+            contentType: 'application/json',
+            data: JSON.stringify({
+                "username": $('#username').val(),
+                "firstname": $('#firstname').val(),
+                "surname": $('#surname').val(),
+                "email": $email,
+                "phone": parseInt($phone),
+                "passwd": $('#passwd').val()
+            }),
+            success: function (data, status) {
+                alert("Usuario creado correctamente")
+                location.reload();
+            },
+            error: function (data, status) {
+                alert("No se ha podido crear el usuario")
+            }
+        });
+    } else {
+        alert("Campos obligatorios no relleneados")
+    }
+
+});
