@@ -16,6 +16,8 @@ namespace Games.DAL.Repositories.Contracts
 
         void Add(JuegoDTO juegoDTO);
 
+        void UpdateGame(JuegoDTO juegoDTO);
+
         void Remove(JuegoDTO juegoDTO);
     }
 }

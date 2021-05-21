@@ -36,9 +36,9 @@ namespace Games.DAL.Repositories.Implementations
                 {
                     juegoscategoriasDTO.Add(categoria);
                 }
-                foreach (var plataforma in plataformaJuegos)
+                foreach (var platforma in plataformaJuegos)
                 {
-                    juegosplataformasDTO.Add(plataforma);
+                    juegosplataformasDTO.Add(platforma);
                 }
 
                 var juego = new JuegoDTO
@@ -51,8 +51,8 @@ namespace Games.DAL.Repositories.Implementations
                     Multiplayer = i.Multiplayer,
                     IdCategory = categoriaJuegos,
                     TitleCategory = getTitleCategories(categoriaJuegos),
-                    IdPlataform = plataformaJuegos,
-                    TitlePlataform = getTitlePlataforms(plataformaJuegos)
+                    IdPlatform = plataformaJuegos,
+                    TitlePlatform = getTitlePlataforms(plataformaJuegos)
                 };
                 juegosDTO.Add(juego);
                 juegoscategoriasDTO.Clear();
@@ -104,8 +104,8 @@ namespace Games.DAL.Repositories.Implementations
                     Multiplayer = info.Multiplayer,
                     IdCategory = categoriaJuegos,
                     TitleCategory = TitleCategories,
-                    IdPlataform = plataformaJuegos,
-                    TitlePlataform = TitlePlatforms
+                    IdPlatform = plataformaJuegos,
+                    TitlePlatform = TitlePlatforms
                 };
                 juegosDTO.Add(juego);
             }
@@ -156,8 +156,8 @@ namespace Games.DAL.Repositories.Implementations
                     Multiplayer = info.Multiplayer,
                     IdCategory = categoriaJuegos,
                     TitleCategory = TitleCategories,
-                    IdPlataform = plataformaJuegos,
-                    TitlePlataform = TitlePlatforms
+                    IdPlatform = plataformaJuegos,
+                    TitlePlatform = TitlePlatforms
                 };
                 juegosDTO.Add(juego);
             }
@@ -203,8 +203,8 @@ namespace Games.DAL.Repositories.Implementations
                     Multiplayer = i.Multiplayer,
                     IdCategory = idJuegoscategoriasDTO,
                     TitleCategory = titleJuegoscategoriasDTO,
-                    IdPlataform = idJuegosplataformasDTO,
-                    TitlePlataform = titleJuegosPlataformasDTO
+                    IdPlatform = idJuegosplataformasDTO,
+                    TitlePlatform = titleJuegosPlataformasDTO
                 };
                 juegosDTO.Add(juego);
                 idJuegoscategoriasDTO.Clear();
@@ -245,9 +245,9 @@ namespace Games.DAL.Repositories.Implementations
                         _context.SaveChanges();
                     }
                 }
-                if (juegoDTO.IdPlataform != null)
+                if (juegoDTO.IdPlatform != null)
                 {
-                    foreach (var i in juegoDTO.IdPlataform.ToList())
+                    foreach (var i in juegoDTO.IdPlatform.ToList())
                     {
                         juegosPlataformas = new GamesPlatforms
                         {
@@ -265,6 +265,65 @@ namespace Games.DAL.Repositories.Implementations
             }
         }
 
+        public void UpdateGame(JuegoDTO juegoDTO)
+        {
+            var juegosCategorias = new GamesCategory();
+            var juegosPlataformas = new GamesPlatforms();
+            var cantCategory = (from o in _context.GamesCategory
+                                where o.FkIdGame == juegoDTO.IdGame
+                                select o).ToList();
+            var cantPlatform = (from o in _context.GamesPlatforms
+                                where o.FkIdGame == juegoDTO.IdGame
+                                select o).ToList();
+            foreach (var categories in cantCategory)
+            {
+                _context.GamesCategory.Remove(categories);
+            }
+            foreach (var platforms in cantPlatform)
+            {
+                _context.GamesPlatforms.Remove(platforms);
+            }
+
+            var juegos = new Entities.Games
+                {
+                IdGame = juegoDTO.IdGame,
+                Title = juegoDTO.Title,
+                Description = juegoDTO.Description,
+                LaunchDate = juegoDTO.LaunchDate,
+                Height = juegoDTO.Height,
+                Multiplayer = juegoDTO.Multiplayer,
+                FkUsername = juegoDTO.FkUsername
+            };
+            _context.Games.Update(juegos);
+            _context.SaveChanges();
+            if (juegoDTO.IdCategory != null)
+            {
+                foreach (var i in juegoDTO.IdCategory.ToList())
+                {
+                    juegosCategorias = new GamesCategory
+                    {
+                        FkIdGame = juegoDTO.IdGame,
+                        FkIdCategory = i
+                    };
+                    _context.GamesCategory.Add(juegosCategorias);
+                    _context.SaveChanges();
+                }
+            }
+            if (juegoDTO.IdPlatform != null)
+            {
+                foreach (var i in juegoDTO.IdPlatform.ToList())
+                {
+                    juegosPlataformas = new GamesPlatforms
+                    {
+                        FkIdGame = juegoDTO.IdGame,
+                        FkIdPlatform = i
+                    };
+                    _context.GamesPlatforms.Add(juegosPlataformas);
+                       _context.SaveChanges();
+                }
+            }
+        }
+
         public void Remove(JuegoDTO juegoDTO)
         {
             var cantCategory = (from o in _context.GamesCategory
@@ -277,9 +336,9 @@ namespace Games.DAL.Repositories.Implementations
             {
                 _context.GamesCategory.Remove(categories);
             }
-            foreach (var plataforms in cantPlatform)
+            foreach (var platforms in cantPlatform)
             {
-                _context.GamesPlatforms.Remove(plataforms);
+                _context.GamesPlatforms.Remove(platforms);
             }
 
             var juegos = new Entities.Games
@@ -335,14 +394,14 @@ namespace Games.DAL.Repositories.Implementations
         {
             List<string> titlePlataforms = new List<string>();
 
-            foreach (var idPlataforms in plataformaJuegos)
+            foreach (var idPlatforms in plataformaJuegos)
             {
                 var titlePlataformsLinq = (from o in _context.Platforms
-                                           where o.IdPlatform == idPlataforms
+                                           where o.IdPlatform == idPlatforms
                                            select o.Platform).ToList();
-                foreach (var plataformsGames in titlePlataformsLinq)
+                foreach (var platformsGames in titlePlataformsLinq)
                 {
-                    titlePlataforms.Add(plataformsGames);
+                    titlePlataforms.Add(platformsGames);
                 }
             }
             return titlePlataforms;

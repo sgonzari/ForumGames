@@ -85,7 +85,7 @@ $(document).ready(function () {
                     $('<td>').text(item.description),
                     $td_launchDate,
                     $('<td>').text(item.titleCategory),
-                    $('<td>').text(item.titlePlataform),
+                    $('<td>').text(item.titlePlatform),
                     $('<td>').text(item.height).attr({ style: "text-align: center" }),
                     $td_multiplayer.attr({ style: "text-align: center" }),
                     $('<td>').append(editBtn),
@@ -129,11 +129,11 @@ $(document).ready(function () {
         success: function (data, status) {
             $.each(data, function (i, item) {
                 var $label = $('<label>').attr({ id: "platform" })
-                var $plataforms = $('<div>').append(
+                var $platforms = $('<div>').append(
                     $('<input>').attr({ type: "checkbox", id: item.name, name: "platforms", value: item.idPlatform, style: "margin-right: 5px" }),
                     $label.text(item.name)
                 );
-                $('#allPlatforms').append($plataforms);
+                $('#allPlatforms').append($platforms);
             });
         }
     });
@@ -173,7 +173,7 @@ $('#addGame').click(function addGame() {
             "height": parseInt($('#height').val()),
             "multiplayer": $multiplayer,
             "idCategory": categories.map(i=>Number(i)),
-            "idPlataform": platforms.map(i=>Number(i))
+            "idplatform": platforms.map(i=>Number(i))
         }),
         success: function (data, status) {
             //console.log(status)

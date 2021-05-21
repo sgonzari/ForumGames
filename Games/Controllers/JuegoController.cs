@@ -50,6 +50,14 @@ namespace Games.Controllers
             return Ok(true);
         }
 
+        [HttpPost]
+        [Route("update")]
+        public ActionResult<bool> UpdateGame(JuegoDTO juegoDTO)
+        {
+            _juegoBL.UpdateGame(juegoDTO);
+            return Ok(true);
+        }
+
         [HttpDelete]
         public ActionResult<bool> Remove(JuegoDTO juegoDTO)
         {

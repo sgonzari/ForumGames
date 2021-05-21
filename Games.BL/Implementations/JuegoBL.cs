@@ -43,6 +43,11 @@ namespace Games.BL.Implementations
             _juegoRepository.Add(juegoDTO);
         }
 
+        public void UpdateGame(JuegoDTO juegoDTO)
+        {
+            _juegoRepository.UpdateGame(juegoDTO);
+        }
+
         public void Remove(JuegoDTO juegoDTO)
         {
             _juegoRepository.Remove(juegoDTO);
