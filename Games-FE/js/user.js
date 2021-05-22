@@ -25,7 +25,7 @@ $(document).ready(function () {
             } else {
                 $('#phoneUser').text("no tienes vinculado ningún número de teléfono").attr({ style: "color: red" })
             }
-            $('#registerUser').text(data.registerDate)
+            $('#registerUser').text(formatDate(data.registerDate))
             $('#groupUser').text(data.group)
         }
     });
@@ -52,7 +52,7 @@ $(document).ready(function () {
                 }
 
                 if (item.launchDate !== null) {
-                    var $td_launchDate = $('<td>').text(item.launchDate)
+                    var $td_launchDate = $('<td>').text(formatDate(item.launchDate))
                 } else {
                     var $td_launchDate = $('<td>').text("")
                 }
@@ -60,21 +60,25 @@ $(document).ready(function () {
                 //Botón de editar
                 var editBtn = $('<input/>').attr({
                     type: "button",
-                    id: "field",
+                    class: "btn btn-primary btn-sm",
                     value: "Editar",
-                    onclick: "editGame()"
+                    id: "editButton",
+                    onclick: "addInfoGame('" + item.title + "')",
+                    'data-toggle': "modal",
+                    'data-target': "#editGameModal"
                 });
                 //Botón de compartir
                 var shareBtn = $('<input/>').attr({
                     type: "button",
-                    id: "field",
+                    class: "btn btn-success btn-sm",
                     value: "Compartir",
                     onclick: "shareGame()"
                 });
                 //Botón de compartir
                 var deleteBtn = $('<input/>').attr({
                     type: "button",
-                    id: "field",
+                    class: "btn btn-danger btn-sm",
+                    id: "deleteButton",
                     value: "Eliminar",
                     onclick: "deleteGame(" + item.idGame + ")"
                 });
@@ -99,7 +103,7 @@ $(document).ready(function () {
     });
 });
 
-//Categorias
+//Categorias - Agregar Juego
 $(document).ready(function () {
     $.ajax({
         url: 'https://localhost:44355/categoria',
@@ -118,8 +122,27 @@ $(document).ready(function () {
         }
     });
 });
+//Categorias - Editar Juego
+$(document).ready(function () {
+    $.ajax({
+        url: 'https://localhost:44355/categoria',
+        dataType: 'json',
+        type: 'get',
+        contentType: 'application/json',
+        success: function (data, status) {
+            $.each(data, function (i, item) {
+                var $label = $('<label>').attr({ id: "category" })
+                var $categories = $('<div>').append(
+                    $('<input>').attr({ type: "checkbox", id: item.name, name: "categories", value: item.idCategory, style: "margin-right: 5px" }),
+                    $label.text(item.name)
+                );
+                $('#allEditCategories').append($categories);
+            });
+        }
+    });
+});
 
-//Plataformas
+//Plataformas - Agregar Juego
 $(document).ready(function () {
     $.ajax({
         url: 'https://localhost:44355/plataforma',
@@ -134,6 +157,25 @@ $(document).ready(function () {
                     $label.text(item.name)
                 );
                 $('#allPlatforms').append($platforms);
+            });
+        }
+    });
+});
+//Plataformas - Editar Juego
+$(document).ready(function () {
+    $.ajax({
+        url: 'https://localhost:44355/plataforma',
+        dataType: 'json',
+        type: 'get',
+        contentType: 'application/json',
+        success: function (data, status) {
+            $.each(data, function (i, item) {
+                var $label = $('<label>').attr({ id: "platform" })
+                var $platforms = $('<div>').append(
+                    $('<input>').attr({ type: "checkbox", id: item.name, name: "platforms", value: item.idPlatform, style: "margin-right: 5px" }),
+                    $label.text(item.name)
+                );
+                $('#allEditPlatforms').append($platforms);
             });
         }
     });
@@ -170,10 +212,11 @@ $('#addGame').click(function addGame() {
             "title": $('#title').val(),
             "fkusername": usuario,
             "description": $('#description').val(),
-            "height": parseInt($('#height').val()),
+            "height": parseFloat($('#height').val()),
+            "launchDate": $('#launchDate').val(),
             "multiplayer": $multiplayer,
-            "idCategory": categories.map(i=>Number(i)),
-            "idplatform": platforms.map(i=>Number(i))
+            "idCategory": categories.map(i => Number(i)),
+            "idplatform": platforms.map(i => Number(i))
         }),
         success: function (data, status) {
             //console.log(status)
@@ -185,9 +228,26 @@ $('#addGame').click(function addGame() {
     });
 });
 
-//Función editar juego
-function editGame() {
-    window.location.replace("#");
+//Función añadir contenido al modal
+function addInfoGame(title) {
+    $.ajax({
+        url: 'https://localhost:44355/juego/getdata?title=' + title + '&username=' + usuario,
+        dataType: 'json',
+        type: 'get',
+        contentType: 'applicaciont/json',
+        success: function (data, status) {
+            $.each(data, function (i, item) {
+                $('#editTitle').attr({value: item.title}),
+                $('#editDescription').attr({value: item.description}),
+                $('#editHeight').attr({value: item.height}),
+                $('#editLaunchDate').attr({value: formatDate(item.launchDate)})
+            });
+        },
+        error: function (data, status) {
+            console.log(status)
+        }
+    });
+    // $('#editTitle').attr({value: title})
 }
 
 //Función compartir juego
@@ -221,3 +281,18 @@ $('#logout').click(function logout() {
     window.location.replace("./login.html")
     window.localStorage.setItem('usuario', "")
 });
+
+//Función que devuelve fecha y hora
+function formatDate(date) {
+    var d = new Date(date),
+        month = '' + (d.getMonth() + 1),
+        day = '' + d.getDate(),
+        year = d.getFullYear();
+
+    if (month.length < 2) 
+        month = '0' + month;
+    if (day.length < 2) 
+        day = '0' + day;
+
+    return [year, month, day].join('-');
+}

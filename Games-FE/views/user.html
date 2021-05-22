@@ -31,12 +31,12 @@
             <a id="logout" style="color: white" class="btn btn-dark btn-sm">Salir</a>&nbsp;
         </div>
 
-        <div class="modal fade" id="addGameModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        <div class="modal fade" id="addGameModal" tabindex="-1" role="dialog" aria-labelledby="addModalLabel"
             aria-hidden="true">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Agregar juego</h5>
+                        <h5 class="modal-title" id="addModalLabel">Agregar juego</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
@@ -91,6 +91,67 @@
             </div>
         </div>
 
+        <div class="modal fade" id="editGameModal" tabindex="-1" role="dialog" aria-labelledby="editModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="editModalLabel">Editar juego</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form>
+                            <div class="form-group">
+                                <label for="inputTitle"><strong>*Título</strong></label>
+                                <input type="text" class="form-control" id="editTitle"
+                                    placeholder="Título del videojuego">
+                            </div>
+                            <div class="form-group">
+                                <label for="inputDescription"><strong>*Descripción</strong></label>
+                                <input type="text" class="form-control" id="editDescription"
+                                    placeholder="Descripción del videojuego">
+                            </div>
+                            <div class="form-group">
+                                <label for="inputLaunchDate">Fecha de lanzamiento</label>
+                                <input type="date" class="form-control" id="editLaunchDate"
+                                    placeholder="Fecha de lanzamiento del videojuego">
+                            </div>
+                            <div class="form-group">
+                                <label for="inputCategories"><strong>*Categorías</strong></label>
+                                <div id="allEditCategories">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="inputPlatforms"><strong>*Plataformas</strong></label>
+                                <div id="allEditPlatforms">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="inputHeight"><strong>*Peso</strong></label>
+                                <input type="number" step="0.10" class="form-control" id="editHeight"
+                                    placeholder="Peso del videojuego">
+                            </div>
+                            <div class="form-group">
+                                <label for="inputPlatforms"><strong>*Multijugador</strong></label>
+                                <div id="allPlatforms">
+                                    <label><input type="radio" style="margin-right: 5px" id="editMultiplayerYes"
+                                            name="multiplayer">Sí</label><br>
+                                    <label><input type="radio" style="margin-right: 5px" id="editMultiplayerNo"
+                                            name="multiplayer">No</label>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-danger" data-dismiss="modal">Descartar</button>
+                        <button type="button" id="editGame" class="btn btn-success">Editar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
         <div class="card mb-4">
             <div class="card-body">
                 <table id="informationTable" class="table user-view-table m-0">
@@ -135,7 +196,7 @@
     </div>
     <script src="http://code.jquery.com/jquery-1.10.2.min.js"></script>
     <script src="http://netdna.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
-    <script src="../js/user.js"></script>
+    <script text="text/javascript" src="../js/user.js"></script>
 </body>
 
 </html>
