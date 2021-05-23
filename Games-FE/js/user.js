@@ -1,4 +1,5 @@
-var usuario = localStorage.getItem('usuario');
+var usuario = localStorage.getItem('usuario')
+var idJuego
 
 //Si no está loggeado le devuelve a la pantalla de loggueo/registro
 if (usuario == "") {
@@ -133,7 +134,7 @@ $(document).ready(function () {
             $.each(data, function (i, item) {
                 var $label = $('<label>').attr({ id: "category" })
                 var $categories = $('<div>').append(
-                    $('<input>').attr({ type: "checkbox", id: item.name, name: "categories", value: item.idCategory, style: "margin-right: 5px" }),
+                    $('<input>').attr({ type: "checkbox", id: item.name, name: "editCategories", value: item.idCategory, style: "margin-right: 5px" }),
                     $label.text(item.name)
                 );
                 $('#allEditCategories').append($categories);
@@ -172,7 +173,7 @@ $(document).ready(function () {
             $.each(data, function (i, item) {
                 var $label = $('<label>').attr({ id: "platform" })
                 var $platforms = $('<div>').append(
-                    $('<input>').attr({ type: "checkbox", id: item.name, name: "platforms", value: item.idPlatform, style: "margin-right: 5px" }),
+                    $('<input>').attr({ type: "checkbox", id: item.name, name: "editPlatforms", value: item.idPlatform, style: "margin-right: 5px" }),
                     $label.text(item.name)
                 );
                 $('#allEditPlatforms').append($platforms);
@@ -224,6 +225,8 @@ $('#addGame').click(function addGame() {
         },
         error: function (data, status) {
             //console.log(status)
+            alert("Error, por favor consulte con un administrador")
+            location.reload();
         }
     });
 });
@@ -237,18 +240,84 @@ function addInfoGame(title) {
         contentType: 'applicaciont/json',
         success: function (data, status) {
             $.each(data, function (i, item) {
-                $('#editTitle').attr({value: item.title}),
-                $('#editDescription').attr({value: item.description}),
-                $('#editHeight').attr({value: item.height}),
-                $('#editLaunchDate').attr({value: formatDate(item.launchDate)})
+                $('#editTitle').attr({value: item.title})
+                $('#editDescription').attr({value: item.description})
+                $('#editHeight').attr({value: item.height})
+                console.log("Fecha:" + item.launchDate)
+                if (item.launchDate !== null) {
+                    $('#editLaunchDate').attr({value: formatDate(item.launchDate)})
+                }
+
+                if (item.multiplayer){
+                    $('#editMultiplayerYes').attr('checked', true)
+                } else {
+                    $('#editMultiplayerNo').attr('checked', true)
+                }
+
+                $.each(item.titleCategory, function(i, idCat){
+                    console.log("IdCategory:" + idCat)
+                    $('input[id="' + idCat + '"]').attr('checked', true)
+                });
+
+                $.each(item.titlePlatform, function(i, idPlat){
+                    console.log("IdPlatform:" + idPlat)
+                    $('input[id="' + idPlat + '"]').attr('checked', true)
+                });
+                idJuego = item.idGame
             });
         },
         error: function (data, status) {
-            console.log(status)
+            //console.log(status)
+            alert("Error, por favor consulte con un administrador")
+            location.reload();
         }
     });
-    // $('#editTitle').attr({value: title})
 }
+
+//Función editar juego
+$('#editGame').click(function editGame() {
+    var editCategories = [];
+    $.each($('input[name="editCategories"]:checked'), function () {
+        editCategories.push($(this).val());
+    });
+    var editPlatforms = [];
+    $.each($('input[name="editPlatforms"]:checked'), function () {
+        editPlatforms.push($(this).val());
+    });
+
+    if ($('#editMultiplayerYes').is(':checked')) {
+        var $multiplayer = true
+    } else if ($('#editMultiplayerNo').is(':checked')) {
+        var $multiplayer = false
+    }
+
+    $.ajax({
+        url: 'https://localhost:44355/juego/update',
+        dataType: 'json',
+        type: 'post',
+        contentType: 'application/json',
+        data: JSON.stringify({
+            "idGame": parseInt(idJuego),
+            "title": $('#editTitle').val(),
+            "fkusername": usuario,
+            "description": $('#editDescription').val(),
+            "height": parseFloat($('#editHeight').val()),
+            "launchDate": $('#editLaunchDate').val(),
+            "multiplayer": $multiplayer,
+            "idCategory": editCategories.map(i => Number(i)),
+            "idplatform": editPlatforms.map(i => Number(i))
+        }),
+        success: function (data, status) {
+            console.log(status)
+            location.reload();
+        },
+        error: function (data, status) {
+            //console.log(data)
+            alert("Error, por favor consulte con un administrador")
+            location.reload();
+        }
+    });
+});
 
 //Función compartir juego
 function shareGame() {
@@ -271,7 +340,9 @@ function deleteGame(idGame) {
             location.reload();
         },
         error: function (data, status) {
-            console.log(status)
+            //console.log(status)
+            alert("Error, por favor consulte con un administrador")
+            location.reload();
         }
     });
 }
