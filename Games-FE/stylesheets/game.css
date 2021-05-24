@@ -1,0 +1,22 @@
+.contentCard {
+    height: 90%; 
+    width:100%; 
+    display:flex; 
+    align-items: center; 
+    justify-content: center;
+}
+
+#descriptionGame {
+    margin: 0 56vH;
+}
+
+.commentCard {
+    height: 250px;
+    padding: 2vh;
+    margin-top: 5vH;
+}
+
+.btnEnviar {
+    float: right;
+    margin: 1vH 0vH;
+}

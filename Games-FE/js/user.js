@@ -44,11 +44,11 @@ $(document).ready(function () {
                 //Muestra un tick / cross si es multijugador o no
                 if (item.multiplayer) {
                     var $td_multiplayer = $('<td>').append(
-                        $('<spam class="fa fa-check text-primary"></spam>')
+                        $('<spam class="fa fa-check text-success"></spam>')
                     )
                 } else {
                     var $td_multiplayer = $('<td>').append(
-                        $('<spam class="fa fa-times text-light"></spam>')
+                        $('<spam class="fa fa-times text-danger"></spam>')
                     )
                 }
 
@@ -91,7 +91,7 @@ $(document).ready(function () {
                     $td_launchDate,
                     $('<td>').text(item.titleCategory),
                     $('<td>').text(item.titlePlatform),
-                    $('<td>').text(item.height).attr({ style: "text-align: center" }),
+                    $('<td>').text(item.height + "GB").attr({ style: "text-align: center" }),
                     $td_multiplayer.attr({ style: "text-align: center" }),
                     $('<td>').append(editBtn),
                     $('<td>').append(shareBtn),
