@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using Games.CORE.DTO;
 
 namespace Games.DAL.Repositories.Contracts
 {
     public interface IComentarioRepository
     {
+        IEnumerable<ComentarioDTO> GetCommentFromId(int idGame);
     }
 }

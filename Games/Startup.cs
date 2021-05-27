@@ -38,11 +38,13 @@ namespace Games
             services.AddScoped<IJuegoBL, JuegoBL>();
             services.AddScoped<ICategoriaBL, CategoriaBL>();
             services.AddScoped<IPlataformaBL, PlataformaBL>();
+            services.AddScoped<IComentarioBL, ComentarioBL>();
 
             services.AddScoped<IUsuarioRepository, UsuarioRepository>();
             services.AddScoped<IJuegoRepository, JuegoRepository>();
             services.AddScoped<ICategoriaRepository, CategoriaRepository>();
             services.AddScoped<IPlataformaRepository, PlataformaRepository>();
+            services.AddScoped<IComentarioRepository, ComentarioRepository>();
 
             //Registro de contexto en el contenedor de dependencias
             services.AddDbContext<db_gamesContext>(opts => opts.UseMySql(Configuration["ConnectionString:GamesDB"]));
