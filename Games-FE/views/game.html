@@ -36,8 +36,8 @@
                 <div class="card-header">
                     <h4 class="my-0 font-weight-normal">Peso</h4>
                 </div>
-                <div class="card-body" id="heightGame">
-                    <h1 class="contentCard">0.00GB</h1>
+                <div class="card-body">
+                    <h1 class="contentCard" id="heightGame">0.00GB</h1>
                 </div>
             </div>
             <div class="card mb-4 box-shadow">
@@ -45,10 +45,7 @@
                     <h4 class="my-0 font-weight-normal">Multijugador</h4>
                 </div>
                 <div class="card-body">
-                    <h1 class="contentCard" id="multiplayerGame">
-                        <spam class="fa fa-check text-success"></spam>
-                        <spam class="fa fa-times text-danger"></spam>
-                    </h1>
+                    <h1 class="contentCard" id="multiplayerGame"></h1>
                 </div>
             </div>
             <div class="card mb-4 box-shadow">
@@ -57,7 +54,7 @@
                 </div>
                 <div class="card-body">
                     <h1 class="card-title pricing-card-title" id="launchDateGame">
-                        <small class="text-muted">no hay fecha aún</small>
+                        <small class="text-muted" id="notDate">no hay fecha aún</small>
                     </h1>
                 </div>
             </div>
@@ -68,16 +65,13 @@
                     <h4 class="my-0 font-weight-normal">Categorías</h4>
                 </div>
                 <div class="card-body" id="titleCategoriesGame">
-                    <h3>categoria 1</h3>
                 </div>
             </div>
             <div class="card mb-4 box-shadow">
                 <div class="card-header">
                     <h4 class="my-0 font-weight-normal">Plataformas</h4>
                 </div>
-                <div class="card-body" id="titlePlatformsGame">
-                    <h3>plataforma 1</h3>
-                </div>
+                <div class="card-body" id="titlePlatformsGame"></div>
             </div>
         </div>
 
@@ -86,22 +80,11 @@
             <div>
                 <form>
                     <label>Escribe tu opinión:</label>
-                    <textarea class="form-control" rows="4" id="addComment"></textarea>
-                    <input type="submit" class="btn btn-success btnEnviar" value="Enviar">
+                    <textarea class="form-control" rows="4" id="textComment"></textarea>
+                    <input type="button" id="addComment" class="btn btn-success btnEnviar" value="Enviar">
                 </form>
             </div>
-            <div>
-                <div class="commentCard">
-                    <div class="card mb-4 box-shadow">
-                        <div class="card-header">
-                            <h3 class="">Usuario_Comentario</h3>
-                        </div>
-                        <div class="card-body" id="commentUser">
-                            <h5>Contenido del comentario</h5>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            <div id="commentsUsers"></div>
         </div>
 
         <footer class="pt-4 my-md-5 pt-md-5 border-top">

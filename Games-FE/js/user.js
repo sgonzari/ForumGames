@@ -2,7 +2,7 @@ var usuario = localStorage.getItem('usuario')
 var idJuego
 
 //Si no está loggeado le devuelve a la pantalla de loggueo/registro
-if (usuario == "") {
+if (!usuario) {
     window.location.replace("./login.html");
 }
 
@@ -73,7 +73,7 @@ $(document).ready(function () {
                     type: "button",
                     class: "btn btn-success btn-sm",
                     value: "Compartir",
-                    onclick: "shareGame()"
+                    onclick: "shareGame('" + item.title + "')"
                 });
                 //Botón de compartir
                 var deleteBtn = $('<input/>').attr({
@@ -180,11 +180,6 @@ $(document).ready(function () {
             });
         }
     });
-});
-
-//Función editar perfil
-$('#editProfile').click(function editProfile() {
-    window.location.replace("./editProfile.html")
 });
 
 //Función añadir juego
@@ -320,8 +315,8 @@ $('#editGame').click(function editGame() {
 });
 
 //Función compartir juego
-function shareGame() {
-    window.location.replace("#");
+function shareGame(titleGame) {
+    window.location.replace("./game.html?title=" + titleGame + "&username=" + usuario);
 }
 
 //Función borrar juego
@@ -350,7 +345,7 @@ function deleteGame(idGame) {
 //Función salir de la interfaz
 $('#logout').click(function logout() {
     window.location.replace("./login.html")
-    window.localStorage.setItem('usuario', "")
+    window.localStorage.removeItem('usuario')
 });
 
 //Función que devuelve fecha y hora

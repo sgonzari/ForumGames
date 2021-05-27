@@ -18,7 +18,7 @@ namespace Games.DAL.Repositories.Implementations
 
         public IEnumerable<ComentarioDTO> GetCommentFromId(int idGame)
         {
-            var comentarios = _context.Comments.ToList().Where(x => x.FkIdGame == idGame);
+            var comentarios = _context.Comments.ToList().Where(x => x.FkIdGame == idGame).OrderByDescending(x => x.Date);
             List<ComentarioDTO> comentariosDTO = new List<ComentarioDTO>();
 
             foreach(var i in comentarios)

@@ -1,6 +1,21 @@
 var usuario = localStorage.getItem('usuario')
+var idJuego
 
-//Tabla de información personal
+
+// Comprobacion de que los query params sean correctos
+$(document).ready(() => {
+    let searchParams = new URLSearchParams(window.location.search)
+    if (searchParams.has('title') && searchParams.has('username')) {
+        title = searchParams.get('title')
+        username = searchParams.get('username')
+        // alert(param1 + ", " + param2)
+    } else {
+        alert('Link  no valido')
+        window.location.replace("./user.html");
+    }
+})
+
+//Obtiene el nombre de usuario
 $(document).ready(function () {
     $.ajax({
         url: 'https://localhost:44355/usuario/getData?username=' + usuario,
@@ -8,95 +23,117 @@ $(document).ready(function () {
         type: 'get',
         contentType: 'application/json',
         success: function (data, status) {
-            $('#firstname').text(data.firstname + " " + data.surname)
             $('#usuario').text(data.username)
-            if (data.email !== null) {
-                $('#emailUser').text(data.email)
-            } else {
-                $('#emailUser').text("no tienes vinculado ningún correo electrónico").attr({ style: "color: red" })
-            }
-            if (data.phone !== null) {
-                $('#phoneUser').text(data.phone)
-            } else {
-                $('#phoneUser').text("no tienes vinculado ningún número de teléfono").attr({ style: "color: red" })
-            }
-            $('#registerUser').text(formatDate(data.registerDate))
-            $('#groupUser').text(data.group)
         }
     });
 });
 
-//Tabla de videojuegos
+//Información del juego
 $(document).ready(function () {
     $.ajax({
-        url: 'https://localhost:44355/juego/getdatausername?username=' + usuario,
+        url: 'https://localhost:44355/juego/getdata?title=' + title + '&username=' + username,
+        dataType: 'json',
+        type: 'get',
+        contentType: 'applicaciont/json',
+        success: function (data, status) {
+            $.each(data, function (i, item) {
+                $('#titleGame').text(item.title)
+                $('#descriptionGame').text(item.description)
+                $('#heightGame').text(item.height + "GB")
+                //console.log("Fecha:" + item.launchDate)
+                if (item.launchDate) {
+                    $('#launchDateGame').text(formatDate(item.launchDate))
+                    $('#notDate').text("")
+                }
+
+                if (item.multiplayer) {
+                    $('#multiplayerGame').append($('<spam>').attr({ class: "fa fa-check text-success" }))
+                } else {
+                    $('#multiplayerGame').append($('<spam>').attr({ class: "fa fa-times text-danger" }))
+                }
+
+                $.each(item.titleCategory, function (i, idCat) {
+                    //console.log("IdCategory:" + idCat)
+                    $('#titleCategoriesGame').append($('<h3>').text(idCat))
+                });
+
+                $.each(item.titlePlatform, function (i, idPlat) {
+                    //console.log("IdPlatform:" + idPlat)
+                    $('#titlePlatformsGame').append($('<h3>').text(idPlat))
+                });
+                idJuego = item.idGame
+
+                pintarComments()
+            });
+        },
+        error: function (data, status) {
+            //console.log(status)
+            alert("Error, por favor consulte con un administrador")
+            location.reload();
+        }
+    });
+});
+
+//Comentarios del juego
+function pintarComments() {
+    $.ajax({
+        url: 'https://localhost:44355/comentario/getCommentIdGame?idgame=' + idJuego,
         dataType: 'json',
         type: 'get',
         contentType: 'application/json',
         success: function (data, status) {
             $.each(data, function (i, item) {
-                //Muestra un tick / cross si es multijugador o no
-                if (item.multiplayer) {
-                    var $td_multiplayer = $('<td>').append(
-                        $('<spam class="fa fa-check text-primary"></spam>')
+                // console.log(item);
+                var $div = $('<div>').attr({ class: "commentCard" })
+                var $primaryDiv = $('<div>').attr({ class: "card mb-4 box-shadow" })
+                var $headerDiv = $('<div>').attr({ class: "card-header" })
+                var $contentDiv = $('<div>').attr({ class: "card-body" })
+                var $smallDate = $('<small>').attr({ class: "text-muted" })
+
+
+                var $comment = $div.append(
+                    $primaryDiv.append(
+                        $headerDiv.append(
+                            $('<h3>').text(item.username)
+                        ),
+                        $contentDiv.append(
+                            $('<h5>').text(item.comment),
+                            $('<spam>').append(
+                                $smallDate.text(formatDate(item.date))
+                            )
+                        )
                     )
-                } else {
-                    var $td_multiplayer = $('<td>').append(
-                        $('<spam class="fa fa-times text-light"></spam>')
-                    )
-                }
-
-                if (item.launchDate !== null) {
-                    var $td_launchDate = $('<td>').text(formatDate(item.launchDate))
-                } else {
-                    var $td_launchDate = $('<td>').text("")
-                }
-
-                //Botón de editar
-                var editBtn = $('<input/>').attr({
-                    type: "button",
-                    class: "btn btn-primary btn-sm",
-                    value: "Editar",
-                    id: "editButton",
-                    onclick: "addInfoGame('" + item.title + "')",
-                    'data-toggle': "modal",
-                    'data-target': "#editGameModal"
-                });
-                //Botón de compartir
-                var shareBtn = $('<input/>').attr({
-                    type: "button",
-                    class: "btn btn-success btn-sm",
-                    value: "Compartir",
-                    onclick: "shareGame()"
-                });
-                //Botón de compartir
-                var deleteBtn = $('<input/>').attr({
-                    type: "button",
-                    class: "btn btn-danger btn-sm",
-                    id: "deleteButton",
-                    value: "Eliminar",
-                    onclick: "deleteGame(" + item.idGame + ")"
-                });
-
-                //Relleno de las tablas
-                var $tr = $('<tr>').append(
-                    $('<td>').text(item.title),
-                    $('<td>').text(item.description),
-                    $td_launchDate,
-                    $('<td>').text(item.titleCategory),
-                    $('<td>').text(item.titlePlatform),
-                    $('<td>').text(item.height).attr({ style: "text-align: center" }),
-                    $td_multiplayer.attr({ style: "text-align: center" }),
-                    $('<td>').append(editBtn),
-                    $('<td>').append(shareBtn),
-                    $('<td>').append(deleteBtn)
-                ); //.appendTo('#records_table');
-                //console.log($tr.wrap('<p>').html());
-                $('#gamesTable').append($tr);
-            });
+                )
+                $('#commentsUsers').append($comment);
+            })
         }
     });
-});
+
+}
+
+//Envia el comentario
+$('#addComment').click(function addComment(){
+    $.ajax({
+        url: 'https://localhost:44355/comentario',
+        dataType: 'json',
+        type: 'post',
+        contentType: 'application/json',
+        data: JSON.stringify({
+            "idgame": idJuego,
+            "username": usuario,
+            "comment": $('#textComment').val()
+        }),
+        success: function (data, status) {
+            //console.log(status)
+            location.reload();
+        },
+        error: function (data, status) {
+            //console.log(status)
+            alert("Error, por favor consulte con un administrador")
+            location.reload();
+        }
+    });
+})
 
 //Función que devuelve fecha y hora
 function formatDate(date) {
@@ -105,24 +142,10 @@ function formatDate(date) {
         day = '' + d.getDate(),
         year = d.getFullYear();
 
-    if (month.length < 2) 
+    if (month.length < 2)
         month = '0' + month;
-    if (day.length < 2) 
+    if (day.length < 2)
         day = '0' + day;
 
     return [year, month, day].join('-');
-}
-
-var textarea = document.querySelector('textarea');
-
-textarea.addEventListener('keydown', autosize);
-             
-function autosize(){
-  var el = this;
-  setTimeout(function(){
-    el.style.cssText = 'height:auto; padding:0';
-    // for box-sizing other than "content-box" use:
-    // el.style.cssText = '-moz-box-sizing:content-box';
-    el.style.cssText = 'height:' + el.scrollHeight + 'px';
-  },0);
 }

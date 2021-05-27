@@ -11,12 +11,13 @@
 }
 
 .commentCard {
-    height: 250px;
+    clear: right;
+    /* height: 250px; */
     padding: 2vh;
-    margin-top: 5vH;
+    /* margin-top: 5vH; */
 }
 
 .btnEnviar {
     float: right;
-    margin: 1vH 0vH;
+    margin: 2vH 0vH;
 }
