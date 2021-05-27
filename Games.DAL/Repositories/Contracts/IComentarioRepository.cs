@@ -7,5 +7,6 @@ namespace Games.DAL.Repositories.Contracts
     public interface IComentarioRepository
     {
         IEnumerable<ComentarioDTO> GetCommentFromId(int idGame);
+        void Add(ComentarioDTO comentarioDTO);
     }
 }

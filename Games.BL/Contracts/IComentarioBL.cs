@@ -7,5 +7,6 @@ namespace Games.BL.Contracts
     public interface IComentarioBL
     {
         IEnumerable<ComentarioDTO> GetCommentFromId(int idGame);
+        void Add(ComentarioDTO comentarioDTO);
     }
 }

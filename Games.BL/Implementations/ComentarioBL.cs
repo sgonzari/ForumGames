@@ -20,5 +20,10 @@ namespace Games.BL.Implementations
             var comentarios = _comentarioRepository.GetCommentFromId(idGame);
             return comentarios;
         }
+
+        public void Add(ComentarioDTO comentarioDTO)
+        {
+            _comentarioRepository.Add(comentarioDTO);
+        }
     }
 }

@@ -23,5 +23,12 @@ namespace Games.Controllers
         {
             return Ok(_comentarioBL.GetCommentFromId(idGame));
         }
+
+        [HttpPost]
+        public ActionResult<bool> Add(ComentarioDTO comentarioDTO)
+        {
+            _comentarioBL.Add(comentarioDTO);
+            return Ok(true);
+        }
     }
 }

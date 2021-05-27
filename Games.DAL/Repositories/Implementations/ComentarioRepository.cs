@@ -35,5 +35,18 @@ namespace Games.DAL.Repositories.Implementations
             }
             return comentariosDTO;
         }
+
+        public void Add(ComentarioDTO comentarioDTO)
+        {
+            var comentarios = new Comments
+            {
+                FkIdGame = comentarioDTO.IdGame,
+                FkUsername = comentarioDTO.Username,
+                Comment = comentarioDTO.Comment,
+                Date = comentarioDTO.Date
+            };
+            _context.Comments.Add(comentarios);
+            _context.SaveChanges();
+        }
     }
 }
