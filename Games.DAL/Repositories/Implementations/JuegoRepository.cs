@@ -168,7 +168,7 @@ namespace Games.DAL.Repositories.Implementations
 
         public IEnumerable<JuegoDTO> getDataFromUsername(string username)
         {
-            var juegos = _context.Games.ToList().Where(Games => username == username);
+            var juegos = _context.Games.ToList().Where(x => x.FkUsername == username);
             List<int> juegoscategoriasDTO = new List<int>();
             List<int> juegosplataformasDTO = new List<int>();
 
