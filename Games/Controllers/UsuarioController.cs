@@ -17,11 +17,17 @@ namespace Games.Controllers
             _usuarioBL = usuarioBL;
         }
 
+        /*
+         * Devuelve una lista con todos los usuarios.
+         */
         public ActionResult<IEnumerable<UsuarioDTO>> Get()
         {
             return Ok(_usuarioBL.Get());
         }
 
+        /*
+         * Devuelve la información de un usuario.
+         */
         [HttpGet]
         [Route("getData")]
         public ActionResult<UsuarioDTO> getDataFromUsername(string username)
@@ -29,6 +35,9 @@ namespace Games.Controllers
             return Ok(_usuarioBL.GetDataFromUsername(username));
         }
 
+        /*
+         * Devuelve un status 200 si se ha añadido un usuario correctamente.
+         */
         [HttpPost]
         public ActionResult<bool> Add(UsuarioDTO usuarioDTO)
         {
@@ -36,6 +45,9 @@ namespace Games.Controllers
             return Ok(true);
         }
 
+        /*
+         * Devuelve un status 200 si se ha eliminado un usuario correctamente.
+         */
         [HttpDelete]
         public ActionResult<bool> Remove(UsuarioDTO usuarioDTO)
         {

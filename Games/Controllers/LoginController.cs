@@ -15,6 +15,9 @@ namespace Games.Controllers
             _usuarioBL = usuarioBL;
         }
 
+        /*
+         * Devuelve true or false si el usuario existe.
+         */
         public bool Login(UsuarioDTO usuarioDTO)
         {
             return _usuarioBL.Login(usuarioDTO);

@@ -17,6 +17,9 @@ namespace Games.Controllers
             _plataformaBL = plataformaBL;
         }
 
+        /*
+         * Devuelve una lista con todas las plataformas.
+         */
         public ActionResult<IEnumerable<PlataformaDTO>> Get()
         {
             return Ok(_plataformaBL.Get());

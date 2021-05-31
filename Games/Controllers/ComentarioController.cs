@@ -17,13 +17,19 @@ namespace Games.Controllers
             _comentarioBL = comentarioBL;
         }
 
+        /*
+         * Devuelve una lista con todos los comentarios del juego pasado.
+         */
         [HttpGet]
         [Route("getCommentIdGame")]
-        public ActionResult<IEnumerable<JuegoDTO>> GetCommentFromId(int idGame)
+        public ActionResult<IEnumerable<ComentarioDTO>> GetCommentFromId(int idGame)
         {
             return Ok(_comentarioBL.GetCommentFromId(idGame));
         }
 
+        /*
+         * Devuelve un status 200 si se ha añadido un comentario correctamente.
+         */
         [HttpPost]
         public ActionResult<bool> Add(ComentarioDTO comentarioDTO)
         {

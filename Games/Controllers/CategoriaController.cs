@@ -17,6 +17,9 @@ namespace Games.Controllers
             _categoriaBL = categoriaBL;
         }
 
+        /*
+         * Devuelve una lista con todas las categorías.
+         */
         public ActionResult<IEnumerable<CategoriaDTO>> Get()
         {
             return Ok(_categoriaBL.Get());
