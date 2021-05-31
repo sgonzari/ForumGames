@@ -16,17 +16,22 @@ namespace Games.DAL.Repositories.Implementations
             _context = context;
         }
 
+        /*
+         * Devuelve true si el usuario y la contraseña introducida es correcta.
+         */
         public bool Login(UsuarioDTO usuarioDTO)
         {
             return _context.Users.Any(u => u.Username == usuarioDTO.Username &&
             u.Passwd == usuarioDTO.Passwd);
         }
 
+        /*
+         * Devuelve una lista con todos los usuarios.
+         */
         public IEnumerable<UsuarioDTO> Get()
         {
             var usuarios = _context.Users.ToList();
 
-            //Mapeo de Usuario a UsuarioDTO
             List<UsuarioDTO> usuariosDTO = new List<UsuarioDTO>();
             foreach (var i in usuarios)
             {
@@ -46,6 +51,9 @@ namespace Games.DAL.Repositories.Implementations
             return usuariosDTO;
         }
 
+        /*
+         * Devuelve la información de un usuario mediante su nombre.
+         */
         public UsuarioDTO GetDataFromUsername(string username)
         {
             var usuario = new UsuarioDTO();
@@ -66,6 +74,9 @@ namespace Games.DAL.Repositories.Implementations
             return usuario;
         }
 
+        /*
+         * Guarda la información de un usuario.
+         */
         public void Add(UsuarioDTO usuarioDTO)
         {
             var usuario = new Users
@@ -81,6 +92,9 @@ namespace Games.DAL.Repositories.Implementations
             _context.SaveChanges();
         }
 
+        /*
+         * Elimina un usuario.
+         */
         public void Remove(UsuarioDTO usuarioDTO)
         {
             var usuarios = new Entities.Users

@@ -16,6 +16,9 @@ namespace Games.DAL.Repositories.Implementations
             _context = context;
         }
 
+        /*
+         * Devuelve una lista con todas las plataformas.
+         */
         public IEnumerable<PlataformaDTO> Get()
         {
             var plataformas = _context.Platforms.ToList();

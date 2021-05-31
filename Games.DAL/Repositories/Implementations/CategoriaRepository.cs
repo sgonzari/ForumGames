@@ -16,6 +16,9 @@ namespace Games.DAL.Repositories.Implementations
             _context = context;
         }
 
+        /*
+         * Devuelve una lista con todas las categorías.
+         */
         public IEnumerable<CategoriaDTO> Get()
         {
             var categorias = _context.Category.ToList();

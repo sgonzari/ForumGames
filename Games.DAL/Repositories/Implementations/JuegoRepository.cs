@@ -16,6 +16,9 @@ namespace Games.DAL.Repositories.Implementations
             _context = context;
         }
 
+        /*
+         * Devuelve una lista con todos los juegos, incluyendo categoría y plataformas.
+         */
         public IEnumerable<JuegoDTO> Get()
         {
             var juegos = _context.Games.ToList();
@@ -62,6 +65,9 @@ namespace Games.DAL.Repositories.Implementations
             return juegosDTO;
         }
 
+        /*
+         * Devuelve una lista con la información del titulo del juego pasado y usuario.
+         */
         public IEnumerable<JuegoDTO> GetData(string title, string username)
         {
             List<JuegoDTO> juegosDTO = new List<JuegoDTO>();
@@ -114,6 +120,9 @@ namespace Games.DAL.Repositories.Implementations
             return juegosDTO;
         }
 
+        /*
+         * Devuelve una lista con la información de un juego.
+         */
         public IEnumerable<JuegoDTO> GetDataFromTitle(string title)
         {
             List<JuegoDTO> juegosDTO = new List<JuegoDTO>();
@@ -166,6 +175,9 @@ namespace Games.DAL.Repositories.Implementations
             return juegosDTO;
         }
 
+        /*
+         * Devuelve una lista con todos los juegos creado por un usuario.
+         */
         public IEnumerable<JuegoDTO> getDataFromUsername(string username)
         {
             var juegos = _context.Games.ToList().Where(Games => username == username);
@@ -212,6 +224,9 @@ namespace Games.DAL.Repositories.Implementations
             return juegosDTO;
         }
 
+        /*
+         * Guarda la información de un juego si no lo ha creado antes.
+         */
         public void Add(JuegoDTO juegoDTO)
         {
             if (!existGame(juegoDTO))
@@ -263,6 +278,9 @@ namespace Games.DAL.Repositories.Implementations
             
         }
 
+        /*
+         * Actualiza la información de un juego.
+         */
         public void UpdateGame(JuegoDTO juegoDTO)
         {
             var juegosCategorias = new GamesCategory();
@@ -322,6 +340,9 @@ namespace Games.DAL.Repositories.Implementations
             }
         }
 
+        /*
+         * Elimina un juego.
+         */
         public void Remove(JuegoDTO juegoDTO)
         {
             var cantCategory = (from o in _context.GamesCategory
@@ -347,6 +368,9 @@ namespace Games.DAL.Repositories.Implementations
             _context.SaveChanges();
         }
 
+        /*
+         * Método que devuelve true or false si existe un juego.
+         */
         public bool existGame(JuegoDTO juegoDTO)
         {
             var titleLinq = from o in _context.Games
@@ -361,6 +385,9 @@ namespace Games.DAL.Repositories.Implementations
             return false;
         }
 
+        /*
+         * Método que devuelve el id del juego.
+         */
         public int getIdGame(JuegoDTO juegoDTO)
         {
             var idLinq = from o in _context.Games
@@ -371,6 +398,10 @@ namespace Games.DAL.Repositories.Implementations
             return id;
         }
 
+        /*
+         * Método que devuelve una lista con los nombres de las categorías
+         * pasandole una lista con las ids de las categorías.
+         */
         public List<string> getTitleCategories(List<int>categoriaJuegos)
         {
             List<string> titleCategories = new List<string>();
@@ -388,6 +419,10 @@ namespace Games.DAL.Repositories.Implementations
             return titleCategories;
         }
 
+        /*
+         * Método que devuelve una lista con los nombres de las plataformas
+         * pasandole una lista con las ids de las plataformas.
+         */
         public List<string> getTitlePlataforms(List<int> plataformaJuegos)
         {
             List<string> titlePlataforms = new List<string>();

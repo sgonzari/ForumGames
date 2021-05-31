@@ -16,6 +16,9 @@ namespace Games.DAL.Repositories.Implementations
             _context = context;
         }
 
+        /*
+         * Devuelve una lista con los comentarios de un juego.
+         */
         public IEnumerable<ComentarioDTO> GetCommentFromId(int idGame)
         {
             var comentarios = _context.Comments.ToList().Where(x => x.FkIdGame == idGame).OrderByDescending(x => x.Date);
@@ -36,6 +39,9 @@ namespace Games.DAL.Repositories.Implementations
             return comentariosDTO;
         }
 
+        /*
+         * Guarda el comentario.
+         */
         public void Add(ComentarioDTO comentarioDTO)
         {
             var comentarios = new Comments
