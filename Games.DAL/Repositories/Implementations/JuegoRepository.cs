@@ -214,11 +214,11 @@ namespace Games.DAL.Repositories.Implementations
 
         public void Add(JuegoDTO juegoDTO)
         {
-            var juegosCategorias = new GamesCategory();
-            var juegosPlataformas = new GamesPlatforms();
-
             if (!existGame(juegoDTO))
             {
+                var juegosCategorias = new GamesCategory();
+                var juegosPlataformas = new GamesPlatforms();
+
                 var juegos = new Entities.Games
                 {
                     Title = juegoDTO.Title,
@@ -256,11 +256,11 @@ namespace Games.DAL.Repositories.Implementations
                         _context.SaveChanges();
                     }
                 }
-            }
-            else
+            } else
             {
-                throw new Exception("El juego existe");
+                throw new Exception();
             }
+            
         }
 
         public void UpdateGame(JuegoDTO juegoDTO)

@@ -46,8 +46,15 @@ namespace Games.Controllers
         [HttpPost]
         public ActionResult<bool> Add(JuegoDTO juegoDTO)
         {
-            _juegoBL.Add(juegoDTO);
-            return Ok(true);
+            try
+            {
+                _juegoBL.Add(juegoDTO);
+                return Ok(true);
+            } catch (Exception e)
+            {
+                return NotFound();
+            }
+            
         }
 
         [HttpPost]

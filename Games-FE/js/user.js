@@ -184,6 +184,12 @@ $(document).ready(function () {
 
 //Función añadir juego
 $('#addGame').click(function addGame() {
+    var $title = $('#title').val()
+    var $description = $('#description').val()
+    var $height = parseFloat($('#height').val())
+    var $launchDate = $('#launchDate').val()
+    var $multiplayer = null
+
     var categories = [];
     $.each($('input[name="categories"]:checked'), function () {
         categories.push($(this).val());
@@ -199,31 +205,33 @@ $('#addGame').click(function addGame() {
         var $multiplayer = false
     }
 
-    $.ajax({
-        url: 'https://localhost:44355/juego',
-        dataType: 'json',
-        type: 'post',
-        contentType: 'application/json',
-        data: JSON.stringify({
-            "title": $('#title').val(),
-            "fkusername": usuario,
-            "description": $('#description').val(),
-            "height": parseFloat($('#height').val()),
-            "launchDate": $('#launchDate').val(),
-            "multiplayer": $multiplayer,
-            "idCategory": categories.map(i => Number(i)),
-            "idplatform": platforms.map(i => Number(i))
-        }),
-        success: function (data, status) {
-            //console.log(status)
-            location.reload();
-        },
-        error: function (data, status) {
-            //console.log(status)
-            alert("Error, por favor consulte con un administrador")
-            location.reload();
-        }
-    });
+    if ($title && $description && $height && categories.length !== 0 && platforms.length !== 0 && $multiplayer !== null) {
+        $.ajax({
+            url: 'https://localhost:44355/juego',
+            dataType: 'json',
+            type: 'post',
+            contentType: 'application/json',
+            data: JSON.stringify({
+                "title": $title,
+                "fkusername": usuario,
+                "description": $description,
+                "height": $height,
+                "launchDate": $launchDate,
+                "multiplayer": $multiplayer,
+                "idCategory": categories.map(i => Number(i)),
+                "idplatform": platforms.map(i => Number(i))
+            }),
+            success: function (data, status) {
+                //console.log(status)
+                location.reload();
+            },
+            error: function (data, status) {
+                alert("Juego ya creado")
+            }
+        });
+    } else {
+        alert("Comprueba tener todos los campos obligatorios rellenos")
+    }
 });
 
 //Función añadir contenido al modal
