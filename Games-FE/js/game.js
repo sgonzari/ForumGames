@@ -1,46 +1,47 @@
+// Variables
 var usuario = localStorage.getItem('usuario')
 var idJuego
 
 
-// Comprobacion de que los query params sean correctos
+// Comprobación de que los query params sean correctos
 $(document).ready(() => {
     let searchParams = new URLSearchParams(window.location.search)
     if (searchParams.has('title') && searchParams.has('username')) {
         title = searchParams.get('title')
         username = searchParams.get('username')
-        // alert(param1 + ", " + param2)
+            // alert(param1 + ", " + param2)
     } else {
         alert('Link  no valido')
         window.location.replace("./user.html");
     }
 })
 
-//Obtiene el nombre de usuario
-$(document).ready(function () {
+//Función que obtiene el nombre de usuario
+$(document).ready(function() {
     $.ajax({
         url: 'https://localhost:44355/usuario/getData?username=' + usuario,
         dataType: 'json',
         type: 'get',
         contentType: 'application/json',
-        success: function (data, status) {
+        success: function(data, status) {
             $('#usuario').text(data.username)
         }
     });
 });
 
 //Información del juego
-$(document).ready(function () {
+$(document).ready(function() {
     $.ajax({
         url: 'https://localhost:44355/juego/getdata?title=' + title + '&username=' + username,
         dataType: 'json',
         type: 'get',
         contentType: 'applicaciont/json',
-        success: function (data, status) {
-            $.each(data, function (i, item) {
+        success: function(data, status) {
+            $.each(data, function(i, item) {
                 $('#titleGame').text(item.title)
                 $('#descriptionGame').text(item.description)
                 $('#heightGame').text(item.height + "GB")
-                //console.log("Fecha:" + item.launchDate)
+                    //console.log("Fecha:" + item.launchDate)
                 if (item.launchDate) {
                     $('#launchDateGame').text(formatDate(item.launchDate))
                     $('#notDate').text("")
@@ -52,12 +53,12 @@ $(document).ready(function () {
                     $('#multiplayerGame').append($('<spam>').attr({ class: "fa fa-times text-danger" }))
                 }
 
-                $.each(item.titleCategory, function (i, idCat) {
+                $.each(item.titleCategory, function(i, idCat) {
                     //console.log("IdCategory:" + idCat)
                     $('#titleCategoriesGame').append($('<h3>').text(idCat))
                 });
 
-                $.each(item.titlePlatform, function (i, idPlat) {
+                $.each(item.titlePlatform, function(i, idPlat) {
                     //console.log("IdPlatform:" + idPlat)
                     $('#titlePlatformsGame').append($('<h3>').text(idPlat))
                 });
@@ -66,7 +67,7 @@ $(document).ready(function () {
                 pintarComments()
             });
         },
-        error: function (data, status) {
+        error: function(data, status) {
             //console.log(status)
             alert("Error, por favor consulte con un administrador")
             location.reload();
@@ -74,15 +75,15 @@ $(document).ready(function () {
     });
 });
 
-//Comentarios del juego
+//Función comentarios del juego
 function pintarComments() {
     $.ajax({
         url: 'https://localhost:44355/comentario/getCommentIdGame?idgame=' + idJuego,
         dataType: 'json',
         type: 'get',
         contentType: 'application/json',
-        success: function (data, status) {
-            $.each(data, function (i, item) {
+        success: function(data, status) {
+            $.each(data, function(i, item) {
                 // console.log(item);
                 var $div = $('<div>').attr({ class: "commentCard" })
                 var $primaryDiv = $('<div>').attr({ class: "card mb-4 box-shadow" })
@@ -111,8 +112,8 @@ function pintarComments() {
 
 }
 
-//Envia el comentario
-$('#addComment').click(function addComment(){
+//Función añadir comentario
+$('#addComment').click(function addComment() {
     $.ajax({
         url: 'https://localhost:44355/comentario',
         dataType: 'json',
@@ -123,11 +124,11 @@ $('#addComment').click(function addComment(){
             "username": usuario,
             "comment": $('#textComment').val()
         }),
-        success: function (data, status) {
+        success: function(data, status) {
             //console.log(status)
             location.reload();
         },
-        error: function (data, status) {
+        error: function(data, status) {
             //console.log(status)
             alert("Error, por favor consulte con un administrador")
             location.reload();

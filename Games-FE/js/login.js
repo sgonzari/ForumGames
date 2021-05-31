@@ -1,3 +1,4 @@
+// Función para realizar login mediante 'intro' y dándole al botón
 function handleSubmit(event) {
     event.preventDefault()
     var username = $("#login").val().trim();
@@ -10,7 +11,7 @@ function handleSubmit(event) {
             type: 'post',
             contentType: 'application/json',
             data: JSON.stringify({ username: username, passwd: passwd }),
-            success: function (data, status) {
+            success: function(data, status) {
                 //alert("Data: " + data + "\nStatus: " + status);
                 if (data) {
                     window.location.replace("./user.html");
@@ -23,6 +24,7 @@ function handleSubmit(event) {
     }
 }
 
+// Función para registrar un usuario.
 $('#addUser').click(function addUser() {
     if (($('#username').val() !== "") && ($('#firstname').val() !== "") && ($('#surname').val() !== "") && ($('#passwd').val() !== "")) {
         var $email = null
@@ -47,11 +49,11 @@ $('#addUser').click(function addUser() {
                 "phone": parseInt($phone),
                 "passwd": $('#passwd').val()
             }),
-            success: function (data, status) {
+            success: function(data, status) {
                 alert("Usuario creado correctamente")
                 location.reload();
             },
-            error: function (data, status) {
+            error: function(data, status) {
                 alert("No se ha podido crear el usuario")
             }
         });

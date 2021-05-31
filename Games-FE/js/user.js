@@ -1,3 +1,4 @@
+// Variables
 var usuario = localStorage.getItem('usuario')
 var idJuego
 
@@ -7,13 +8,13 @@ if (!usuario) {
 }
 
 //Tabla de información personal
-$(document).ready(function () {
+$(document).ready(function() {
     $.ajax({
         url: 'https://localhost:44355/usuario/getData?username=' + usuario,
         dataType: 'json',
         type: 'get',
         contentType: 'application/json',
-        success: function (data, status) {
+        success: function(data, status) {
             $('#firstname').text(data.firstname + " " + data.surname)
             $('#usuario').text("@" + data.username)
             if (data.email !== null) {
@@ -33,14 +34,14 @@ $(document).ready(function () {
 });
 
 //Tabla de videojuegos
-$(document).ready(function () {
+$(document).ready(function() {
     $.ajax({
         url: 'https://localhost:44355/juego/getdatausername?username=' + usuario,
         dataType: 'json',
         type: 'get',
         contentType: 'application/json',
-        success: function (data, status) {
-            $.each(data, function (i, item) {
+        success: function(data, status) {
+            $.each(data, function(i, item) {
                 //Muestra un tick / cross si es multijugador o no
                 if (item.multiplayer) {
                     var $td_multiplayer = $('<td>').append(
@@ -105,14 +106,14 @@ $(document).ready(function () {
 });
 
 //Categorias - Agregar Juego
-$(document).ready(function () {
+$(document).ready(function() {
     $.ajax({
         url: 'https://localhost:44355/categoria',
         dataType: 'json',
         type: 'get',
         contentType: 'application/json',
-        success: function (data, status) {
-            $.each(data, function (i, item) {
+        success: function(data, status) {
+            $.each(data, function(i, item) {
                 var $label = $('<label>').attr({ id: "category" })
                 var $categories = $('<div>').append(
                     $('<input>').attr({ type: "checkbox", id: item.name, name: "categories", value: item.idCategory, style: "margin-right: 5px" }),
@@ -124,14 +125,14 @@ $(document).ready(function () {
     });
 });
 //Categorias - Editar Juego
-$(document).ready(function () {
+$(document).ready(function() {
     $.ajax({
         url: 'https://localhost:44355/categoria',
         dataType: 'json',
         type: 'get',
         contentType: 'application/json',
-        success: function (data, status) {
-            $.each(data, function (i, item) {
+        success: function(data, status) {
+            $.each(data, function(i, item) {
                 var $label = $('<label>').attr({ id: "category" })
                 var $categories = $('<div>').append(
                     $('<input>').attr({ type: "checkbox", id: item.name, name: "editCategories", value: item.idCategory, style: "margin-right: 5px" }),
@@ -144,14 +145,14 @@ $(document).ready(function () {
 });
 
 //Plataformas - Agregar Juego
-$(document).ready(function () {
+$(document).ready(function() {
     $.ajax({
         url: 'https://localhost:44355/plataforma',
         dataType: 'json',
         type: 'get',
         contentType: 'application/json',
-        success: function (data, status) {
-            $.each(data, function (i, item) {
+        success: function(data, status) {
+            $.each(data, function(i, item) {
                 var $label = $('<label>').attr({ id: "platform" })
                 var $platforms = $('<div>').append(
                     $('<input>').attr({ type: "checkbox", id: item.name, name: "platforms", value: item.idPlatform, style: "margin-right: 5px" }),
@@ -163,14 +164,14 @@ $(document).ready(function () {
     });
 });
 //Plataformas - Editar Juego
-$(document).ready(function () {
+$(document).ready(function() {
     $.ajax({
         url: 'https://localhost:44355/plataforma',
         dataType: 'json',
         type: 'get',
         contentType: 'application/json',
-        success: function (data, status) {
-            $.each(data, function (i, item) {
+        success: function(data, status) {
+            $.each(data, function(i, item) {
                 var $label = $('<label>').attr({ id: "platform" })
                 var $platforms = $('<div>').append(
                     $('<input>').attr({ type: "checkbox", id: item.name, name: "editPlatforms", value: item.idPlatform, style: "margin-right: 5px" }),
@@ -191,11 +192,11 @@ $('#addGame').click(function addGame() {
     var $multiplayer = null
 
     var categories = [];
-    $.each($('input[name="categories"]:checked'), function () {
+    $.each($('input[name="categories"]:checked'), function() {
         categories.push($(this).val());
     });
     var platforms = [];
-    $.each($('input[name="platforms"]:checked'), function () {
+    $.each($('input[name="platforms"]:checked'), function() {
         platforms.push($(this).val());
     });
 
@@ -221,11 +222,11 @@ $('#addGame').click(function addGame() {
                 "idCategory": categories.map(i => Number(i)),
                 "idplatform": platforms.map(i => Number(i))
             }),
-            success: function (data, status) {
+            success: function(data, status) {
                 //console.log(status)
                 location.reload();
             },
-            error: function (data, status) {
+            error: function(data, status) {
                 alert("Juego ya creado")
             }
         });
@@ -241,35 +242,35 @@ function addInfoGame(title) {
         dataType: 'json',
         type: 'get',
         contentType: 'applicaciont/json',
-        success: function (data, status) {
-            $.each(data, function (i, item) {
-                $('#editTitle').attr({value: item.title})
-                $('#editDescription').attr({value: item.description})
-                $('#editHeight').attr({value: item.height})
+        success: function(data, status) {
+            $.each(data, function(i, item) {
+                $('#editTitle').attr({ value: item.title })
+                $('#editDescription').attr({ value: item.description })
+                $('#editHeight').attr({ value: item.height })
                 console.log("Fecha:" + item.launchDate)
                 if (item.launchDate !== null) {
-                    $('#editLaunchDate').attr({value: formatDate(item.launchDate)})
+                    $('#editLaunchDate').attr({ value: formatDate(item.launchDate) })
                 }
 
-                if (item.multiplayer){
+                if (item.multiplayer) {
                     $('#editMultiplayerYes').attr('checked', true)
                 } else {
                     $('#editMultiplayerNo').attr('checked', true)
                 }
 
-                $.each(item.titleCategory, function(i, idCat){
+                $.each(item.titleCategory, function(i, idCat) {
                     console.log("IdCategory:" + idCat)
                     $('input[id="' + idCat + '"]').attr('checked', true)
                 });
 
-                $.each(item.titlePlatform, function(i, idPlat){
+                $.each(item.titlePlatform, function(i, idPlat) {
                     console.log("IdPlatform:" + idPlat)
                     $('input[id="' + idPlat + '"]').attr('checked', true)
                 });
                 idJuego = item.idGame
             });
         },
-        error: function (data, status) {
+        error: function(data, status) {
             //console.log(status)
             alert("Error, por favor consulte con un administrador")
             location.reload();
@@ -280,11 +281,11 @@ function addInfoGame(title) {
 //Función editar juego
 $('#editGame').click(function editGame() {
     var editCategories = [];
-    $.each($('input[name="editCategories"]:checked'), function () {
+    $.each($('input[name="editCategories"]:checked'), function() {
         editCategories.push($(this).val());
     });
     var editPlatforms = [];
-    $.each($('input[name="editPlatforms"]:checked'), function () {
+    $.each($('input[name="editPlatforms"]:checked'), function() {
         editPlatforms.push($(this).val());
     });
 
@@ -310,11 +311,11 @@ $('#editGame').click(function editGame() {
             "idCategory": editCategories.map(i => Number(i)),
             "idplatform": editPlatforms.map(i => Number(i))
         }),
-        success: function (data, status) {
+        success: function(data, status) {
             console.log(status)
             location.reload();
         },
-        error: function (data, status) {
+        error: function(data, status) {
             //console.log(data)
             alert("Error, por favor consulte con un administrador")
             location.reload();
@@ -337,12 +338,12 @@ function deleteGame(idGame) {
         data: JSON.stringify({
             "idGame": idGame
         }),
-        success: function (data, status) {
+        success: function(data, status) {
             console.log(status)
             alert("Juego eliminado correctamente")
             location.reload();
         },
-        error: function (data, status) {
+        error: function(data, status) {
             //console.log(status)
             alert("Error, por favor consulte con un administrador")
             location.reload();
@@ -363,9 +364,9 @@ function formatDate(date) {
         day = '' + d.getDate(),
         year = d.getFullYear();
 
-    if (month.length < 2) 
+    if (month.length < 2)
         month = '0' + month;
-    if (day.length < 2) 
+    if (day.length < 2)
         day = '0' + day;
 
     return [year, month, day].join('-');

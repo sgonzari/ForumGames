@@ -1,8 +1,8 @@
 .contentCard {
-    height: 90%; 
-    width:100%; 
-    display:flex; 
-    align-items: center; 
+    height: 90%;
+    width: 100%;
+    display: flex;
+    align-items: center;
     justify-content: center;
 }
 
@@ -12,9 +12,7 @@
 
 .commentCard {
     clear: right;
-    /* height: 250px; */
     padding: 2vh;
-    /* margin-top: 5vH; */
 }
 
 .btnEnviar {
