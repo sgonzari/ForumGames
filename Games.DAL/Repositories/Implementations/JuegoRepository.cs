@@ -335,28 +335,6 @@ namespace Games.DAL.Repositories.Implementations
          */
         public void Remove(JuegoDTO juegoDTO)
         {
-            var cantCategory = (from o in _context.GamesCategory
-                                where o.FkIdGame == juegoDTO.IdGame
-                                select o).ToList();
-            var cantPlatform = (from o in _context.GamesPlatforms
-                                where o.FkIdGame == juegoDTO.IdGame
-                                select o).ToList();
-            var cantComment = (from o in _context.Comments
-                                where o.FkIdGame == juegoDTO.IdGame
-                                select o).ToList();
-            foreach (var categories in cantCategory)
-            {
-                _context.GamesCategory.Remove(categories);
-            }
-            foreach (var platforms in cantPlatform)
-            {
-                _context.GamesPlatforms.Remove(platforms);
-            }
-            foreach (var comments in cantComment)
-            {
-                _context.Comments.Remove(comments);
-            }
-
             var juegos = new Entities.Games
             {
                 IdGame = juegoDTO.IdGame

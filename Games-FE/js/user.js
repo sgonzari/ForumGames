@@ -280,6 +280,12 @@ function addInfoGame(title) {
 
 //Función editar juego
 $('#editGame').click(function editGame() {
+    var $editTitle = $('#editTitle').val()
+    var $editDescription = $('#editDescription').val()
+    var $editHeight = parseFloat($('#editHeight').val())
+    var $editLaunchDate = $('#editLaunchDate').val()
+    var $editMultiplayer = null
+
     var editCategories = [];
     $.each($('input[name="editCategories"]:checked'), function() {
         editCategories.push($(this).val());
@@ -290,37 +296,40 @@ $('#editGame').click(function editGame() {
     });
 
     if ($('#editMultiplayerYes').is(':checked')) {
-        var $multiplayer = true
+        var $editMultiplayer = true
     } else if ($('#editMultiplayerNo').is(':checked')) {
-        var $multiplayer = false
+        var $editMultiplayer = false
     }
-
-    $.ajax({
-        url: 'https://localhost:44355/juego/update',
-        dataType: 'json',
-        type: 'post',
-        contentType: 'application/json',
-        data: JSON.stringify({
-            "idGame": parseInt(idJuego),
-            "title": $('#editTitle').val(),
-            "fkusername": usuario,
-            "description": $('#editDescription').val(),
-            "height": parseFloat($('#editHeight').val()),
-            "launchDate": $('#editLaunchDate').val(),
-            "multiplayer": $multiplayer,
-            "idCategory": editCategories.map(i => Number(i)),
-            "idplatform": editPlatforms.map(i => Number(i))
-        }),
-        success: function(data, status) {
-            console.log(status)
-            location.reload();
-        },
-        error: function(data, status) {
-            //console.log(data)
-            alert("Error, por favor consulte con un administrador")
-            location.reload();
-        }
-    });
+    if ($editTitle && $editDescription && $editHeight && editCategories.length !== 0 && editPlatforms.length !== 0 && $editMultiplayer !== null) {
+        $.ajax({
+            url: 'https://localhost:44355/juego/update',
+            dataType: 'json',
+            type: 'post',
+            contentType: 'application/json',
+            data: JSON.stringify({
+                "idGame": parseInt(idJuego),
+                "title": $editTitle,
+                "fkusername": usuario,
+                "description": $editDescription,
+                "height": $editHeight,
+                "launchDate": $editLaunchDate,
+                "multiplayer": $editMultiplayer,
+                "idCategory": editCategories.map(i => Number(i)),
+                "idplatform": editPlatforms.map(i => Number(i))
+            }),
+            success: function(data, status) {
+                console.log(status)
+                location.reload();
+            },
+            error: function(data, status) {
+                //console.log(data)
+                alert("Error, por favor consulte con un administrador")
+                location.reload();
+            }
+        });
+    } else {
+        alert("Comprueba tener todos los campos obligatorios rellenos")
+    }
 });
 
 //Función compartir juego

@@ -85,7 +85,8 @@ namespace Games.DAL.Repositories.Implementations
                 FirstName = usuarioDTO.Firstname,
                 Surname = usuarioDTO.Surname,
                 Email = usuarioDTO.Email,
-                Phone = usuarioDTO.Phone
+                Phone = usuarioDTO.Phone,
+                RegisterDate = DateTime.Today
         };
             _context.Users.Add(usuario);
             _context.SaveChanges();

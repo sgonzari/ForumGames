@@ -26,7 +26,11 @@ function handleSubmit(event) {
 
 // Función para registrar un usuario.
 $('#addUser').click(function addUser() {
-    if (($('#username').val() !== "") && ($('#firstname').val() !== "") && ($('#surname').val() !== "") && ($('#passwd').val() !== "")) {
+    var username = $('#username').val()
+    var firstname = $('#firstname').val()
+    var surname = $('#surname').val()
+    var passwd = $('#passwd').val()
+    if (username && firstname && surname && passwd) {
         var $email = null
         var $phone = null
         if ($('#email').val() !== "") {
@@ -42,12 +46,12 @@ $('#addUser').click(function addUser() {
             type: 'post',
             contentType: 'application/json',
             data: JSON.stringify({
-                "username": $('#username').val(),
-                "firstname": $('#firstname').val(),
-                "surname": $('#surname').val(),
+                "username": username,
+                "firstname": firstname,
+                "surname": surname,
                 "email": $email,
                 "phone": parseInt($phone),
-                "passwd": $('#passwd').val()
+                "passwd": passwd
             }),
             success: function(data, status) {
                 alert("Usuario creado correctamente")
@@ -58,7 +62,7 @@ $('#addUser').click(function addUser() {
             }
         });
     } else {
-        alert("Campos obligatorios no relleneados")
+        alert("Comprueba tener todos los campos obligatorios rellenos")
     }
 
 });
