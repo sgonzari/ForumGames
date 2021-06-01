@@ -1,4 +1,6 @@
 // Variables
+var serverBE = "https://localhost:44355"
+var serverFE = "http://localhost/Games-FE/views"
 var usuario = localStorage.getItem('usuario')
 var idJuego
 
@@ -10,7 +12,7 @@ if (!usuario) {
 //Tabla de información personal
 $(document).ready(function() {
     $.ajax({
-        url: 'https://localhost:44355/usuario/getData?username=' + usuario,
+        url: serverBE + '/usuario/getData?username=' + usuario,
         dataType: 'json',
         type: 'get',
         contentType: 'application/json',
@@ -36,7 +38,7 @@ $(document).ready(function() {
 //Tabla de videojuegos
 $(document).ready(function() {
     $.ajax({
-        url: 'https://localhost:44355/juego/getdatausername?username=' + usuario,
+        url: serverBE + '/juego/getdatausername?username=' + usuario,
         dataType: 'json',
         type: 'get',
         contentType: 'application/json',
@@ -72,9 +74,11 @@ $(document).ready(function() {
                 //Botón de compartir
                 var shareBtn = $('<input/>').attr({
                     type: "button",
-                    class: "btn btn-success btn-sm",
+                    class: "btn btn-warning btn-sm",
                     value: "Compartir",
-                    onclick: "shareGame('" + item.title + "')"
+                    onclick: "addInfoShare('" + item.title + "')",
+                    'data-toggle': "modal",
+                    'data-target': "#shareGameModal"
                 });
                 //Botón de ver
                 var showBtn = $('<input/>').attr({
@@ -102,8 +106,8 @@ $(document).ready(function() {
                     $('<td>').text(item.height + "GB").attr({ style: "text-align: center" }),
                     $td_multiplayer.attr({ style: "text-align: center" }),
                     $('<td>').append(showBtn),
-                    $('<td>').append(shareBtn),
                     $('<td>').append(editBtn),
+                    $('<td>').append(shareBtn),
                     $('<td>').append(deleteBtn)
                 ); //.appendTo('#records_table');
                 //console.log($tr.wrap('<p>').html());
@@ -116,7 +120,7 @@ $(document).ready(function() {
 //Categorias - Agregar Juego
 $(document).ready(function() {
     $.ajax({
-        url: 'https://localhost:44355/categoria',
+        url: serverBE + '/categoria',
         dataType: 'json',
         type: 'get',
         contentType: 'application/json',
@@ -135,7 +139,7 @@ $(document).ready(function() {
 //Categorias - Editar Juego
 $(document).ready(function() {
     $.ajax({
-        url: 'https://localhost:44355/categoria',
+        url: serverBE + '/categoria',
         dataType: 'json',
         type: 'get',
         contentType: 'application/json',
@@ -155,7 +159,7 @@ $(document).ready(function() {
 //Plataformas - Agregar Juego
 $(document).ready(function() {
     $.ajax({
-        url: 'https://localhost:44355/plataforma',
+        url: serverBE + '/plataforma',
         dataType: 'json',
         type: 'get',
         contentType: 'application/json',
@@ -174,7 +178,7 @@ $(document).ready(function() {
 //Plataformas - Editar Juego
 $(document).ready(function() {
     $.ajax({
-        url: 'https://localhost:44355/plataforma',
+        url: serverBE + '/plataforma',
         dataType: 'json',
         type: 'get',
         contentType: 'application/json',
@@ -198,6 +202,7 @@ $('#addGame').click(function addGame() {
     var $height = parseFloat($('#height').val())
     var $launchDate = $('#launchDate').val()
     var $multiplayer = null
+    var $urlGame = $('#urlGame').val()
 
     var categories = [];
     $.each($('input[name="categories"]:checked'), function() {
@@ -214,9 +219,9 @@ $('#addGame').click(function addGame() {
         var $multiplayer = false
     }
 
-    if ($title && $description && $height && categories.length !== 0 && platforms.length !== 0 && $multiplayer !== null) {
+    if ($title && $description && $height && categories.length !== 0 && platforms.length !== 0 && $multiplayer !== null && $urlGame) {
         $.ajax({
-            url: 'https://localhost:44355/juego',
+            url: serverBE + '/juego',
             dataType: 'json',
             type: 'post',
             contentType: 'application/json',
@@ -228,7 +233,8 @@ $('#addGame').click(function addGame() {
                 "launchDate": $launchDate,
                 "multiplayer": $multiplayer,
                 "idCategory": categories.map(i => Number(i)),
-                "idplatform": platforms.map(i => Number(i))
+                "idplatform": platforms.map(i => Number(i)),
+                "url": $urlGame
             }),
             success: function(data, status) {
                 //console.log(status)
@@ -243,10 +249,10 @@ $('#addGame').click(function addGame() {
     }
 });
 
-//Función añadir contenido al modal
+//Función añadir contenido al modal de editar
 function addInfoGame(title) {
     $.ajax({
-        url: 'https://localhost:44355/juego/getdata?title=' + title + '&username=' + usuario,
+        url: serverBE + '/juego/getdata?title=' + title + '&username=' + usuario,
         dataType: 'json',
         type: 'get',
         contentType: 'applicaciont/json',
@@ -275,6 +281,9 @@ function addInfoGame(title) {
                     console.log("IdPlatform:" + idPlat)
                     $('input[id="' + idPlat + '"]').attr('checked', true)
                 });
+
+                $('#editUrlGame').attr({ value: item.url })
+
                 idJuego = item.idGame
             });
         },
@@ -293,6 +302,7 @@ $('#editGame').click(function editGame() {
     var $editHeight = parseFloat($('#editHeight').val())
     var $editLaunchDate = $('#editLaunchDate').val()
     var $editMultiplayer = null
+    var $editUrlGame = $('#editUrlGame').val()
 
     var editCategories = [];
     $.each($('input[name="editCategories"]:checked'), function() {
@@ -308,9 +318,9 @@ $('#editGame').click(function editGame() {
     } else if ($('#editMultiplayerNo').is(':checked')) {
         var $editMultiplayer = false
     }
-    if ($editTitle && $editDescription && $editHeight && editCategories.length !== 0 && editPlatforms.length !== 0 && $editMultiplayer !== null) {
+    if ($editTitle && $editDescription && $editHeight && editCategories.length !== 0 && editPlatforms.length !== 0 && $editMultiplayer !== null && $editUrlGame) {
         $.ajax({
-            url: 'https://localhost:44355/juego/update',
+            url: serverBE + '/juego/update',
             dataType: 'json',
             type: 'post',
             contentType: 'application/json',
@@ -323,7 +333,8 @@ $('#editGame').click(function editGame() {
                 "launchDate": $editLaunchDate,
                 "multiplayer": $editMultiplayer,
                 "idCategory": editCategories.map(i => Number(i)),
-                "idplatform": editPlatforms.map(i => Number(i))
+                "idplatform": editPlatforms.map(i => Number(i)),
+                "url": $editUrlGame
             }),
             success: function(data, status) {
                 console.log(status)
@@ -345,15 +356,31 @@ function showGame(titleGame) {
     window.location.replace("./game.html?title=" + titleGame + "&username=" + usuario);
 }
 
-//Función compartir juego
-function shareGame(titleGame) {
-    alert("compartiendo: " + titleGame)
+//Función añadir contenido al modal de compartición
+function addInfoShare(title) {
+    var urlGame = (serverFE + "/game.html?title=" + title + "&username=" + usuario);
+    $('#shareUrlGame').attr({ value: urlGame, 'readonly': true })
+    $('#subjectUrlGame').attr({ value: "Compartición de un juego" })
+    $('#bodyUrlGame').attr({ value: "Hey tío! Aquí te mando un juego que he realizado y me gustaría que probases." })
 }
+
+//Función compartir juego
+$('#shareGame').click(function shareGame() {
+    var $mail = $('#mailUrlGame').val()
+    var $subject = $('#subjectUrlGame').val()
+    var $body = $('#bodyUrlGame').val()
+    var $urlGame = $('#shareUrlGame').val()
+    if ($mail) {
+        location.href = 'mailto:' + $mail + '?Subject=' + $subject + '&body=' + $body + '%0D%0A%0D%0A' + $urlGame + '';
+    } else {
+        alert("No has introducido un correo electrónico")
+    }
+});
 
 //Función borrar juego
 function deleteGame(idGame) {
     $.ajax({
-        url: 'https://localhost:44355/juego',
+        url: server + '/juego',
         dataType: 'json',
         type: 'delete',
         contentType: 'application/json',

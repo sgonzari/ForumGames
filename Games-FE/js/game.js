@@ -18,15 +18,17 @@ $(document).ready(() => {
 
 //Función que obtiene el nombre de usuario
 $(document).ready(function() {
-    $.ajax({
-        url: 'https://localhost:44355/usuario/getData?username=' + usuario,
-        dataType: 'json',
-        type: 'get',
-        contentType: 'application/json',
-        success: function(data, status) {
-            $('#usuario').text(data.username)
-        }
-    });
+    if (usuario) {
+        $.ajax({
+            url: 'https://localhost:44355/usuario/getData?username=' + usuario,
+            dataType: 'json',
+            type: 'get',
+            contentType: 'application/json',
+            success: function(data, status) {
+                $('#usuario').text(data.username)
+            }
+        });
+    }
 });
 
 //Información del juego
@@ -51,6 +53,12 @@ $(document).ready(function() {
                     $('#multiplayerGame').append($('<spam>').attr({ class: "fa fa-check text-success" }))
                 } else {
                     $('#multiplayerGame').append($('<spam>').attr({ class: "fa fa-times text-danger" }))
+                }
+
+                var $spam = $('<spam>').attr({ class: "fa fa-download text-secundary" })
+                var $a = $('<a>').attr({ href: item.url })
+                if (item.url) {
+                    $('#urlGame').append($a.append($spam))
                 }
 
                 $.each(item.titleCategory, function(i, idCat) {
@@ -114,26 +122,30 @@ function pintarComments() {
 
 //Función añadir comentario
 $('#addComment').click(function addComment() {
-    $.ajax({
-        url: 'https://localhost:44355/comentario',
-        dataType: 'json',
-        type: 'post',
-        contentType: 'application/json',
-        data: JSON.stringify({
-            "idgame": idJuego,
-            "username": usuario,
-            "comment": $('#textComment').val()
-        }),
-        success: function(data, status) {
-            //console.log(status)
-            location.reload();
-        },
-        error: function(data, status) {
-            //console.log(status)
-            alert("Error, por favor consulte con un administrador")
-            location.reload();
-        }
-    });
+    if (usuario) {
+        $.ajax({
+            url: 'https://localhost:44355/comentario',
+            dataType: 'json',
+            type: 'post',
+            contentType: 'application/json',
+            data: JSON.stringify({
+                "idgame": idJuego,
+                "username": usuario,
+                "comment": $('#textComment').val()
+            }),
+            success: function(data, status) {
+                //console.log(status)
+                location.reload();
+            },
+            error: function(data, status) {
+                //console.log(status)
+                alert("Error, por favor consulte con un administrador")
+                location.reload();
+            }
+        });
+    } else {
+        alert("No estás loggeado")
+    }
 })
 
 //Función que devuelve fecha y hora

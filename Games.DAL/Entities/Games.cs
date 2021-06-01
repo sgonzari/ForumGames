@@ -23,6 +23,7 @@ namespace Games.DAL.Entities
         public DateTime? LaunchDate { get; set; }
         public float Height { get; set; }
         public bool Multiplayer { get; set; }
+        public string url { get; set; }
 
         public virtual Users FkUsernameNavigation { get; set; }
         public virtual ICollection<Comments> Comments { get; set; }

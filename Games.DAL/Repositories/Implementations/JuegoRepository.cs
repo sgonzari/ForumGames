@@ -55,7 +55,8 @@ namespace Games.DAL.Repositories.Implementations
                     IdCategory = categoriaJuegos,
                     TitleCategory = getTitleCategories(categoriaJuegos),
                     IdPlatform = plataformaJuegos,
-                    TitlePlatform = getTitlePlataforms(plataformaJuegos)
+                    TitlePlatform = getTitlePlataforms(plataformaJuegos),
+                    url = i.url
                 };
                 juegosDTO.Add(juego);
                 juegoscategoriasDTO.Clear();
@@ -105,7 +106,8 @@ namespace Games.DAL.Repositories.Implementations
                     IdCategory = categoriaJuegos,
                     TitleCategory = getTitleCategories(categoriaJuegos),
                     IdPlatform = plataformaJuegos,
-                    TitlePlatform = getTitlePlataforms(plataformaJuegos)
+                    TitlePlatform = getTitlePlataforms(plataformaJuegos),
+                    url = i.url
                 };
                 juegosDTO.Add(juego);
                 juegoscategoriasDTO.Clear();
@@ -155,7 +157,8 @@ namespace Games.DAL.Repositories.Implementations
                     IdCategory = categoriaJuegos,
                     TitleCategory = getTitleCategories(categoriaJuegos),
                     IdPlatform = plataformaJuegos,
-                    TitlePlatform = getTitlePlataforms(plataformaJuegos)
+                    TitlePlatform = getTitlePlataforms(plataformaJuegos),
+                    url = i.url
                 };
                 juegosDTO.Add(juego);
                 juegoscategoriasDTO.Clear();
@@ -204,7 +207,8 @@ namespace Games.DAL.Repositories.Implementations
                     IdCategory = categoriaJuegos,
                     TitleCategory = getTitleCategories(categoriaJuegos),
                     IdPlatform = plataformaJuegos,
-                    TitlePlatform = getTitlePlataforms(plataformaJuegos)
+                    TitlePlatform = getTitlePlataforms(plataformaJuegos),
+                    url = i.url
                 };
                 juegosDTO.Add(juego);
                 juegoscategoriasDTO.Clear();
@@ -231,7 +235,8 @@ namespace Games.DAL.Repositories.Implementations
                     LaunchDate = juegoDTO.LaunchDate,
                     Height = juegoDTO.Height,
                     Multiplayer = juegoDTO.Multiplayer,
-                    FkUsername = juegoDTO.FkUsername
+                    FkUsername = juegoDTO.FkUsername,
+                    url = juegoDTO.url
                 };
                 _context.Games.Add(juegos);
                 _context.SaveChanges();
@@ -298,7 +303,8 @@ namespace Games.DAL.Repositories.Implementations
                 LaunchDate = juegoDTO.LaunchDate,
                 Height = juegoDTO.Height,
                 Multiplayer = juegoDTO.Multiplayer,
-                FkUsername = juegoDTO.FkUsername
+                FkUsername = juegoDTO.FkUsername,
+                url = juegoDTO.url
             };
             _context.Games.Update(juegos);
             _context.SaveChanges();
