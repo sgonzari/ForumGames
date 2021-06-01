@@ -39,7 +39,6 @@ namespace Games.DAL.Repositories.Implementations
                 {
                     Username = i.Username,
                     Group = i.Group,
-                    Passwd = i.Passwd,
                     Email = i.Email,
                     Firstname = i.FirstName,
                     Surname = i.Surname,
