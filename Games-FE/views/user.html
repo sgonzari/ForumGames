@@ -2,7 +2,7 @@
 <html lang="es">
 
 <head>
-    <link rel="icon" type="image/png" href="../images/logo.png"/>
+    <link rel="icon" type="image/png" href="../images/logo.png" />
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- jQuery library -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -25,14 +25,12 @@
             <div class="media-body ml-4">
                 <h4 class="font-weight-bold" id="firstname">Firstname and Surname</h4>
                 <h5><span id="usuario" class="text-muted font-weight-normal">@username</span></h5>
-                <button type="button" class="btn btn-success btn-sm" data-toggle="modal"
-                    data-target="#addGameModal">Agregar juego</button>&nbsp;
+                <button type="button" class="btn btn-success btn-sm" data-toggle="modal" data-target="#addGameModal">Agregar juego</button>&nbsp;
             </div>
             <a id="logout" style="color: white" class="btn btn-dark btn-sm">Salir</a>&nbsp;
         </div>
 
-        <div class="modal fade" id="addGameModal" tabindex="-1" role="dialog" aria-labelledby="addModalLabel"
-            aria-hidden="true">
+        <div class="modal fade" id="addGameModal" tabindex="-1" role="dialog" aria-labelledby="addModalLabel" aria-hidden="true">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -49,13 +47,11 @@
                             </div>
                             <div class="form-group">
                                 <label for="inputDescription"><strong>*Descripción</strong></label>
-                                <input type="text" class="form-control" id="description"
-                                    placeholder="Descripción del videojuego">
+                                <input type="text" class="form-control" id="description" placeholder="Descripción del videojuego">
                             </div>
                             <div class="form-group">
                                 <label for="inputLaunchDate">Fecha de lanzamiento</label>
-                                <input type="date" class="form-control" id="launchDate"
-                                    placeholder="Fecha de lanzamiento del videojuego">
+                                <input type="date" class="form-control" id="launchDate" placeholder="Fecha de lanzamiento del videojuego">
                             </div>
                             <div class="form-group">
                                 <label for="inputCategories"><strong>*Categorías</strong></label>
@@ -69,8 +65,7 @@
                             </div>
                             <div class="form-group">
                                 <label for="inputHeight"><strong>*Peso</strong></label>
-                                <input type="number" min="0" step="0.10" class="form-control" id="height"
-                                    placeholder="Peso del videojuego en GB">
+                                <input type="number" min="0" step="0.10" class="form-control" id="height" placeholder="Peso del videojuego en GB">
                             </div>
                             <div class="form-group">
                                 <label for="inputPlatforms"><strong>*Multijugador</strong></label>
@@ -91,8 +86,7 @@
             </div>
         </div>
 
-        <div class="modal fade" id="editGameModal" tabindex="-1" role="dialog" aria-labelledby="editModalLabel"
-            aria-hidden="true">
+        <div class="modal fade" id="editGameModal" tabindex="-1" role="dialog" aria-labelledby="editModalLabel" aria-hidden="true">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -105,18 +99,15 @@
                         <form>
                             <div class="form-group">
                                 <label for="inputTitle"><strong>*Título</strong></label>
-                                <input type="text" class="form-control" id="editTitle"
-                                    placeholder="Título del videojuego">
+                                <input type="text" class="form-control" id="editTitle" placeholder="Título del videojuego">
                             </div>
                             <div class="form-group">
                                 <label for="inputDescription"><strong>*Descripción</strong></label>
-                                <input type="text" class="form-control" id="editDescription"
-                                    placeholder="Descripción del videojuego">
+                                <input type="text" class="form-control" id="editDescription" placeholder="Descripción del videojuego">
                             </div>
                             <div class="form-group">
                                 <label for="inputLaunchDate">Fecha de lanzamiento</label>
-                                <input type="date" class="form-control" id="editLaunchDate"
-                                    placeholder="Fecha de lanzamiento del videojuego">
+                                <input type="date" class="form-control" id="editLaunchDate" placeholder="Fecha de lanzamiento del videojuego">
                             </div>
                             <div class="form-group">
                                 <label for="inputCategories"><strong>*Categorías</strong></label>
@@ -130,8 +121,7 @@
                             </div>
                             <div class="form-group">
                                 <label for="inputHeight"><strong>*Peso</strong></label>
-                                <input type="number" min="0" step="0.10" class="form-control" id="editHeight"
-                                    placeholder="Peso del videojuego en GB">
+                                <input type="number" min="0" step="0.10" class="form-control" id="editHeight" placeholder="Peso del videojuego en GB">
                             </div>
                             <div class="form-group">
                                 <label for="inputPlatforms"><strong>*Multijugador</strong></label>
@@ -185,8 +175,9 @@
                             <th>Plataformas</th>
                             <th>Peso</th>
                             <th>Multijugador</th>
-                            <th>Editar</th>
+                            <th>Ver</th>
                             <th>Compartir</th>
+                            <th>Editar</th>
                             <th>Eliminar</th>
                         </tr>
                     </tbody>
@@ -195,8 +186,7 @@
             <footer class="pt-4 my-md-5 pt-md-5 border-top">
                 <div>
                     <div>
-                        <img src="https://lh3.google.com/u/2/ogw/ADGmqu9lMpxd3VxiwxxL3VHv6j_GkXf23Tf9RP3pO3za=s32-c-mo" alt=""
-                            width="24" height="24"/>
+                        <img src="https://lh3.google.com/u/2/ogw/ADGmqu9lMpxd3VxiwxxL3VHv6j_GkXf23Tf9RP3pO3za=s32-c-mo" alt="" width="24" height="24" />
                         <small class="text-muted">&copy; Sebastián González Ríos - 2020-2021</small>
                     </div>
                 </div>

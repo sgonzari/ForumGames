@@ -74,22 +74,27 @@ namespace Games.DAL.Repositories.Implementations
         }
 
         /*
-         * Guarda la información de un usuario.
+         * Guarda un usuario si no existe.
          */
         public void Add(UsuarioDTO usuarioDTO)
         {
-            var usuario = new Users
+            if (!existUser(usuarioDTO)) {
+                var usuario = new Users
+                {
+                    Username = usuarioDTO.Username,
+                    Passwd = usuarioDTO.Passwd,
+                    FirstName = usuarioDTO.Firstname,
+                    Surname = usuarioDTO.Surname,
+                    Email = usuarioDTO.Email,
+                    Phone = usuarioDTO.Phone,
+                    RegisterDate = DateTime.Today
+                };
+                _context.Users.Add(usuario);
+                _context.SaveChanges();
+            } else
             {
-                Username = usuarioDTO.Username,
-                Passwd = usuarioDTO.Passwd,
-                FirstName = usuarioDTO.Firstname,
-                Surname = usuarioDTO.Surname,
-                Email = usuarioDTO.Email,
-                Phone = usuarioDTO.Phone,
-                RegisterDate = DateTime.Today
-        };
-            _context.Users.Add(usuario);
-            _context.SaveChanges();
+                throw new Exception();
+            }
         }
 
         /*
@@ -103,6 +108,22 @@ namespace Games.DAL.Repositories.Implementations
             };
             _context.Users.Remove(usuarios);
             _context.SaveChanges();
+        }
+
+        /*
+         * Método que devuelve true or false si existe un usuario
+         */
+        public bool existUser (UsuarioDTO usuarioDTO)
+        {
+            var usernameLinq = from o in _context.Users
+                            where o.Username == usuarioDTO.Username
+                            select o.Username;
+
+            if (usernameLinq.Any())
+            {
+                return true;
+            }
+            return false;
         }
     }
 }

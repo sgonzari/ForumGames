@@ -58,7 +58,7 @@ $('#addUser').click(function addUser() {
                 location.reload();
             },
             error: function(data, status) {
-                alert("No se ha podido crear el usuario")
+                alert("Usuario ya registrado")
             }
         });
     } else {

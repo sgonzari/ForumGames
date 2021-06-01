@@ -76,7 +76,14 @@ $(document).ready(function() {
                     value: "Compartir",
                     onclick: "shareGame('" + item.title + "')"
                 });
-                //Botón de compartir
+                //Botón de ver
+                var showBtn = $('<input/>').attr({
+                    type: "button",
+                    class: "btn btn-success btn-sm",
+                    value: "Ver",
+                    onclick: "showGame('" + item.title + "')"
+                });
+                //Botón de eliminar
                 var deleteBtn = $('<input/>').attr({
                     type: "button",
                     class: "btn btn-danger btn-sm",
@@ -94,8 +101,9 @@ $(document).ready(function() {
                     $('<td>').text(item.titlePlatform),
                     $('<td>').text(item.height + "GB").attr({ style: "text-align: center" }),
                     $td_multiplayer.attr({ style: "text-align: center" }),
-                    $('<td>').append(editBtn),
+                    $('<td>').append(showBtn),
                     $('<td>').append(shareBtn),
+                    $('<td>').append(editBtn),
                     $('<td>').append(deleteBtn)
                 ); //.appendTo('#records_table');
                 //console.log($tr.wrap('<p>').html());
@@ -332,9 +340,14 @@ $('#editGame').click(function editGame() {
     }
 });
 
+//Función ver juego
+function showGame(titleGame) {
+    window.location.replace("./game.html?title=" + titleGame + "&username=" + usuario);
+}
+
 //Función compartir juego
 function shareGame(titleGame) {
-    window.location.replace("./game.html?title=" + titleGame + "&username=" + usuario);
+    alert("compartiendo: " + titleGame)
 }
 
 //Función borrar juego

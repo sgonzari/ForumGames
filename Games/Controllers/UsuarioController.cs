@@ -37,12 +37,19 @@ namespace Games.Controllers
 
         /*
          * Devuelve un status 200 si se ha añadido un usuario correctamente.
+         * Devuelve un status 400 si intenta añadir un usuario con un usuario ya creado.
          */
         [HttpPost]
         public ActionResult<bool> Add(UsuarioDTO usuarioDTO)
         {
-            _usuarioBL.Add(usuarioDTO);
-            return Ok(true);
+            try
+            {
+                _usuarioBL.Add(usuarioDTO);
+                return Ok(true);
+            } catch (Exception e)
+            {
+                return NotFound();
+            }
         }
 
         /*
