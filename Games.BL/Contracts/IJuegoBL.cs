@@ -16,6 +16,8 @@ namespace Games.BL.Contracts
 
         void Add(JuegoDTO juegoDTO);
 
+        void PostNotifiationComment(JuegoDTO juegoDTO);
+
         void UpdateGame(JuegoDTO juegoDTO);
 
         void Remove(JuegoDTO juegoDTO);

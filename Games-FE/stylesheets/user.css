@@ -42,3 +42,8 @@ body {
 .text-xlarge {
     font-size: 170% !important;
 }
+
+.table th,
+.table td {
+    vertical-align: middle;
+}

@@ -12,6 +12,7 @@ namespace Games.CORE.DTO
         public DateTime? LaunchDate { get; set; }
         public float Height { get; set; }
         public bool Multiplayer { get; set; }
+        public bool NewComment { get; set; }
         public string url { get; set; }
         public List<int> IdCategory { get; set; }
         public List<string> TitleCategory { get; set; }

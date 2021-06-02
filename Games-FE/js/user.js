@@ -44,13 +44,24 @@ $(document).ready(function() {
         contentType: 'application/json',
         success: function(data, status) {
             $.each(data, function(i, item) {
-                //Muestra un tick / cross si es multijugador o no
+                console.log(item)
+                    //Muestra un tick / cross si es multijugador o no
                 if (item.multiplayer) {
                     var $td_multiplayer = $('<td>').append(
                         $('<spam class="fa fa-check text-success"></spam>')
                     )
                 } else {
                     var $td_multiplayer = $('<td>').append(
+                        $('<spam class="fa fa-times text-danger"></spam>')
+                    )
+                }
+
+                if (item.newComment) {
+                    var $td_newComment = $('<td>').append(
+                        $('<spam class="fa fa-check text-success"></spam>')
+                    )
+                } else {
+                    var $td_newComment = $('<td>').append(
                         $('<spam class="fa fa-times text-danger"></spam>')
                     )
                 }
@@ -85,7 +96,7 @@ $(document).ready(function() {
                     type: "button",
                     class: "btn btn-success btn-sm",
                     value: "Ver",
-                    onclick: "showGame('" + item.title + "')"
+                    onclick: "showGame(" + item.idGame + ", '" + item.title + "')"
                 });
                 //Botón de eliminar
                 var deleteBtn = $('<input/>').attr({
@@ -105,6 +116,7 @@ $(document).ready(function() {
                     $('<td>').text(item.titlePlatform),
                     $('<td>').text(item.height + "GB"),
                     $td_multiplayer,
+                    $td_newComment,
                     $('<td>').append(showBtn),
                     $('<td>').append(editBtn),
                     $('<td>').append(shareBtn),
@@ -259,7 +271,7 @@ function addInfoGame(title) {
         success: function(data, status) {
             $.each(data, function(i, item) {
                 $('#editTitle').attr({ value: item.title })
-                $('#editDescription').attr({ value: item.description })
+                $('#editDescription').text(item.description)
                 $('#editHeight').attr({ value: item.height })
                 console.log("Fecha:" + item.launchDate)
                 if (item.launchDate !== null) {
@@ -352,16 +364,29 @@ $('#editGame').click(function editGame() {
 });
 
 //Función ver juego
-function showGame(titleGame) {
-    window.location.replace("./game.html?title=" + titleGame + "&username=" + usuario);
+function showGame(idGame, titleGame) {
+    $.ajax({
+        url: 'https://localhost:44355/juego/postNotification',
+        dataType: 'json',
+        type: 'post',
+        contentType: 'application/json',
+        data: JSON.stringify({
+            "idgame": idGame,
+            "newComment": false,
+        }),
+        success: function(data, status) {
+
+            window.location.replace("./game.html?title=" + titleGame + "&username=" + usuario);
+        }
+    });
 }
 
 //Función añadir contenido al modal de compartición
 function addInfoShare(title) {
     var urlGame = (serverFE + "/game.html?title=" + title + "&username=" + usuario);
     $('#shareUrlGame').attr({ value: urlGame, 'readonly': true })
-    $('#subjectUrlGame').attr({ value: "Compartición de un juego" })
-    $('#bodyUrlGame').attr({ value: "Hey tío! Aquí te mando un juego que he realizado y me gustaría que probases." })
+    $('#subjectUrlGame').text("Compartición de un juego")
+    $('#bodyUrlGame').text("Hey tío! Aquí te mando un juego que he realizado y me gustaría que probases.")
 }
 
 //Función compartir juego
@@ -419,4 +444,10 @@ function formatDate(date) {
         day = '0' + day;
 
     return [year, month, day].join('-');
+}
+
+//Función que copia el enlace cuando haces click
+document.getElementById("shareUrlGame").onclick = function() {
+    this.select();
+    document.execCommand('copy');
 }

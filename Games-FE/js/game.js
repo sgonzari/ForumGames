@@ -2,7 +2,6 @@
 var usuario = localStorage.getItem('usuario')
 var idJuego
 
-
 // Comprobación de que los query params sean correctos
 $(document).ready(() => {
     let searchParams = new URLSearchParams(window.location.search)
@@ -135,6 +134,16 @@ $('#addComment').click(function addComment() {
             }),
             success: function(data, status) {
                 //console.log(status)
+                $.ajax({
+                    url: 'https://localhost:44355/juego/postNotification',
+                    dataType: 'json',
+                    type: 'post',
+                    contentType: 'application/json',
+                    data: JSON.stringify({
+                        "idgame": idJuego,
+                        "newComment": true,
+                    }),
+                });
                 location.reload();
             },
             error: function(data, status) {

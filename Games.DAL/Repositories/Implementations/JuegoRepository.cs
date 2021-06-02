@@ -56,7 +56,8 @@ namespace Games.DAL.Repositories.Implementations
                     TitleCategory = getTitleCategories(categoriaJuegos),
                     IdPlatform = plataformaJuegos,
                     TitlePlatform = getTitlePlataforms(plataformaJuegos),
-                    url = i.url
+                    url = i.url,
+                    NewComment = i.NewComment
                 };
                 juegosDTO.Add(juego);
                 juegoscategoriasDTO.Clear();
@@ -107,7 +108,8 @@ namespace Games.DAL.Repositories.Implementations
                     TitleCategory = getTitleCategories(categoriaJuegos),
                     IdPlatform = plataformaJuegos,
                     TitlePlatform = getTitlePlataforms(plataformaJuegos),
-                    url = i.url
+                    url = i.url,
+                    NewComment = i.NewComment
                 };
                 juegosDTO.Add(juego);
                 juegoscategoriasDTO.Clear();
@@ -158,7 +160,8 @@ namespace Games.DAL.Repositories.Implementations
                     TitleCategory = getTitleCategories(categoriaJuegos),
                     IdPlatform = plataformaJuegos,
                     TitlePlatform = getTitlePlataforms(plataformaJuegos),
-                    url = i.url
+                    url = i.url,
+                    NewComment = i.NewComment
                 };
                 juegosDTO.Add(juego);
                 juegoscategoriasDTO.Clear();
@@ -208,7 +211,8 @@ namespace Games.DAL.Repositories.Implementations
                     TitleCategory = getTitleCategories(categoriaJuegos),
                     IdPlatform = plataformaJuegos,
                     TitlePlatform = getTitlePlataforms(plataformaJuegos),
-                    url = i.url
+                    url = i.url,
+                    NewComment = i.NewComment
                 };
                 juegosDTO.Add(juego);
                 juegoscategoriasDTO.Clear();
@@ -271,6 +275,20 @@ namespace Games.DAL.Repositories.Implementations
                 throw new Exception();
             }
             
+        }
+
+        /*
+         * Cambiar el valor de newComment en la base de datos
+         */
+        public void PostNotifiationComment(JuegoDTO juegoDTO)
+        {
+            var query = (from o in _context.Games
+                         where o.IdGame == juegoDTO.IdGame
+                         select o).FirstOrDefault();
+
+            query.NewComment = juegoDTO.NewComment;
+
+            _context.SaveChanges();
         }
 
         /*

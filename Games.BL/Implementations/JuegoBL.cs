@@ -43,6 +43,11 @@ namespace Games.BL.Implementations
             _juegoRepository.Add(juegoDTO);
         }
 
+        public void PostNotifiationComment(JuegoDTO juegoDTO)
+        {
+            _juegoRepository.PostNotifiationComment(juegoDTO);
+        }
+
         public void UpdateGame(JuegoDTO juegoDTO)
         {
             _juegoRepository.UpdateGame(juegoDTO);

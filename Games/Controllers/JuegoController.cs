@@ -74,6 +74,17 @@ namespace Games.Controllers
         }
 
         /*
+         * Devuelve un status 200 si se ha modificado el valor de newComment
+         */
+        [HttpPost]
+        [Route("postNotification")]
+        public ActionResult<bool> PostNotifiationComment(JuegoDTO juegoDTO)
+        {
+            _juegoBL.PostNotifiationComment(juegoDTO);
+            return Ok(true);
+        }
+
+        /*
          * Devuelve un status 200 si se ha actualizado el juego correctamente.
          */
         [HttpPost]
