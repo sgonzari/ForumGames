@@ -4,102 +4,99 @@
 </html>
 
 <head>
-  <link rel="icon" type="image/png" href="../images/logo.png"/>
-  <!-- Latest compiled and minified CSS -->
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-  <link rel="stylesheet" href="../stylesheets/login.css">
-  <!-- jQuery library -->
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-  <!-- Popper JS -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-  <!-- Latest compiled JavaScript -->
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-  <meta charset="UTF-8" />
-  <title>ForumGames - Login</title>
+    <link rel="icon" type="image/png" href="../images/logo.png" />
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../stylesheets/login.css">
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <!-- Popper JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <!-- Latest compiled JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <meta charset="UTF-8" />
+    <title>ForumGames - Login</title>
 
 </head>
 
 <body>
-  <div class="wrapper fadeInDown">
-    <div id="formContent">
-      <!-- Icon -->
-      <div class="fadeIn first">
-        <!--<i class="fa fa-cab" style="font-size:48px;"></i>-->
-        <img src="../images/logo.png" width="150px" />
-      </div>
-
-      <!-- Login Form -->
-      <form method="POST" action="" onsubmit="handleSubmit(event)">
-        <input type="text" id="login" class="fadeIn second" name="username" placeholder="usuario">
-        <input type="password" id="password" class="fadeIn third" name="password" placeholder="contraseña">
-        <input type="button" class="fadeIn fourth" value="Register" data-toggle="modal"
-          data-target="#addGameModal"></input>
-        <input type="submit" class="fadeIn fourth" value="Login">
-
-        <div id="error" class="alert alert-danger fade-in">
-          <strong>¡ERROR!</strong> Usuario y/o contraseña incorrectos.
-        </div>
-      </form>
-      <footer class="pt-4 my-md-5 pt-md-5 border-top">
-        <div>
-            <div>
-                <img src="https://lh3.google.com/u/2/ogw/ADGmqu9lMpxd3VxiwxxL3VHv6j_GkXf23Tf9RP3pO3za=s32-c-mo" alt=""
-                    width="24" height="24"/>
-                <small class="text-muted">&copy; Sebastián González Ríos - 2020-2021</small>
+    <div class="wrapper fadeInDown">
+        <div id="formContent">
+            <!-- Icon -->
+            <div class="fadeIn first">
+                <!--<i class="fa fa-cab" style="font-size:48px;"></i>-->
+                <img src="../images/logo.png" width="150px" />
             </div>
-        </div>
-    </footer>
-    </div>
-  </div>
 
-  <!-- Register Form -->
-  <div class="modal fade" id="addGameModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-    aria-hidden="true">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Agregar juego</h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <!-- Login Form -->
+            <form method="POST" action="" onsubmit="handleSubmit(event)">
+                <input type="text" id="login" class="fadeIn second" name="username" placeholder="usuario">
+                <input type="password" id="password" class="fadeIn third" name="password" placeholder="contraseña">
+                <input type="button" class="fadeIn fourth" value="Register" data-toggle="modal" data-target="#addGameModal"></input>
+                <input type="submit" class="fadeIn fourth" value="Login">
+
+                <div id="error" class="alert alert-danger fade-in">
+                    <strong>¡ERROR!</strong> Usuario y/o contraseña incorrectos.
+                </div>
+            </form>
+            <footer class="pt-4 my-md-5 pt-md-5 border-top">
+                <div>
+                    <div class="d-flex justify-content-center">
+                        <img src="https://lh3.google.com/u/2/ogw/ADGmqu9lMpxd3VxiwxxL3VHv6j_GkXf23Tf9RP3pO3za=s32-c-mo" alt="" width="24" height="24" />
+                        <small class="text-muted">&copy; Sebastián González Ríos - 2020-2021</small>
+                    </div>
+                </div>
+            </footer>
+        </div>
+    </div>
+
+    <!-- Register Form -->
+    <div class="modal fade" id="addGameModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Agregar juego</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="form-group">
+                            <label for="inputUsername"><strong>*Usuario</strong></label>
+                            <input type="text" class="form-control" id="username" placeholder="Username">
+                        </div>
+                        <div class="form-group">
+                            <label for="inputFirstname"><strong>*Nombre</strong></label>
+                            <input type="text" class="form-control" id="firstname" placeholder="Firstname">
+                        </div>
+                        <div class="form-group">
+                            <label for="inputSurname"><strong>*Apellidos</strong></label>
+                            <input type="text" class="form-control" id="surname" placeholder="Surname">
+                        </div>
+                        <div class="form-group">
+                            <label for="inputEmail"><strong>Correo Electrónico</strong></label>
+                            <input type="email" class="form-control" id="email" placeholder="Email">
+                        </div>
+                        <div class="form-group">
+                            <label for="inputPhone"><strong>Teléfono</strong></label>
+                            <input type="number" class="form-control" id="phone" placeholder="XXXXXXXXX">
+                        </div>
+                        <div class="form-group">
+                            <label for="inputPasswd"><strong>*Contraseña</strong></label>
+                            <input type="password" class="form-control" id="passwd" placeholder="Password">
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Descartar</button>
+                    <button type="button" id="addUser" class="btn btn-success">Agregar</button>
+                </div>
+            </div>
         </div>
-        <div class="modal-body">
-          <form>
-            <div class="form-group">
-              <label for="inputUsername"><strong>*Usuario</strong></label>
-              <input type="text" class="form-control" id="username" placeholder="Username">
-            </div>
-            <div class="form-group">
-              <label for="inputFirstname"><strong>*Nombre</strong></label>
-              <input type="text" class="form-control" id="firstname" placeholder="Firstname">
-            </div>
-            <div class="form-group">
-              <label for="inputSurname"><strong>*Apellidos</strong></label>
-              <input type="text" class="form-control" id="surname" placeholder="Surname">
-            </div>
-            <div class="form-group">
-              <label for="inputEmail"><strong>Correo Electrónico</strong></label>
-              <input type="email" class="form-control" id="email" placeholder="Email">
-            </div>
-            <div class="form-group">
-              <label for="inputPhone"><strong>Teléfono</strong></label>
-              <input type="number" class="form-control" id="phone" placeholder="XXXXXXXXX">
-            </div>
-            <div class="form-group">
-              <label for="inputPasswd"><strong>*Contraseña</strong></label>
-              <input type="password" class="form-control" id="passwd" placeholder="Password">
-            </div>
-          </form>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-danger" data-dismiss="modal">Descartar</button>
-          <button type="button" id="addUser" class="btn btn-success">Agregar</button>
-        </div>
-      </div>
     </div>
-  </div>
-  <script src="../js/login.js"></script>
+    <script src="../js/login.js"></script>
 </body>
 
 </html>
