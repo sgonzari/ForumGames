@@ -380,7 +380,7 @@ $('#shareGame').click(function shareGame() {
 //Función borrar juego
 function deleteGame(idGame) {
     $.ajax({
-        url: server + '/juego',
+        url: serverBE + '/juego',
         dataType: 'json',
         type: 'delete',
         contentType: 'application/json',
