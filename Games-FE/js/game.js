@@ -1,5 +1,5 @@
 // Variables
-var serverBE = "http://164.68.113.2:44355"
+var serverBE = "http://localhost:44355"
 var serverFE = "http://localhost/views"
 var usuario = localStorage.getItem('usuario')
 var idJuego
@@ -41,8 +41,8 @@ $(document).ready(function() {
         contentType: 'applicaciont/json',
         success: function(data, status) {
             $.each(data, function(i, item) {
-                if (item.title){
-                    $("#allContent").css({display: "block"});
+                if (item.title) {
+                    $("#allContent").css({ display: "block" });
                     $('#titleGame').text(item.title)
                     $('#descriptionGame').text(item.description)
                     $('#heightGame').text(item.height + "GB")
@@ -77,7 +77,7 @@ $(document).ready(function() {
 
                     pintarComments()
                 } else {
-                    $("#allContent").css({display: "none"});
+                    $("#allContent").css({ display: "none" });
                 }
             });
         },

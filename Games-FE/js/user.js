@@ -1,6 +1,6 @@
 // Variables
-var serverBE = "http://164.68.113.2:44355"
-var serverFE = "http://164.68.113.2/views"
+var serverBE = "http://localhost:44355"
+var serverFE = "http://localhost/views"
 var usuario = localStorage.getItem('usuario')
 var idJuego
 
@@ -44,8 +44,8 @@ $(document).ready(function() {
         contentType: 'application/json',
         success: function(data, status) {
             $.each(data, function(i, item) {
-                console.log(item)
-                    //Muestra un tick / cross si es multijugador o no
+                // console.log(item)
+                //Muestra un tick / cross si es multijugador o no
                 if (item.multiplayer) {
                     var $td_multiplayer = $('<td>').append(
                         $('<spam class="fa fa-check text-success"></spam>')
@@ -235,7 +235,7 @@ $('#addGame').click(function addGame() {
         var $multiplayer = false
     }
 
-    if ($title && $description && $height && categories.length !== 0 && platforms.length !== 0 && $multiplayer !== null ) {
+    if ($title && $description && $height && categories.length !== 0 && platforms.length !== 0 && $multiplayer !== null) {
         if (!$urlGame) {
             alert("URL inválida, acuerda de añadir al principio: http:// o https://")
         } else {

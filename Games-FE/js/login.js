@@ -1,5 +1,5 @@
 //Variables
-var serverBE = "http://164.68.113.2:44355"
+var serverBE = "http://localhost:44355"
 var serverFE = "http://localhost/views"
 
 // Función para realizar login mediante 'intro' y dándole al botón
