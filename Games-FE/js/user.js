@@ -6,7 +6,7 @@ var idJuego
 
 //Si no está loggeado le devuelve a la pantalla de loggueo/registro
 if (!usuario) {
-    window.location.replace("../index.html");
+    window.location.replace("..");
 }
 
 //Tabla de información personal
@@ -436,7 +436,7 @@ function deleteGame(idGame) {
 
 //Función salir de la interfaz
 $('#logout').click(function logout() {
-    window.location.replace("../index.html")
+    window.location.replace("..")
     window.localStorage.removeItem('usuario')
 });
 
