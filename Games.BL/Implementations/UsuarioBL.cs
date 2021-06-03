@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using Games.BL.Contracts;
 using Games.CORE.DTO;
 using Games.DAL.Repositories.Contracts;
@@ -20,9 +21,9 @@ namespace Games.BL.Implementations
             return _usuarioRepository.Login(usuarioDTO);
         }
 
-        public IEnumerable<UsuarioDTO> Get()
+        public async Task<IEnumerable<UsuarioDTO>> Get()
         {
-            var usuarios = _usuarioRepository.Get();
+            var usuarios = await _usuarioRepository.Get();
             return usuarios;
         }
 

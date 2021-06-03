@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using Games.BL.Contracts;
 using Games.CORE.DTO;
 using Microsoft.AspNetCore.Mvc;
@@ -20,7 +21,7 @@ namespace Games.Controllers
         /*
          * Devuelve una lista con todos los usuarios.
          */
-        public ActionResult<IEnumerable<UsuarioDTO>> Get()
+        public async Task<ActionResult<IEnumerable<UsuarioDTO>>> Get()
         {
             return Ok(_usuarioBL.Get());
         }

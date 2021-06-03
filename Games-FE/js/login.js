@@ -1,3 +1,7 @@
+//Variables
+var serverBE = "http://164.68.113.2:44355"
+var serverFE = "http://localhost/views"
+
 // Función para realizar login mediante 'intro' y dándole al botón
 function handleSubmit(event) {
     event.preventDefault()
@@ -6,7 +10,7 @@ function handleSubmit(event) {
 
     if (username != "" && password != "") {
         $.ajax({
-            url: 'https://localhost:44355/login',
+            url: serverBE + '/login',
             dataType: 'json',
             type: 'post',
             contentType: 'application/json',
@@ -14,7 +18,7 @@ function handleSubmit(event) {
             success: function(data, status) {
                 //alert("Data: " + data + "\nStatus: " + status);
                 if (data) {
-                    window.location.replace("./user.html");
+                    window.location.replace("./views/user.html");
                     window.localStorage.setItem('usuario', username)
                 } else {
                     $("#error").css("display", "block");
@@ -41,7 +45,7 @@ $('#addUser').click(function addUser() {
         }
 
         $.ajax({
-            url: 'https://localhost:44355/usuario',
+            url: serverBE + '/usuario',
             dataType: 'json',
             type: 'post',
             contentType: 'application/json',

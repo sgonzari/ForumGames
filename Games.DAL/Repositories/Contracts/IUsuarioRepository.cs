@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using Games.CORE.DTO;
 
 namespace Games.DAL.Repositories.Contracts
@@ -8,7 +9,7 @@ namespace Games.DAL.Repositories.Contracts
     {
         bool Login(UsuarioDTO usuarioDTO);
 
-        IEnumerable<UsuarioDTO> Get();
+        Task<IEnumerable<UsuarioDTO>> Get();
 
         UsuarioDTO GetDataFromUsername(string username);
 

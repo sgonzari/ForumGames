@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using Games.CORE.DTO;
 using Games.DAL.Entities;
 using Games.DAL.Repositories.Contracts;
@@ -28,7 +29,7 @@ namespace Games.DAL.Repositories.Implementations
         /*
          * Devuelve una lista con todos los usuarios.
          */
-        public IEnumerable<UsuarioDTO> Get()
+        public async Task<IEnumerable<UsuarioDTO>> Get()
         {
             var usuarios = _context.Users.ToList();
 
