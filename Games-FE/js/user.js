@@ -1,12 +1,12 @@
 // Variables
-var serverBE = "https://localhost:44355"
-var serverFE = "http://localhost/Games-FE/views"
+var serverBE = "http://164.68.113.2:44355"
+var serverFE = "http://164.68.113.2/views"
 var usuario = localStorage.getItem('usuario')
 var idJuego
 
 //Si no está loggeado le devuelve a la pantalla de loggueo/registro
 if (!usuario) {
-    window.location.replace("./login.html");
+    window.location.replace("../index.html");
 }
 
 //Tabla de información personal
@@ -216,6 +216,10 @@ $('#addGame').click(function addGame() {
     var $multiplayer = null
     var $urlGame = $('#urlGame').val()
 
+    if (!$urlGame.includes("http://") && !$urlGame.includes("https://")) {
+        var $urlGame = null
+    }
+
     var categories = [];
     $.each($('input[name="categories"]:checked'), function() {
         categories.push($(this).val());
@@ -231,31 +235,35 @@ $('#addGame').click(function addGame() {
         var $multiplayer = false
     }
 
-    if ($title && $description && $height && categories.length !== 0 && platforms.length !== 0 && $multiplayer !== null && $urlGame) {
-        $.ajax({
-            url: serverBE + '/juego',
-            dataType: 'json',
-            type: 'post',
-            contentType: 'application/json',
-            data: JSON.stringify({
-                "title": $title,
-                "fkusername": usuario,
-                "description": $description,
-                "height": $height,
-                "launchDate": $launchDate,
-                "multiplayer": $multiplayer,
-                "idCategory": categories.map(i => Number(i)),
-                "idplatform": platforms.map(i => Number(i)),
-                "url": $urlGame
-            }),
-            success: function(data, status) {
-                //console.log(status)
-                location.reload();
-            },
-            error: function(data, status) {
-                alert("Juego ya creado")
-            }
-        });
+    if ($title && $description && $height && categories.length !== 0 && platforms.length !== 0 && $multiplayer !== null ) {
+        if (!$urlGame) {
+            alert("URL inválida, acuerda de añadir al principio: http:// o https://")
+        } else {
+            $.ajax({
+                url: serverBE + '/juego',
+                dataType: 'json',
+                type: 'post',
+                contentType: 'application/json',
+                data: JSON.stringify({
+                    "title": $title,
+                    "fkusername": usuario,
+                    "description": $description,
+                    "height": $height,
+                    "launchDate": $launchDate,
+                    "multiplayer": $multiplayer,
+                    "idCategory": categories.map(i => Number(i)),
+                    "idplatform": platforms.map(i => Number(i)),
+                    "url": $urlGame
+                }),
+                success: function(data, status) {
+                    //console.log(status)
+                    location.reload();
+                },
+                error: function(data, status) {
+                    alert("Error, recuerda no duplicar juegos con el mismo título")
+                }
+            });
+        }
     } else {
         alert("Comprueba tener todos los campos obligatorios rellenos")
     }
@@ -366,7 +374,7 @@ $('#editGame').click(function editGame() {
 //Función ver juego
 function showGame(idGame, titleGame) {
     $.ajax({
-        url: 'https://localhost:44355/juego/postNotification',
+        url: serverBE + '/juego/postNotification',
         dataType: 'json',
         type: 'post',
         contentType: 'application/json',
@@ -375,7 +383,6 @@ function showGame(idGame, titleGame) {
             "newComment": false,
         }),
         success: function(data, status) {
-
             window.location.replace("./game.html?title=" + titleGame + "&username=" + usuario);
         }
     });
@@ -383,7 +390,9 @@ function showGame(idGame, titleGame) {
 
 //Función añadir contenido al modal de compartición
 function addInfoShare(title) {
-    var urlGame = (serverFE + "/game.html?title=" + title + "&username=" + usuario);
+    var tituloNoSpace = encodeURIComponent(title.trim())
+    var usuarioNoSpace = encodeURIComponent(usuario.trim())
+    var urlGame = (serverFE + "/game.html?title=" + tituloNoSpace + "&username=" + usuarioNoSpace);
     $('#shareUrlGame').attr({ value: urlGame, 'readonly': true })
     $('#subjectUrlGame').text("Compartición de un juego")
     $('#bodyUrlGame').text("Hey tío! Aquí te mando un juego que he realizado y me gustaría que probases.")
@@ -427,7 +436,7 @@ function deleteGame(idGame) {
 
 //Función salir de la interfaz
 $('#logout').click(function logout() {
-    window.location.replace("./login.html")
+    window.location.replace("../index.html")
     window.localStorage.removeItem('usuario')
 });
 

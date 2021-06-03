@@ -1,4 +1,6 @@
 // Variables
+var serverBE = "http://164.68.113.2:44355"
+var serverFE = "http://localhost/views"
 var usuario = localStorage.getItem('usuario')
 var idJuego
 
@@ -19,7 +21,7 @@ $(document).ready(() => {
 $(document).ready(function() {
     if (usuario) {
         $.ajax({
-            url: 'https://localhost:44355/usuario/getData?username=' + usuario,
+            url: serverBE + '/usuario/getData?username=' + usuario,
             dataType: 'json',
             type: 'get',
             contentType: 'application/json',
@@ -33,45 +35,50 @@ $(document).ready(function() {
 //Información del juego
 $(document).ready(function() {
     $.ajax({
-        url: 'https://localhost:44355/juego/getdata?title=' + title + '&username=' + username,
+        url: serverBE + '/juego/getdata?title=' + title + '&username=' + username,
         dataType: 'json',
         type: 'get',
         contentType: 'applicaciont/json',
         success: function(data, status) {
             $.each(data, function(i, item) {
-                $('#titleGame').text(item.title)
-                $('#descriptionGame').text(item.description)
-                $('#heightGame').text(item.height + "GB")
-                    //console.log("Fecha:" + item.launchDate)
-                if (item.launchDate) {
-                    $('#launchDateGame').text(formatDate(item.launchDate))
-                    $('#notDate').text("")
-                }
+                if (item.title){
+                    $("#allContent").css({display: "block"});
+                    $('#titleGame').text(item.title)
+                    $('#descriptionGame').text(item.description)
+                    $('#heightGame').text(item.height + "GB")
+                        //console.log("Fecha:" + item.launchDate)
+                    if (item.launchDate) {
+                        $('#launchDateGame').text(formatDate(item.launchDate))
+                        $('#notDate').text("")
+                    }
 
-                if (item.multiplayer) {
-                    $('#multiplayerGame').append($('<spam>').attr({ class: "fa fa-check text-success" }))
+                    if (item.multiplayer) {
+                        $('#multiplayerGame').append($('<spam>').attr({ class: "fa fa-check text-success" }))
+                    } else {
+                        $('#multiplayerGame').append($('<spam>').attr({ class: "fa fa-times text-danger" }))
+                    }
+
+                    var $spam = $('<spam>').attr({ class: "fa fa-download text-secundary" })
+                    var $a = $('<a>').attr({ href: item.url })
+                    if (item.url) {
+                        $('#urlGame').append($a.append($spam))
+                    }
+
+                    $.each(item.titleCategory, function(i, idCat) {
+                        //console.log("IdCategory:" + idCat)
+                        $('#titleCategoriesGame').append($('<h3>').text(idCat))
+                    });
+
+                    $.each(item.titlePlatform, function(i, idPlat) {
+                        //console.log("IdPlatform:" + idPlat)
+                        $('#titlePlatformsGame').append($('<h3>').text(idPlat))
+                    });
+                    idJuego = item.idGame
+
+                    pintarComments()
                 } else {
-                    $('#multiplayerGame').append($('<spam>').attr({ class: "fa fa-times text-danger" }))
+                    $("#allContent").css({display: "none"});
                 }
-
-                var $spam = $('<spam>').attr({ class: "fa fa-download text-secundary" })
-                var $a = $('<a>').attr({ href: item.url })
-                if (item.url) {
-                    $('#urlGame').append($a.append($spam))
-                }
-
-                $.each(item.titleCategory, function(i, idCat) {
-                    //console.log("IdCategory:" + idCat)
-                    $('#titleCategoriesGame').append($('<h3>').text(idCat))
-                });
-
-                $.each(item.titlePlatform, function(i, idPlat) {
-                    //console.log("IdPlatform:" + idPlat)
-                    $('#titlePlatformsGame').append($('<h3>').text(idPlat))
-                });
-                idJuego = item.idGame
-
-                pintarComments()
             });
         },
         error: function(data, status) {
@@ -85,7 +92,7 @@ $(document).ready(function() {
 //Función comentarios del juego
 function pintarComments() {
     $.ajax({
-        url: 'https://localhost:44355/comentario/getCommentIdGame?idgame=' + idJuego,
+        url: serverBE + '/comentario/getCommentIdGame?idgame=' + idJuego,
         dataType: 'json',
         type: 'get',
         contentType: 'application/json',
@@ -123,7 +130,7 @@ function pintarComments() {
 $('#addComment').click(function addComment() {
     if (usuario) {
         $.ajax({
-            url: 'https://localhost:44355/comentario',
+            url: serverBE + '/comentario',
             dataType: 'json',
             type: 'post',
             contentType: 'application/json',
@@ -135,7 +142,7 @@ $('#addComment').click(function addComment() {
             success: function(data, status) {
                 //console.log(status)
                 $.ajax({
-                    url: 'https://localhost:44355/juego/postNotification',
+                    url: serverBE + '/juego/postNotification',
                     dataType: 'json',
                     type: 'post',
                     contentType: 'application/json',
