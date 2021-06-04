@@ -1,12 +1,6 @@
 //Variables
 var serverBE = "http://localhost:44355"
 var serverFE = "http://localhost/views"
-var usuario = localStorage.getItem('usuario').substr(500)
-
-//Si está loggeado le devuelve a la dashboard de usuario
-if (usuario) {
-    window.location.replace("./views/user.html");
-}
 
 // Función para realizar login mediante 'intro' y dándole al botón
 function handleSubmit(event) {
