@@ -36,41 +36,50 @@ function handleSubmit(event) {
 
 // Función para registrar un usuario.
 $('#addUser').click(function addUser() {
+    var createUser = true
     var username = $('#username').val()
     var firstname = $('#firstname').val()
     var surname = $('#surname').val()
     var passwd = $('#passwd').val()
+    var $email = $('#email').val()
+    var $phone = $('#phone').val()
     if (username && firstname && surname && passwd) {
-        var $email = null
-        var $phone = null
-        if ($('#email').val() !== "") {
-            $email = $('#email').val()
+        if ($email) {
+            if (!$email.includes("@") && !$email.includes(".com") || !$email.includes(".es")) {
+                createUser = false
+                alert("Correo electrónico inválido")
+            }
         }
-        if ($('#phone').val() !== "") {
-            $phone = $('#phone').val()
+        if ($phone) {
+            if (!$phone > 999999999 && !$phone < 599999999) {
+                createUser = false
+                alert("Número de teléfono inválido")
+            }
         }
 
-        $.ajax({
-            url: serverBE + '/usuario',
-            dataType: 'json',
-            type: 'post',
-            contentType: 'application/json',
-            data: JSON.stringify({
-                "username": username,
-                "firstname": firstname,
-                "surname": surname,
-                "email": $email,
-                "phone": parseInt($phone),
-                "passwd": passwd
-            }),
-            success: function(data, status) {
-                alert("Usuario creado correctamente")
-                location.reload();
-            },
-            error: function(data, status) {
-                alert("Usuario ya registrado")
-            }
-        });
+        if (createUser) {
+            $.ajax({
+                url: serverBE + '/usuario',
+                dataType: 'json',
+                type: 'post',
+                contentType: 'application/json',
+                data: JSON.stringify({
+                    "username": username,
+                    "firstname": firstname,
+                    "surname": surname,
+                    "email": $email,
+                    "phone": parseInt($phone),
+                    "passwd": passwd
+                }),
+                success: function(data, status) {
+                    alert("Usuario creado correctamente")
+                    location.reload();
+                },
+                error: function(data, status) {
+                    alert("Usuario ya registrado")
+                }
+            });
+        }
     } else {
         alert("Comprueba tener todos los campos obligatorios rellenos")
     }

@@ -405,7 +405,11 @@ $('#shareGame').click(function shareGame() {
     var $body = $('#bodyUrlGame').val()
     var $urlGame = $('#shareUrlGame').val()
     if ($mail) {
-        location.href = 'mailto:' + $mail + '?Subject=' + $subject + '&body=' + $body + '%0D%0A%0D%0A' + $urlGame + '';
+        if ($mail.includes("@") && $mail.includes(".com") || $mail.includes(".es")) {
+            location.href = 'mailto:' + $mail + '?Subject=' + $subject + '&body=' + $body + '%0D%0A%0D%0A' + $urlGame + '';
+        } else {
+            alert("Correo electrónico inválido")
+        }
     } else {
         alert("No has introducido un correo electrónico")
     }
