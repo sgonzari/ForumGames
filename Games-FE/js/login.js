@@ -25,7 +25,7 @@ function handleSubmit(event) {
                 //alert("Data: " + data + "\nStatus: " + status);
                 if (data) {
                     window.location.replace("./views/user.html");
-                    window.localStorage.setItem('usuario', username)
+                    window.localStorage.setItem('usuario', token(500) + username)
                 } else {
                     $("#error").css("display", "block");
                 }
@@ -85,3 +85,14 @@ $('#addUser').click(function addUser() {
     }
 
 });
+
+//Función que genera un token aleatorio
+function token(length) {
+    var a = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890".split("");
+    var b = [];
+    for (var i = 0; i < length; i++) {
+        var j = (Math.random() * (a.length - 1)).toFixed(0);
+        b[i] = a[j];
+    }
+    return b.join("");
+}

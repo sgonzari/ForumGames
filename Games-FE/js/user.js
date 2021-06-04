@@ -1,7 +1,7 @@
 // Variables
 var serverBE = "http://localhost:44355"
 var serverFE = "http://localhost/views"
-var usuario = localStorage.getItem('usuario')
+var usuario = localStorage.getItem('usuario').substr(500)
 var idJuego
 
 //Si no está loggeado le devuelve a la pantalla de loggueo/registro
@@ -281,7 +281,7 @@ function addInfoGame(title) {
                 $('#editTitle').attr({ value: item.title })
                 $('#editDescription').text(item.description)
                 $('#editHeight').attr({ value: item.height })
-                console.log("Fecha:" + item.launchDate)
+                    //console.log("Fecha:" + item.launchDate)
                 if (item.launchDate !== null) {
                     $('#editLaunchDate').attr({ value: formatDate(item.launchDate) })
                 }
@@ -293,12 +293,12 @@ function addInfoGame(title) {
                 }
 
                 $.each(item.titleCategory, function(i, idCat) {
-                    console.log("IdCategory:" + idCat)
+                    //console.log("IdCategory:" + idCat)
                     $('input[id="' + idCat + '"]').attr('checked', true)
                 });
 
                 $.each(item.titlePlatform, function(i, idPlat) {
-                    console.log("IdPlatform:" + idPlat)
+                    //console.log("IdPlatform:" + idPlat)
                     $('input[id="' + idPlat + '"]').attr('checked', true)
                 });
 
@@ -324,6 +324,10 @@ $('#editGame').click(function editGame() {
     var $editMultiplayer = null
     var $editUrlGame = $('#editUrlGame').val()
 
+    if (!$editUrlGame.includes("http://") && !$editUrlGame.includes("https://")) {
+        var $editUrlGame = null
+    }
+
     var editCategories = [];
     $.each($('input[name="editCategories"]:checked'), function() {
         editCategories.push($(this).val());
@@ -338,34 +342,38 @@ $('#editGame').click(function editGame() {
     } else if ($('#editMultiplayerNo').is(':checked')) {
         var $editMultiplayer = false
     }
-    if ($editTitle && $editDescription && $editHeight && editCategories.length !== 0 && editPlatforms.length !== 0 && $editMultiplayer !== null && $editUrlGame) {
-        $.ajax({
-            url: serverBE + '/juego/update',
-            dataType: 'json',
-            type: 'post',
-            contentType: 'application/json',
-            data: JSON.stringify({
-                "idGame": parseInt(idJuego),
-                "title": $editTitle,
-                "fkusername": usuario,
-                "description": $editDescription,
-                "height": $editHeight,
-                "launchDate": $editLaunchDate,
-                "multiplayer": $editMultiplayer,
-                "idCategory": editCategories.map(i => Number(i)),
-                "idplatform": editPlatforms.map(i => Number(i)),
-                "url": $editUrlGame
-            }),
-            success: function(data, status) {
-                console.log(status)
-                location.reload();
-            },
-            error: function(data, status) {
-                //console.log(data)
-                alert("Error, por favor consulte con un administrador")
-                location.reload();
-            }
-        });
+    if ($editTitle && $editDescription && $editHeight && editCategories.length !== 0 && editPlatforms.length !== 0 && $editMultiplayer !== null) {
+        if (!$editUrlGame) {
+            alert("URL inválida, acuerda de añadir al principio: http:// o https://")
+        } else {
+            $.ajax({
+                url: serverBE + '/juego/update',
+                dataType: 'json',
+                type: 'post',
+                contentType: 'application/json',
+                data: JSON.stringify({
+                    "idGame": parseInt(idJuego),
+                    "title": $editTitle,
+                    "fkusername": usuario,
+                    "description": $editDescription,
+                    "height": $editHeight,
+                    "launchDate": $editLaunchDate,
+                    "multiplayer": $editMultiplayer,
+                    "idCategory": editCategories.map(i => Number(i)),
+                    "idplatform": editPlatforms.map(i => Number(i)),
+                    "url": $editUrlGame
+                }),
+                success: function(data, status) {
+                    //console.log(status)
+                    location.reload();
+                },
+                error: function(data, status) {
+                    //console.log(data)
+                    alert("Error, por favor consulte con un administrador")
+                    location.reload();
+                }
+            });
+        }
     } else {
         alert("Comprueba tener todos los campos obligatorios rellenos")
     }
@@ -426,7 +434,7 @@ function deleteGame(idGame) {
             "idGame": idGame
         }),
         success: function(data, status) {
-            console.log(status)
+            //console.log(status)
             alert("Juego eliminado correctamente")
             location.reload();
         },

@@ -1,7 +1,7 @@
 // Variables
 var serverBE = "http://localhost:44355"
 var serverFE = "http://localhost/views"
-var usuario = localStorage.getItem('usuario')
+var usuario = localStorage.getItem('usuario').substr(500)
 var idJuego
 
 // Comprobación de que los query params sean correctos
@@ -98,7 +98,7 @@ function pintarComments() {
         contentType: 'application/json',
         success: function(data, status) {
             $.each(data, function(i, item) {
-                // console.log(item);
+                // //console.log(item);
                 var $div = $('<div>').attr({ class: "commentCard" })
                 var $primaryDiv = $('<div>').attr({ class: "card mb-4 box-shadow" })
                 var $headerDiv = $('<div>').attr({ class: "card-header" })
