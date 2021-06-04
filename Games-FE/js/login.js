@@ -45,7 +45,7 @@ $('#addUser').click(function addUser() {
     var $phone = $('#phone').val()
     if (username && firstname && surname && passwd) {
         if ($email) {
-            if (!$email.includes("@") && !$email.includes(".com") || !$email.includes(".es")) {
+            if (!$email.includes("@") || !$email.includes(".com") && !$email.includes(".es")) {
                 createUser = false
                 alert("Correo electrónico inválido")
             }

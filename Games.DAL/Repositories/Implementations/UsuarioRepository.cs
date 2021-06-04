@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Games.CORE.DTO;
+using Games.CORE.Utils;
 using Games.DAL.Entities;
 using Games.DAL.Repositories.Contracts;
 
@@ -22,8 +23,8 @@ namespace Games.DAL.Repositories.Implementations
          */
         public bool Login(UsuarioDTO usuarioDTO)
         {
-            return _context.Users.Any(u => u.Username == usuarioDTO.Username &&
-            u.Passwd == usuarioDTO.Passwd);
+            return _context.Users.Any(x => x.Username == usuarioDTO.Username &&
+            x.Passwd == Security.GetMD5(usuarioDTO.Passwd));
         }
 
         /*
@@ -83,7 +84,7 @@ namespace Games.DAL.Repositories.Implementations
                 var usuario = new Users
                 {
                     Username = usuarioDTO.Username,
-                    Passwd = usuarioDTO.Passwd,
+                    Passwd = Security.GetMD5(usuarioDTO.Passwd),
                     FirstName = usuarioDTO.Firstname,
                     Surname = usuarioDTO.Surname,
                     Email = usuarioDTO.Email,
