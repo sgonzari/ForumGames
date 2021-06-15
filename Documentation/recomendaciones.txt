@@ -1,0 +1,24 @@
+campos obligatorio en el popup de regtistro. [Corregido]
+areglar fecha cuando crear un usuario. [Corregido]
+arreglar juegos que salen generalmente. [Corregido]
+Excepción de creación de un usuario con el mismo nombre. [Corregido]
+A la hora de eliminar un juego, eliminar la foreign key de comments. [Corregido]
+Implementar borrado en cascada en la base de datos. [Corregido]
+Sitio donde poder descargar. [Corregido]
+[Intentar] implementación de 1 juego muchos Usuario.
+A la hora de compartir un juego, que sea mediante enlace (como está) y/o por correo electrónico (mailto). [Corregido]
+Contador de comentarios en la tabla de información de videojuegos (user.html) O funcionalidad de comentarios nuevos con booleanos.
+
+[PPRINCIPAL]
+- Bugs 																	[SOLUCIONADO]
+- Enlace de compartir (mailto)											[SOLUCIONADO]
+- Enlace de descarga													[SOLUCIONADO]
+- Documentación (En el manual de instalación añadir tema Xampp)			[]
+
+
+
+
+------------------------------------------------------------------------------------------
+
+Cambiar el fondo de la fila y añadir una nueva columna con un contador de comentarios nuevos (con un método en c#)
+Copiar al portapapeles en enlace para compartir / botón de compartir

@@ -1,0 +1,15 @@
+@startuml
+class Users <<partial>> {
+    + Users()
+    + Username : string <<get>> <<set>>
+    + Group : string <<get>> <<set>>
+    + FirstName : string <<get>> <<set>>
+    + Surname : string <<get>> <<set>>
+    + Email : string <<get>> <<set>>
+    + Phone : int? <<get>> <<set>>
+    + RegisterDate : DateTime <<get>> <<set>>
+    + Passwd : string <<get>> <<set>>
+    + <<virtual>> Comments : ICollection<Comments> <<get>> <<set>>
+    + <<virtual>> Games : ICollection<Games> <<get>> <<set>>
+}
+@enduml

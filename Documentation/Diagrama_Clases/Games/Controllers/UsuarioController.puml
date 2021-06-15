@@ -1,0 +1,11 @@
+@startuml
+class UsuarioController {
+    + _usuarioBL : IUsuarioBL <<get>> <<set>>
+    + UsuarioController(usuarioBL:IUsuarioBL)
+    + <<async>> Get() : Task<ActionResult<IEnumerable<UsuarioDTO>>>
+    + getDataFromUsername(username:string) : ActionResult<UsuarioDTO>
+    + Add(usuarioDTO:UsuarioDTO) : ActionResult<bool>
+    + Remove(usuarioDTO:UsuarioDTO) : ActionResult<bool>
+}
+ControllerBase <|-- UsuarioController
+@enduml

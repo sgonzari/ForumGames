@@ -1,0 +1,9 @@
+@startuml
+class ComentarioController {
+    + _comentarioBL : IComentarioBL <<get>> <<set>>
+    + ComentarioController(comentarioBL:IComentarioBL)
+    + GetCommentFromId(idGame:int) : ActionResult<IEnumerable<ComentarioDTO>>
+    + Add(comentarioDTO:ComentarioDTO) : ActionResult<bool>
+}
+ControllerBase <|-- ComentarioController
+@enduml

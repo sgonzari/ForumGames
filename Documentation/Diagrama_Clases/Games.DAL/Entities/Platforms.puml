@@ -1,0 +1,8 @@
+@startuml
+class Platforms <<partial>> {
+    + Platforms()
+    + IdPlatform : int <<get>> <<set>>
+    + Platform : string <<get>> <<set>>
+    + <<virtual>> GamesPlatforms : ICollection<GamesPlatforms> <<get>> <<set>>
+}
+@enduml

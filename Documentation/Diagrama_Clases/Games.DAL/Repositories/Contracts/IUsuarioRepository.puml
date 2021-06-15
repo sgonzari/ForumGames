@@ -1,0 +1,9 @@
+@startuml
+interface IUsuarioRepository {
+    Login(usuarioDTO:UsuarioDTO) : bool
+    Get() : Task<IEnumerable<UsuarioDTO>>
+    GetDataFromUsername(username:string) : UsuarioDTO
+    Add(usuarioDTO:UsuarioDTO) : void
+    Remove(usuarioDTO:UsuarioDTO) : void
+}
+@enduml

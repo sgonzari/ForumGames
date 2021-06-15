@@ -1,0 +1,6 @@
+@startuml
+interface IComentarioRepository {
+    GetCommentFromId(idGame:int) : IEnumerable<ComentarioDTO>
+    Add(comentarioDTO:ComentarioDTO) : void
+}
+@enduml

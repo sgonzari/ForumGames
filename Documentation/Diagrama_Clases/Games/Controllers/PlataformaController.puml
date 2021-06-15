@@ -1,0 +1,8 @@
+@startuml
+class PlataformaController {
+    + _plataformaBL : IPlataformaBL <<get>> <<set>>
+    + PlataformaController(plataformaBL:IPlataformaBL)
+    + Get() : ActionResult<IEnumerable<PlataformaDTO>>
+}
+ControllerBase <|-- PlataformaController
+@enduml

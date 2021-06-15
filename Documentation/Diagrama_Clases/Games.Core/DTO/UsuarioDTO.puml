@@ -1,0 +1,13 @@
+@startuml
+class UsuarioDTO {
+    + Username : string <<get>> <<set>>
+    + Group : string <<get>> <<set>>
+    + Passwd : string <<get>> <<set>>
+    + Firstname : string <<get>> <<set>>
+    + Surname : string <<get>> <<set>>
+    + Email : string? <<get>> <<set>>
+    + Phone : int? <<get>> <<set>>
+    + RegisterDate : DateTime <<get>> <<set>>
+    + UsuarioDTO()
+}
+@enduml

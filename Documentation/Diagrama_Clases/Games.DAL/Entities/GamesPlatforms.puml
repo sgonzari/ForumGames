@@ -1,0 +1,8 @@
+@startuml
+class GamesPlatforms <<partial>> {
+    + FkIdGame : int <<get>> <<set>>
+    + FkIdPlatform : int <<get>> <<set>>
+    + <<virtual>> FkIdGameNavigation : Games <<get>> <<set>>
+    + <<virtual>> FkIdPlatformNavigation : Platforms <<get>> <<set>>
+}
+@enduml

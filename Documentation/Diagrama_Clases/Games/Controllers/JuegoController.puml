@@ -1,0 +1,15 @@
+@startuml
+class JuegoController {
+    + _juegoBL : IJuegoBL <<get>> <<set>>
+    + JuegoController(juegoBL:IJuegoBL)
+    + Get() : ActionResult<IEnumerable<JuegoDTO>>
+    + getData(title:string, username:string) : ActionResult<IEnumerable<JuegoDTO>>
+    + getDataFromTitle(title:string) : ActionResult<IEnumerable<JuegoDTO>>
+    + getDataFromUsername(username:string) : ActionResult<IEnumerable<JuegoDTO>>
+    + Add(juegoDTO:JuegoDTO) : ActionResult<bool>
+    + PostNotifiationComment(juegoDTO:JuegoDTO) : ActionResult<bool>
+    + UpdateGame(juegoDTO:JuegoDTO) : ActionResult<bool>
+    + Remove(juegoDTO:JuegoDTO) : ActionResult<bool>
+}
+ControllerBase <|-- JuegoController
+@enduml

@@ -1,0 +1,7 @@
+@startuml
+class JuegoCategoriaDTO {
+    + FkIdGame : int <<get>> <<set>>
+    + FkIdCategory : int <<get>> <<set>>
+    + JuegoCategoriaDTO()
+}
+@enduml

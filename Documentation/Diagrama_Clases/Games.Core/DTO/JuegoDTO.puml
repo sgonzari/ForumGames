@@ -1,0 +1,18 @@
+@startuml
+class JuegoDTO {
+    + IdGame : int <<get>> <<set>>
+    + Title : string <<get>> <<set>>
+    + FkUsername : string <<get>> <<set>>
+    + Description : string <<get>> <<set>>
+    + LaunchDate : DateTime? <<get>> <<set>>
+    + Height : float <<get>> <<set>>
+    + Multiplayer : bool <<get>> <<set>>
+    + NewComment : bool <<get>> <<set>>
+    + url : string <<get>> <<set>>
+    + IdCategory : List<int> <<get>> <<set>>
+    + TitleCategory : List<string> <<get>> <<set>>
+    + IdPlatform : List<int> <<get>> <<set>>
+    + TitlePlatform : List<string> <<get>> <<set>>
+    + JuegoDTO()
+}
+@enduml

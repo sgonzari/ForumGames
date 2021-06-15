@@ -1,0 +1,6 @@
+@startuml
+class PlataformaDTO {
+    + IdPlatform : int <<get>> <<set>>
+    + Name : string <<get>> <<set>>
+}
+@enduml

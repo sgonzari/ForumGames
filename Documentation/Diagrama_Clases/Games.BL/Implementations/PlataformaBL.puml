@@ -1,0 +1,8 @@
+@startuml
+class PlataformaBL {
+    + _plataformaRepository : IPlataformaRepository <<get>> <<set>>
+    + PlataformaBL(plataformaRepository:IPlataformaRepository)
+    + Get() : IEnumerable<PlataformaDTO>
+}
+IPlataformaBL <|-- PlataformaBL
+@enduml

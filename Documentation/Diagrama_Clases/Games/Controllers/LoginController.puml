@@ -1,0 +1,7 @@
+@startuml
+class LoginController {
+    + _usuarioBL : IUsuarioBL <<get>> <<set>>
+    + LoginController(usuarioBL:IUsuarioBL)
+    + Login(usuarioDTO:UsuarioDTO) : bool
+}
+@enduml

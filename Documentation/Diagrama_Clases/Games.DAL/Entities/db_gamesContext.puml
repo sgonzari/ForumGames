@@ -1,0 +1,17 @@
+@startuml
+class db_gamesContext <<partial>> {
+    + db_gamesContext()
+    + db_gamesContext(options:DbContextOptions<db_gamesContext>)
+    + <<virtual>> Category : DbSet<Category> <<get>> <<set>>
+    + <<virtual>> Comments : DbSet<Comments> <<get>> <<set>>
+    + <<virtual>> Games : DbSet<Games> <<get>> <<set>>
+    + <<virtual>> GamesCategory : DbSet<GamesCategory> <<get>> <<set>>
+    + <<virtual>> GamesPlatforms : DbSet<GamesPlatforms> <<get>> <<set>>
+    + <<virtual>> Platforms : DbSet<Platforms> <<get>> <<set>>
+    + <<virtual>> Users : DbSet<Users> <<get>> <<set>>
+    # <<override>> OnConfiguring(optionsBuilder:DbContextOptionsBuilder) : void
+    # <<override>> OnModelCreating(modelBuilder:ModelBuilder) : void
+    <<partial>> OnModelCreatingPartial(modelBuilder:ModelBuilder) : void
+}
+DbContext <|-- db_gamesContext
+@enduml

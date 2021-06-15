@@ -1,0 +1,19 @@
+@startuml
+class JuegoRepository {
+    + _context : db_gamesContext <<get>> <<set>>
+    + JuegoRepository(context:db_gamesContext)
+    + Get() : IEnumerable<JuegoDTO>
+    + GetData(title:string, username:string) : IEnumerable<JuegoDTO>
+    + GetDataFromTitle(title:string) : IEnumerable<JuegoDTO>
+    + getDataFromUsername(username:string) : IEnumerable<JuegoDTO>
+    + Add(juegoDTO:JuegoDTO) : void
+    + PostNotifiationComment(juegoDTO:JuegoDTO) : void
+    + UpdateGame(juegoDTO:JuegoDTO) : void
+    + Remove(juegoDTO:JuegoDTO) : void
+    + existGame(juegoDTO:JuegoDTO) : bool
+    + getIdGame(juegoDTO:JuegoDTO) : int
+    + getTitleCategories(categoriaJuegos:List<int>) : List<string>
+    + getTitlePlataforms(plataformaJuegos:List<int>) : List<string>
+}
+IJuegoRepository <|-- JuegoRepository
+@enduml

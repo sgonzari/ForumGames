@@ -1,0 +1,8 @@
+@startuml
+class Category <<partial>> {
+    + Category()
+    + IdCategory : int <<get>> <<set>>
+    + Name : string <<get>> <<set>>
+    + <<virtual>> GamesCategory : ICollection<GamesCategory> <<get>> <<set>>
+}
+@enduml

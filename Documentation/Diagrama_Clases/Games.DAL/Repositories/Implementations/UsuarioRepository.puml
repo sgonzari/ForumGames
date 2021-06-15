@@ -1,0 +1,13 @@
+@startuml
+class UsuarioRepository {
+    + _context : db_gamesContext <<get>> <<set>>
+    + UsuarioRepository(context:db_gamesContext)
+    + Login(usuarioDTO:UsuarioDTO) : bool
+    + <<async>> Get() : Task<IEnumerable<UsuarioDTO>>
+    + GetDataFromUsername(username:string) : UsuarioDTO
+    + Add(usuarioDTO:UsuarioDTO) : void
+    + Remove(usuarioDTO:UsuarioDTO) : void
+    + existUser(usuarioDTO:UsuarioDTO) : bool
+}
+IUsuarioRepository <|-- UsuarioRepository
+@enduml

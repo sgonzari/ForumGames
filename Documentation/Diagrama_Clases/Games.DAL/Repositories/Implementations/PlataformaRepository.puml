@@ -1,0 +1,8 @@
+@startuml
+class PlataformaRepository {
+    + _context : db_gamesContext <<get>> <<set>>
+    + PlataformaRepository(context:db_gamesContext)
+    + Get() : IEnumerable<PlataformaDTO>
+}
+IPlataformaRepository <|-- PlataformaRepository
+@enduml

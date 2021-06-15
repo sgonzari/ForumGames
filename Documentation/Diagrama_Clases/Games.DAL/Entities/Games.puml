@@ -1,0 +1,18 @@
+@startuml
+class Games <<partial>> {
+    + Games()
+    + IdGame : int <<get>> <<set>>
+    + FkUsername : string <<get>> <<set>>
+    + Title : string <<get>> <<set>>
+    + Description : string <<get>> <<set>>
+    + LaunchDate : DateTime? <<get>> <<set>>
+    + Height : float <<get>> <<set>>
+    + Multiplayer : bool <<get>> <<set>>
+    + NewComment : bool <<get>> <<set>>
+    + url : string <<get>> <<set>>
+    + <<virtual>> FkUsernameNavigation : Users <<get>> <<set>>
+    + <<virtual>> Comments : ICollection<Comments> <<get>> <<set>>
+    + <<virtual>> GamesCategory : ICollection<GamesCategory> <<get>> <<set>>
+    + <<virtual>> GamesPlatforms : ICollection<GamesPlatforms> <<get>> <<set>>
+}
+@enduml

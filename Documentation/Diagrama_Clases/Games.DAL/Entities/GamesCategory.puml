@@ -1,0 +1,8 @@
+@startuml
+class GamesCategory <<partial>> {
+    + FkIdGame : int <<get>> <<set>>
+    + FkIdCategory : int <<get>> <<set>>
+    + <<virtual>> FkIdCategoryNavigation : Category <<get>> <<set>>
+    + <<virtual>> FkIdGameNavigation : Games <<get>> <<set>>
+}
+@enduml

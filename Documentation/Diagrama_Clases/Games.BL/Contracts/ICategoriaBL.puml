@@ -1,0 +1,5 @@
+@startuml
+interface ICategoriaBL {
+    Get() : IEnumerable<CategoriaDTO>
+}
+@enduml

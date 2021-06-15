@@ -1,0 +1,12 @@
+@startuml
+class UsuarioBL {
+    + _usuarioRepository : IUsuarioRepository <<get>> <<set>>
+    + UsuarioBL(usuarioRepository:IUsuarioRepository)
+    + Login(usuarioDTO:UsuarioDTO) : bool
+    + <<async>> Get() : Task<IEnumerable<UsuarioDTO>>
+    + GetDataFromUsername(username:string) : UsuarioDTO
+    + Add(usuarioDTO:UsuarioDTO) : void
+    + Remove(usuarioDTO:UsuarioDTO) : void
+}
+IUsuarioBL <|-- UsuarioBL
+@enduml

@@ -1,0 +1,12 @@
+@startuml
+interface IJuegoRepository {
+    Get() : IEnumerable<JuegoDTO>
+    GetData(title:string, username:string) : IEnumerable<JuegoDTO>
+    GetDataFromTitle(title:string) : IEnumerable<JuegoDTO>
+    getDataFromUsername(username:string) : IEnumerable<JuegoDTO>
+    Add(juegoDTO:JuegoDTO) : void
+    PostNotifiationComment(juegoDTO:JuegoDTO) : void
+    UpdateGame(juegoDTO:JuegoDTO) : void
+    Remove(juegoDTO:JuegoDTO) : void
+}
+@enduml

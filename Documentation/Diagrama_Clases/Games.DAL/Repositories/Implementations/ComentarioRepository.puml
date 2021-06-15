@@ -1,0 +1,9 @@
+@startuml
+class ComentarioRepository {
+    + _context : db_gamesContext <<get>> <<set>>
+    + ComentarioRepository(context:db_gamesContext)
+    + GetCommentFromId(idGame:int) : IEnumerable<ComentarioDTO>
+    + Add(comentarioDTO:ComentarioDTO) : void
+}
+IComentarioRepository <|-- ComentarioRepository
+@enduml

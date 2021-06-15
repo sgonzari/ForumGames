@@ -1,0 +1,5 @@
+@startuml
+interface IPlataformaRepository {
+    Get() : IEnumerable<PlataformaDTO>
+}
+@enduml

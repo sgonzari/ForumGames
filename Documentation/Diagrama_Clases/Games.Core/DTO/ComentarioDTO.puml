@@ -1,0 +1,9 @@
+@startuml
+class ComentarioDTO {
+    + IdComment : int <<get>> <<set>>
+    + IdGame : int <<get>> <<set>>
+    + Username : string <<get>> <<set>>
+    + Comment : string <<get>> <<set>>
+    + Date : DateTime? <<get>> <<set>>
+}
+@enduml

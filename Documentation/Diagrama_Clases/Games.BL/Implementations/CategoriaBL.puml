@@ -1,0 +1,8 @@
+@startuml
+class CategoriaBL {
+    + _categoriaRepository : ICategoriaRepository <<get>> <<set>>
+    + CategoriaBL(categoriaRepository:ICategoriaRepository)
+    + Get() : IEnumerable<CategoriaDTO>
+}
+ICategoriaBL <|-- CategoriaBL
+@enduml

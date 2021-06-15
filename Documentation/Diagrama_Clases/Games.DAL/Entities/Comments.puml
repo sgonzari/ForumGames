@@ -1,0 +1,11 @@
+@startuml
+class Comments <<partial>> {
+    + IdComment : int <<get>> <<set>>
+    + FkIdGame : int <<get>> <<set>>
+    + FkUsername : string <<get>> <<set>>
+    + Comment : string <<get>> <<set>>
+    + Date : DateTime? <<get>> <<set>>
+    + <<virtual>> FkIdGameNavigation : Games <<get>> <<set>>
+    + <<virtual>> FkUsernameNavigation : Users <<get>> <<set>>
+}
+@enduml

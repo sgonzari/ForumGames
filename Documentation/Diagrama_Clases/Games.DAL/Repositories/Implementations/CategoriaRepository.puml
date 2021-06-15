@@ -1,0 +1,8 @@
+@startuml
+class CategoriaRepository {
+    + _context : db_gamesContext <<get>> <<set>>
+    + CategoriaRepository(context:db_gamesContext)
+    + Get() : IEnumerable<CategoriaDTO>
+}
+ICategoriaRepository <|-- CategoriaRepository
+@enduml

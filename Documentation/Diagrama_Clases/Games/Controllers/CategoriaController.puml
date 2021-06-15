@@ -1,0 +1,8 @@
+@startuml
+class CategoriaController {
+    + _categoriaBL : ICategoriaBL <<get>> <<set>>
+    + CategoriaController(categoriaBL:ICategoriaBL)
+    + Get() : ActionResult<IEnumerable<CategoriaDTO>>
+}
+ControllerBase <|-- CategoriaController
+@enduml
